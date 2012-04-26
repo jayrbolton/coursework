@@ -1,0 +1,18 @@
+# Created by Octave 3.2.4, Wed Apr 25 21:15:27 2012 PDT <pops@pops-laptop>
+# name: ans
+# type: string
+# elements: 1
+# length: 30
+/usr/share/octave/packages/3.2
+# name: sample
+# type: matrix
+# rows: 3
+# columns: 2
+ 1 2
+ 3 4
+ 5 6
+# name: v
+# type: matrix
+# rows: 1
+# columns: 3
+ 3 5 2
