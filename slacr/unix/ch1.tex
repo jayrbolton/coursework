@@ -1,0 +1,75 @@
+\documentclass{article}
+
+\title{Essential System Administration, Chapter 1}
+\author{Jay R Bolton}
+
+\addtolength{\oddsidemargin}{-.875in}
+\addtolength{\evensidemargin}{-.875in}
+\addtolength{\textwidth}{1.75in}
+\addtolength{\topmargin}{-.875in}
+\addtolength{\textheight}{1.75in}
+
+\begin{document}
+
+\maketitle
+
+\section*{Reading Summary}
+This book provides no problems or labs, so I'll simply write reading summaries
+and then describe any new configurations that I set up in the lab based on the
+chapter. In my summaries I will skip all the stuff I already know or do not
+find interesting.
+
+The key aspects of administration are:
+\begin{itemize}
+\item Know how things work.
+\item Plan before doing.
+\item Make everything reversible.
+\item Make all changes incremental.
+\item Test, test, test.
+\end{itemize}
+
+When modifying configs, do something like the following: \texttt{cp inittab inittab.dist ; chmod a-w inittab.dist}.
+
+The author really stresses revision control, which we have set up at \texttt{svn://ocelot/ac/oslab}.
+
+\subsection*{Super Users}
+
+\texttt{su -} to get a full login session with \texttt{su}. \texttt{su -c cmd} to run only one command. 
+
+Sudo is where the action is at. \texttt{/etc/sudoers} has the following syntax:
+
+\begin{verbatim}
+Host_Alias NAME1 = host1, host2
+User_Alias NAME2 = user1, user2
+Cmnd_Alias NAME3 = host1, host2
+
+usern    hostn = cmnd : cmnd2
+\end{verbatim}
+
+\subsection*{Communication with Users}
+
+\texttt{write username} sends a message. \texttt{talk} is a fancier visual version. And \texttt{wall} is for being even more obnoxious about it (sends message to all users). 
+
+\subsection*{Plod}
+
+The author plugs a program called \texttt{plod} that allows you to log what you
+are working on. \texttt{plod [text]} places a timestamped log message in
+~/.logdir/yyyymm. I thought that was a neat little thing.
+
+\section*{Chapter 8---DNS}
+
+I also read the first part of chapter 8, on managing DNS servers, to give me
+the know-how to set up BIND on osl-share. 
+
+DNS is divided into hierarchical `zones,' where each zone provides resolution
+for lookups inside that zone. DNS responses to queries can be `recursive,'
+meaning that DNS servers can automatically forward your query to another
+server. 
+
+I ended up installing bind with pacman and configured \texttt{/etc/named.conf}
+to add the \texttt{slacr.acc} zone, whose configuration I put in
+\texttt{/var/named/slacr.acc.zone}, which lists the addresses for the seven
+machines in the oslab office. I will continue to study this chapter in order to
+set up dynamic resolution for the computer center machines.
+
+\end{document}

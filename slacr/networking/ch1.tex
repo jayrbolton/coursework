@@ -1,0 +1,128 @@
+\documentclass{article}
+
+\title{Networking, Chapter 1}
+\author{Jay R Bolton}
+
+\addtolength{\oddsidemargin}{-.875in}
+\addtolength{\evensidemargin}{-.875in}
+\addtolength{\textwidth}{1.75in}
+\addtolength{\topmargin}{-.875in}
+\addtolength{\textheight}{1.75in}
+
+\begin{document}
+
+\maketitle
+
+\section*{Reading Summary}
+This chapter provided a (very verbose) overview of all the material to come: a
+general description of the internet, TCP and IP, and the concept of a protocol.
+He went over some of the network technologies, like DSL, dial-up, and cable, as
+well as the physical layer equipment like twisted pair copper wire, coax, etc.
+He provided a detailed comparison of circuit switching versus packet switching
+networks: packet switching has the advantage of greater overall usage of a
+network while circuit switching provides uninterrupted connections with less
+overall data transfer efficiency.
+
+Various types of transmission delay were described. Nodal processing delay is
+the time to actually process the header and determine the packet's destination.
+When a process is queued at the gateway, it is also delayed. The transmission
+delay happens while the packet is being pushed onto the link, and the
+propogation delay is the actual time it takes to travel the distance between
+the routers. The nodal delay of a process is a sum of the above four delays.
+Packet loss occurs when a router's queue is maxed out. The end-to-end delay of
+a packet is the sum of all the delays excluding the queueing delay.
+
+The book then went into a general description of the five layers of the
+Internet Protocol. The application layer includes HTTP, SMTP, FTP, and DNS. It
+is generally concerned with the content of a message in a packet. Next, the
+transport layer, which includes TCP and UDP, provides meta services like
+delivery guarantee and packet segmentation. The network layer moves `datagrams'
+using the IP protocol, which contains routing information and how information
+for the hosts for acting on the datagrams in different ways. The link layer,
+which is the lowest layer, provides logistics between the physical, local
+network components.
+
+\section*{Questions}
+\begin{enumerate}
+
+ \item[\textbf{R1.3}]
+  A host stores and transmits data while the end system receives it.
+ \item[\textbf{R1.5}]
+  Cable, DSL, satellite... dsl is generally less expensive and slightly slower
+  than cable, and satellite is generally very expensive.
+ \item[\textbf{R1.11}]
+  A circuit switched network provides a very reliable connection at the cost of
+  having more unecessary downtime and less connection sharing. TDM provides
+  more bandwidth (all available) but in brief slots of time.
+ \item[\textbf{R1.12}]
+  $L/R_2$
+ \item[\textbf{R1.13}]
+  Packet switching queues packets on demand; if you send the most packets, the
+  packet switch is most likely to process your packets. TDM is not based on
+  demand but on an even division of a length of time.
+ \item[\textbf{R1.15}]
+  Tier 1 ISPs serve the largest region and have the highest transmission rates.
+  Tier 2 ISPs communicate with a subset of tier 2 ISPs and serve smaller
+  regions.
+
+\end{enumerate}
+
+\section*{Problems}
+\begin{enumerate}
+ \item[\textbf{P1.1}]
+  \begin{enumerate}
+   \item
+    Teller machine sends connection request to bank server.
+   \item
+    The bank server responds with a connection reply message indicating that it
+    is okay to now send a request.
+   \item
+    The teller machine sends any of the following requests:
+    \begin{enumerate}
+     \item
+      Authenticate: teller sends encrypted pass and card number. Bank responds
+      with success or failure and possibly an html or interactive page of some
+      sort with links to authenticated requests. The server also modifies its
+      own state and creates an authenticated session for that user. On failure,
+      responds with a failure page and server state is unmodified.
+     \item
+      Query balance: during an authenticated session, teller machine sends a
+      query balance request, and the bank responds with a page listing the
+      customer's balance. Without authentication, responds with a failure page.
+     \item
+      Withdraw: an authenticated session, teller machine sends a withdraw
+      request. Server responds by changing the state of its database or whatnot
+      for that user and sends a notification page. Without auth, only sends
+      back a failure page. When the server-side code checks balance and finds
+      an overdraft, then responds only with a failure page.
+    \end{enumerate}
+  \end{enumerate}
+ \item[\textbf{P1.2}]
+  \begin{enumerate}
+   \item[\textbf{a}]
+    $4n$
+   \item[\textbf{b}]
+    $n$
+  \end{enumerate}
+ \item[\textbf{P1.3}]
+  \begin{enumerate}
+   \item[\textbf{a}]
+    It seems like a circuit switching network would be better, because both TDM
+    and FDM multiplexing does not depend on network usage, but is pre-allocated
+    according to a fixed scheme so would provide a very steady rate.
+   \item[\textbf{b}]
+    Even though the data rates are high enough, that does not account for down
+    times or other failures that might cause queues of packets to back up. I'm
+    not sure this is the answer he is looking for. 
+  \end{enumerate}
+  
+\end{enumerate}
+
+\section*{Lab Work}
+I followed the book's first online lab, which involved installing and
+configuring Wireshark and requesting and observing an HTTP packet inside
+Wireshark.
+
+\end{document}
+
+\end{document}
