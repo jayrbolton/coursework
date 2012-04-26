@@ -1,0 +1,31 @@
+To learn
+ Lab 2
+ * IP network addressing
+ * Name services - DNS
+ * NAT - Network address
+ * DHCP
+ * What is briding ("the way to go")
+
+ Lab 3
+ * In C homez
+
+Storing your bullshit
+* orca:/programs/sos (unlimited but nuked at end of program)
+* orca:/b/boljay13 (small shit)
+* ada:/home/boljay13
+
+OS provides 2 things
+* Resource sharing
+* User session sharing
+
+Process
+* ID
+ * State
+ * Priority
+ * Program Counter
+  blah blah blah
+
+The key shwang that allows multiple processes is the process table which stores
+the state of a process.
+
+

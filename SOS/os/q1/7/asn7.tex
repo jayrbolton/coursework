@@ -1,0 +1,85 @@
+\documentclass{article}
+\usepackage{multirow}
+\title{Assignment 7, Operating Systems}
+\author{Jay R Bolton}
+
+\begin{document}
+\maketitle
+
+Ch 7 problems: 7.2, 7.6, 7.7, 7.8, 7.12, 7.13, 7.14
+
+\begin{enumerate}
+
+\item[\textbf{7.2}]
+8 bits
+
+\item[\textbf{7.6}]
+This isn't first-fit; otherwise, X would have been placed in 4M.
+
+This isn't best-fit; otherwise X would have been placed in 2M
+
+It must be next fit where the pointer was at the beginning of X. This implies
+that X was placed in a 7M free block and that 1M was freed afterwards.
+
+With best-fit, the 3M is placed in the 3M free space. With first-fit, it is
+placed in the 4M space. With next-fit, it is placed in the 5M. With worst-fit,
+it is placed in the 8M.
+
+\item[\textbf{7.7}]
+1M is split in half continuously until the left side gets a 128 block which 70 occupies.
+
+70's buddy is split into 64's and 35 occupies the left side.
+
+The leftmost 256 is split into 128s and the 80 occupies the left side.
+
+Return A frees the leftmost 70 (assuming A refers to that).
+
+Request 60 splits the leftmost unoccupied 128 into 64s and occupies the left side.
+
+Return B frees the 35 and unsplits the letmost 64s and then unsplits the leftmost 128s
+
+Return D frees the 60, which frees the 64 buddies into 128.
+
+Return C frees the 128, which frees its buddy into 256, which then frees its
+original buddy into 512, which then frees the very first buddy into 1M
+
+\item[\textbf{7.8}]
+(Assuming we are the left buddy)
+
+Its buddy is 011011110100 if the block is 4 bits
+
+Its buddy is 011100000000 if the block is 16 bits
+
+\item[\textbf{7.12}]
+16+10 bits in the logical address.
+
+$2^{10}$ bytes in a frame.
+
+22 bits to address a frame.
+
+$2^{16}$ entries in the page table.
+
+23 bits in each page table entry.
+
+\item[\textbf{7.13}]
+The first 8 bits address pages, and the last 8 bits address the frame. So if
+the 8 bit page number is 20 in decimal, then its frame number is 5. Then the
+translation is 0000010110111010.
+
+Rightmost 10 bits offset the address. Leftmost 6 specify segment number, which
+is 5 in decimal. Then simply add 4096*5+22 with the base 10 of 10111010.
+
+\item[\textbf{7.14}]
+858
+
+378
+
+c faults.
+
+1440
+
+882
+
+\end{enumerate}
+
+\end{document}

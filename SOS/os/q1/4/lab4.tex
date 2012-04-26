@@ -1,0 +1,25 @@
+\documentclass{article}
+\title{Lab 4, Operating Systems}
+\author{Jay R Bolton}
+
+\begin{document}
+\maketitle
+
+I followed the instructions at the University of Waterloo website as
+closely as I possibly could, referring to Peter's instructions for
+any modifications. In general, it all went smoothly.
+
+\subsection{Problems}
+
+The only problem I had was that I complicated and confused the directory structure on my first installation attempt. I fixed this by adopting the following scheme:
+
+\begin{enumerate}
+\item \texttt{/opt/os161} : contains directories with the source code
+for os161 as well as its tools (gcc, gdb, etc). It also contains the
+  OS's root directory, so the OS is run out of
+  \texttt{/opt/os161/root/}.
+\item \texttt{/root/sys161} : contains the binaries and all the crap
+that the various make procedures wrote out. This directory I used in
+the \texttt{--prefix=} configuration argument.
+\end{enumerate}
+\end{document}

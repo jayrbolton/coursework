@@ -1,0 +1,134 @@
+\documentclass{article}
+\usepackage{multirow}
+\title{Assignment 6, Operating Systems}
+\author{Jay R Bolton}
+
+\begin{document}
+\maketitle
+
+Ch 6 problems: 6.1, 6.2, 6.4, 6.5, 6.6, 6.11, 6.14, 6.15, 6.18
+
+\begin{enumerate}
+\item{\textbf{6.1}}
+1) \textbf{Mutual exclusion} Only car 1 can access a, car 2 b, car 3 c, and car
+4 d.  2) \textbf{Hold and wait} Once car 1 consumes a and car 2 consumes b, car
+1 will wait on the release of b.  3) \textbf{No preemption} Cars cannot bump
+each other out of the way (in this model).  4) \textbf{Circular wait} Car 1
+waits on car 2 which waits on car 3 which waits on car 4 which waits on car 1.
+
+\item{\textbf{6.2}}
+The OS (or traffic lights) could coordinate access based on columns and rows,
+just like a real intersection: Car 1 and 3 drive until completion before the
+other cars can go.
+
+\item{\textbf{6.4}}
+The graph gives four non-deadlock paths. Here is one: Process Q can get B while
+process P can get A. Then process P releases A before process Q gets A. Then
+process Q releases B before process P gets B. 
+
+\item{\textbf{6.5}}
+\begin{enumerate}
+\item{\textbf{a}}
+The available array is calculated by summing the columns and subtracting that
+from total resource availability.
+
+\item{\textbf{b}}
+The need matrix is calculated by subtracting the cells in ``Current allocation"
+from the corresponding cells in ``Maximum demand."
+
+\item{\textbf{c}}
+I'll represent the Available array as a Haskell-style list of tuples of resource ID and int.
+
+\begin{enumerate}
+\item P1 executes. ``Available" becomes: \texttt{[(A,4),(B,2),(C,3)(D,2)]}
+\item P1 exits. ``Available" becomes \texttt{[A,6],[B,4],(C,6),(D,5)}
+\item P2 executes. ``Available" becomes: \texttt{[A,3],[B,0],(C,2),(D,3)}
+\item P2 exits. ``Available" becomes: \texttt{[A,10],[B,5],(C,6),(D,7)}
+\item P3 executes. ``Available" becomes: \texttt{[A,8],[B,2],(C,3),(D,6)}
+\item P3 terminates. ``Available" becomes: \texttt{[A,11],[B,5],(C,6),(D,8)}
+\item P4 executes. ``Available" becomes: \texttt{[A,7],[B,4],(C,4),(D,7)}
+\item P4 terminates. ``Available" becomes: \texttt{[A,12],[B,6],(C,6),(D,8)}
+\item P5 executes. ``Available" becomes: \texttt{[A,9],[B,2],(C,3),(D,5)}
+\item P5 terminates. ``Available" becomes: \texttt{[A,13],[B,6],(C,7),(D,9)}
+\item P0 executes and terminates
+\end{enumerate}
+
+\item{\textbf{d}}
+If we're assuming the request is \emph{instead of} current request, then it's
+fine.  When P5 terminates, it frees 4, 4, 4, 4, which is more than enough for
+the others.
+
+If we assume the request is \emph{in addition to} the current request, then
+it won't work if it goes in the above order. If we do P0 before P4 then it'll
+work. 
+
+\end{enumerate}
+
+\item{\textbf{6.6}}
+\begin{enumerate}
+\item[a.]
+P0 will try to get C when P2 already has it. P1 will try to get B when P0
+already has it. P2 will try to get D when P1 already has it. Circular deadlock.
+
+\item[b.]
+Move \texttt{get(C)} to the end in P2. P2 will hold for P1. P1 will wait for
+P0. P0 will not wait for anybody and will terminating, releasing B for P1, P1,
+then P1 will complete and release D for P2.
+
+\end{enumerate}
+
+\item{\textbf{6.11}}
+Yes. 1, 2, 3.
+\begin{enumerate}
+\item[a.]
+Yes, 1,2,3
+
+\item[b.]
+No.
+
+\end{enumerate}
+
+\item{\textbf{6.14}}
+\begin{enumerate}
+\item[a.]
+Yes. 
+\begin{tabular}{l l}
+\textbf{foo()} & \textbf{bar()} \\ \hline
+semWait(S); & \\
+semWait(R); & semWait(R); \\
+x++; & \\
+semSignal(S); & \\
+semSignal(R); & semWait(S); \\
+semWait(S); &  \\
+\end{tabular}
+
+\item[b.]
+Yes.
+
+\end{enumerate}
+
+\item{\textbf{6.15}}
+\texttt{(2 1 6 5)}
+
+\item{\textbf{6.18}}
+\begin{enumerate}
+\item[a.]
+If there is at least one leftie, then there is a leftie to the right of some rightie.
+If a leftie a lefty is to the right of a righty, then there are two cases:
+  The lefty grabs the left fork first
+    The righty cannot take the right fork and is blocked on both forks.
+  The rightie grabs the right fork first
+    The lefty cannot take the left fork and is blocked on both forks.
+Lemma:
+If a philosopher is blocked on both forks, then there is no circular dependence.
+  If a philosopher is blocked on both forks then both adjacent forks are available.
+  Both adjacent forks are available
+
+\item[b.]
+
+
+\end{enumerate}
+
+\end{enumerate}
+
+\end{document}

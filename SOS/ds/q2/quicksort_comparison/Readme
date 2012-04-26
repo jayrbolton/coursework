@@ -1,0 +1,16 @@
+USAGE
+
+$ ./qsort
+
+COMPILE
+
+$ make
+
+CONCLUSIONS
+We're talking evenly-distributed pseudo-random lists, so no partial sorting or
+any consistent pattern in the density of numbers across the lists. It seemed
+that choosing the first element worked best in the majority of cases, though
+the results would occasionally fluctuate. Choosing first performs the least
+computation and would make sense to be fastest in these tests because our lists
+are evenly distributed random numbers. Median of 3 is only an advantage when we
+have either an overall ascending or descending ordering or general density.

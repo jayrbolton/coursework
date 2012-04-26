@@ -1,0 +1,24 @@
+Process is the resource context, thread is the execution context.
+
+Concurrence: interleaving of execution, pseudo-parallel
+
+The dividing line between a VM and the VM monitor is the ABI?
+The dividing line between a VM and its applications is the API?
+
+
+System VM -- between OS and hardware
+
+Symmetric multiprocessing has a processor queue. The scheduler runs on one of
+the processors that it is scheduling? Must be careful to synchronize resource
+usage for shared memory and io.
+
+Three levels of multicore parallelism
+  instruction level
+  threads within processor
+  concurrency
+
+Grand Central Dispatch in OSX 10.6 gives programmer control of parallelism.
+
+Kernel has privelaged instructions, eg scheduling, that the users do not access.
+
+

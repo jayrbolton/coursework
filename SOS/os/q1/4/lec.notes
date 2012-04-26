@@ -1,0 +1,8 @@
+
+
+
+Unix has a signalling system to allow processes to communicate with one another.
+
+GCDispatch allows programmers to designate parallel 'blocks' in their code.
+
+

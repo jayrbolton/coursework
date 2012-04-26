@@ -1,0 +1,34 @@
+Merge sort analysis
+-------------------
+
+T(n) = T(n/2)*2 + 2 + Theta(n)
+
+Iterative method:
+	(iterate over the recurrence relation)
+
+	T(2^(n+1)) = (T(2^n)*2 + Theta(2^n)) * 2 + 2 + Theta(2^n)
+	T(2^(n+2)) = ((T(2^(n+1)*2 + Theta(2^(n+1)))*2 + Theta(2^(n+1))) * 2 + 2 + Theta(2^n)
+
+	...
+	T(2^n) = 2^n + 2^(n+1)-2
+
+	How does she get from (2^1 + 2^2 + ... + 2^n) to n*lg(n) ???
+
+	s(0) = 0
+	s(n) = c + s(n-1)
+
+	s(5) = c + c + c + c + c + 0
+			 = n * c
+
+Substitution method:
+	"making a good guess"
+
+Generalize it:
+T(n) = a*T(n/b) + c
+	'a' subproblems
+	divided into 'b' parts
+	with 'c' work at each layer
+
+***
+Really get down and dirty with recurrence problems and the master theorem.
+***

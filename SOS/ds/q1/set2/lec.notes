@@ -1,0 +1,40 @@
+A struct is simply an object class without methods.
+
+Polymorphism is achieved by using the void* type. 
+
+To avoid double inclusions of header files, you can do:
+
+in Blah.h
+
+#ifundef Blah
+#define Blah
+...
+# endif
+
+Union, or disjoint types, can preserve space. 
+
+struct x {
+ union {
+   char c;
+   int i;
+   float f;
+ }
+ int tag; // determines which of c,i,f we have
+}
+
+while(x--) { /* will execute until x == 0 */}
+
+returning an array:
+
+int* f() {
+  int* a = malloc(N);
+  return a;
+}
+
+fopen sets errno
+
+errno comes with perror and strerror, both describe the errno.
+
+How to access errno?
+
+

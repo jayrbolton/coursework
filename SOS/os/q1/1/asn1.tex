@@ -1,0 +1,94 @@
+\documentclass{article}
+\usepackage{multirow}
+\title{Assignment 1, Operating Systems}
+\author{Jay R Bolton}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+
+\item[1.1]  
+ \begin{tabular}{r | l} 
+ Address & Data \\ \hline
+ 100 & 3\emph{dev1} \\
+ 101 & 5940 \\
+ 102 & 7\emph{dev6} \\
+ 940 & 0002 \\
+ dev5 & 0003
+ \end{tabular}
+
+ Where \emph{devX} is the I/O instruction for that device.
+ \\
+
+ \begin{tabular}{l | l | l || l | l}
+  & \multicolumn{2}{c}{Fetch} & \multicolumn{2}{c}{Execute} \\ \hline
+  \multirow{3}{*}{Step 1} & PC & 100 & PC & 101 \\
+  & AC & & AC & 0003 \\
+  & IR & 3\emph{dev5} & IR & 3\emph{dev5} \\ \hline
+  \multirow{3}{*}{Step 2} & PC & 101 & PC & 102 \\
+  & AC & 0003 & AC & 0005 \\
+  & IR & 5940 & IR & 5940 \\ \hline
+  \multirow{3}{*}{Step 3} & PC & 102 & PC & 103 \\
+  & AC & 0005 & AC & 0005 \\
+  & IR & 7\emph{dev6} & IR & 7\emph{dev6} \\
+  \end{tabular}
+
+\item[1.2]
+I could not find or remember specific details on these, so this is my best
+guess:
+\begin{enumerate}
+ \item[Step 1]
+  Fetch MAR = 940, MBR = 0003 \\
+  Execute MAR = 000, MBR = 0000 
+ \item[Step 2]
+  Fetch MAR = 941, MBR = 0002 \\
+  Execute MAR = 000, MBR = 0000
+ \item[Step 3]
+  Fetch MAR = 941, MBR = 0005\\
+  Execute MAR = 000, MBR = 0000
+\end{enumerate}
+ 
+\item[1.3]
+ \begin{enumerate}
+  \item $2^{24}$
+  \item
+   If our data bus transports only 16 bits and our data is 32 bits long, then
+   we will need two fetch steps for every instruction cycle.\\ If our address
+   bus transports only 16 bits, then we will still need two fetch steps.\\
+   I am unsure what the expected answer is on this one.
+  \item 24 and 32
+ \end{enumerate}
+
+\item[1.4]
+ \begin{enumerate}
+  \item $2^{16}$
+  \item $2^8$
+  \item Instructions for accessing IO modules.
+  \item $2^8$ and $2^{16}$
+ \end{enumerate}
+
+\item[1.6]
+ \begin{enumerate}
+  \item For input, give the CPU a load command along with the input register
+  and enable the FGI input flag. For output, give the CPU a store command with
+  the output register and the FGO flag enabled.
+  \item By using IEN, the processor can be signalled to activate an IO process
+  and continue to go through instructions while the IO process runs.
+ \end{enumerate}
+
+\item[1.7]
+ To ensure that user data that needs to be saved is saved?
+
+\item[1.10]
+  \begin{enumerate}
+   \item \emph{i} and \emph{j} will have neighboring memory locations and will
+   be accessed together in every assignment.
+   \item The assignment to \emph{a[i]} will occur on every iteration.
+  \end{enumerate}
+
+
+\end{enumerate}
+
+\end{document}
+

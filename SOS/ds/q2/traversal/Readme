@@ -1,0 +1,23 @@
+USAGE
+$ ./traverse
+
+Note: I provided a little test directory tree called 'test'
+
+COMPILATION
+$ make
+
+ABOUT
+I used my list data structure, which I've used for several assignments already,
+found in 'list.h.' A traversed/sorted directory is simply a list of strings.
+
+All the pertinent code is in 'traverse.cpp'. I tried to make things real
+generic so have some function and data structure passing going on. I used
+'dirent' from the C libs to open and read directories.
+
+I made very minimal queue and stack data structures with only push/pop and
+'list.h' as the backend. These are used for the traversal.
+
+I used merge sort since it's all linked lists. I wrote a pretty basic
+version of merge sort so it's probably not very optimized. I have merge sort
+take a function as a parameter so that we can use the same code to sort both by
+size and by modification time.

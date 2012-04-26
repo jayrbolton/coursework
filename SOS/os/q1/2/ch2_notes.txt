@@ -1,0 +1,72 @@
+2.1/2.2
+  Application binary interface is the dividing line between libraries/utilities
+  and the operating system.
+
+  API is the dividing line between programs and libraries/utilties.
+
+  History of OSs
+
+    Serial Processing
+      No automatic loading, no resource sharing.
+    Simple Batch Systems
+      Introduced monitor, which automatically loads jobs.
+
+    multitasking or multiprogramming is the shared use of a single resource. No
+    more serial shit bro. Uniprogramming is the serial shit, much like a
+    unibrow.
+
+    Well so the processor is always going to be serial, but we're talking about
+    the division of processor use over time. I guess. We're still talking about
+    1960's shit here though.
+
+    MIT developed CTSS (compatible time sharing system). Fixed memory
+    locations. State of interrupted user programs would be written out to a
+    disk if there's not room.
+
+2.3
+
+ mutual exclusion: don't let two users or two jobs modify the same shwiz
+
+ OSs are all about sharing resources homez
+
+ Each process has its own copy of the data it needs, its program, and its own
+ info (liek pc).
+
+ Four kinds of security:
+ * Availability: protecting against stuff like dos attacks and fork bombs
+ * Confidentiality: cryptology of static data
+ * Data integrity: permissions
+ * Authenticity: verifying users, cryptology also
+ It seems like the last two could be grouped into Authentication/Authorization
+
+ round-robin queue seems to give equal priority to jobs on a first come first
+ serve queue. Otherwise we got prioritiez.
+
+2.4
+ 
+ Microkernel vs. monolithic. micro seems much smarter. 
+
+ SMP symmetric multiprocessing. refers to parallel processing hardware/os
+ implementation
+
+ A distributed OS seems to simply refer to scattered memory that appears as
+ one space.
+
+2.5
+
+ Virtual machines kool.
+
+ VM monitor on top of OS
+
+ JVM is a process VM
+ VirtualBox is a system VM
+
+2.6
+
+ OSX has Grand Central Dispatch
+
+ Otherwise we can use VMs. This seems to have something to do with letting the programs manage resources.
+
+2.7 windoze
+
+ 

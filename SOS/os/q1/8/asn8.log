@@ -1,0 +1,113 @@
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2010.7.20)  15 DEC 2011 17:29
+entering extended mode
+ %&-line parsing enabled.
+**asn8.tex
+(./asn8.tex
+LaTeX2e <2005/12/01>
+Babel <v3.8h> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, loaded.
+(/usr/share/texmf-texlive/tex/latex/base/article.cls
+Document Class: article 2005/09/16 v1.4f Standard LaTeX document class
+(/usr/share/texmf-texlive/tex/latex/base/size10.clo
+File: size10.clo 2005/09/16 v1.4f Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texmf-texlive/tex/latex/multirow/multirow.sty
+\bigstrutjot=\dimen103
+)
+No file asn8.aux.
+\openout1 = `asn8.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 7.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 7.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 7.
+
+Overfull \hbox (103.25092pt too wide) in paragraph at lines 45--48
+[]\OT1/cmr/bx/n/10 8.5 \OT1/cmr/m/n/10 Two page frames: [(A),(A,B),(C,B),(C,D),
+(A,D),(A,B),(E,B),(E,A),(B,A),(B,C),(D,C),(D,E)] 
+ []
+
+
+Overfull \hbox (79.41762pt too wide) in paragraph at lines 51--53
+[]\OT1/cmr/m/n/10 Three page frames: [(A),(A,B),(A,B,C),(D,B,C),(D,A,C),(D,A,B)
+,(E,A,B),(E,C,B),(E,C,D)] 
+ []
+
+
+Overfull \hbox (159.8345pt too wide) in paragraph at lines 56--58
+[]\OT1/cmr/m/n/10 Four page frames: [[A],[A,B],[A,B,C],[A,B,C,D],[E,B,C,D],[E,A
+,C,D],[E,A,B,D],[E,A,B,C],[D,A,B,C],[D,E,B,C]] 
+ []
+
+
+Overfull \hbox (152.63885pt too wide) in paragraph at lines 62--67
+[]\OT1/cmr/bx/n/10 8.6 \OT1/cmr/m/n/10 Mem-ory states with LRU re-place-ment: [
+[1],[1,0],[1,0,2],[1,0,2,7],[1,6,2,7],[1,6,0,7],[1,2,0,7],[1,2,0,3],[4,2,0,3],
+ []
+
+
+Overfull \hbox (79.49997pt too wide) in paragraph at lines 71--76
+[]\OT1/cmr/m/n/10 Memory with FIFO re-place-ment: 1,0,2,2,1,7,6,7,0,1,2,0,3,0,4
+,5,1,5,2,4,5,6,7,6,7,2,4,2,7,3,3,2,3
+ []
+
+
+Overfull \hbox (261.89069pt too wide) in paragraph at lines 71--76
+\OT1/cmr/m/n/10 [[1],[1,0],[1,0,2],[1,0,2,7],[6,0,2,7],[6,1,2,7],[6,1,0,7],[6,1
+,0,2],[3,1,0,2], [3,4,0,2],[3,4,5,2],[3,4,5,1],[2,4,5,1],[2,6,5,1],[2,6,7,1],[2
+,6,7,4],[3,6,7,4],
+ []
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 98.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 98.
+ [2] (./asn8.aux) ) 
+Here is how much of TeX's memory you used:
+ 240 strings out of 95086
+ 2663 string characters out of 1183255
+ 48970 words of memory out of 1500000
+ 3484 multiletter control sequences out of 10000+50000
+ 7329 words of font info for 26 fonts, out of 1200000 for 2000
+ 28 hyphenation exceptions out of 8191
+ 23i,6n,17p,141b,225s stack positions out of 5000i,500n,6000p,200000b,5000s
+</usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmbx10.pfb>
+</usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmr10.pfb></usr/share/texmf-te
+xlive/fonts/type1/bluesky/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/bl
+uesky/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmr7.pfb></
+usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmti10.pfb>
+Output written on asn8.pdf (2 pages, 40504 bytes).
+PDF statistics:
+ 33 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 131072)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+

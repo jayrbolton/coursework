@@ -1,0 +1,42 @@
+04.03.12
+Analysis of Algorithms
+Lecture Notes
+Jay R Bolton
+
+Induction and Asymptotic Notation
+
+Induction
+The base case need not be 0. It could be 3, 4, 1209, whatever.
+
+We can only use induction on inductively defined sets (or recursively defined).
+
+Prove: 1+2...n = n(n+1)/2
+
+Base
+n=0
+0 = 0(0+1)/2
+
+IH
+Assume 1+2...n = n(n+1)/2
+
+Induction
+1+2...n+n+1 = n(n+1)/2 + (n+1)
+= n(n+1)/2 + 2(n+1)/2
+= (n(n+1) + 2(n+1))/2
+= (n(n+1) + (n+1) + (n+1)) / 2
+= (n+2)(n+1) / 2
+
+Asymptotic Performance
+
+big-O has no upper tight bound... insertion sort is both O(n^2) and O(n^3)
+
+big-Theta is both big-O and big-Theta
+
+Solving Recurrences
+
+Really get cozy with these...
+
+Three methods:
+ * Substitution
+ * Iteration
+ * Master theorem

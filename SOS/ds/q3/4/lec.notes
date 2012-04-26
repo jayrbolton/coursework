@@ -1,0 +1,22 @@
+Heap Sort
+
+Heap Property:
+
+A[Parent(i)] >= A[i] for all nodes i > 1
+Largest node is thust the root (A[1])
+
+heapsort(ls):             [n times]
+  remove & write out max  [lg(n)]
+	heapsort(ls)            [1]
+
+thus:
+n * lg(n)
+
+
+Closed form of powers of 2:
+sum(i=0, x, 2^i) = 2^(x+1) - 1
+
+generalized
+sum(i=0, x, r^i) = (r^(x+1) - 1) / r - 1
+
+

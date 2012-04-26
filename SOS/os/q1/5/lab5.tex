@@ -1,0 +1,34 @@
+\documentclass{article}
+\title{Lab 5, Operating Systems}
+\author{Jay R Bolton}
+
+\begin{document}
+\maketitle 
+
+I painstakingly followed every step at Waterloo's Assignment 0 and
+ran into no trouble at all. I was able to execute the print statement
+inside main.c, run the debugger, and commit my OS161 source to a git
+repository.
+
+\section{Some notes}
+\begin{itemize}
+\item
+The tricky part about \texttt{OPT\_A0} works if you follow Assignment 0 to the
+letter. \texttt{OPT\_A0} is defined in the header file \texttt{opt-A0.h}, which comes
+built-in to the OS source.
+
+\item
+I used GNU-Screen to manage a simultaenous debug and run window. You can start
+GNU-Screen with \texttt{screen}, then rename the window with \texttt{C-a A} to
+"run". Then start a second window with \texttt{C-a c} and rename that as
+"debug." Swap back and forth with \texttt{C-a "}.
+
+\item
+I used git rather than CVS. In my OS161 source directory, I did a \texttt{git
+init-db} which adds a \texttt{.git} directory. I then added all files with
+\texttt{git add .}. To commit, you must set the git author environment
+variables (you can see them by attempting to commit without having them set). I
+set those variables (using \texttt{export}) in \texttt{~/.bashrc}
+
+\end{itemize}
+\end{document}

@@ -1,0 +1,14 @@
+COMPILE & RUN:
+compile with: $ make
+run with:     $ ./jobsched
+
+Inside the program, enter 'help' to get the commands.
+
+OTHER USAGE:
+None yet.
+
+NOTES ON THE MAKEFILE:
+I probably should have put the implementations inside the .h files for
+processor.cpp and process.cpp, but I liked to keep them very separated. The
+downside of this file separation is that you have to list these extra .cpp
+files when you compile with g++. 

@@ -1,0 +1,118 @@
+\documentclass{article}
+\title{Lab 7, Operating Systems}
+\author{Jay R Bolton}
+
+\begin{document}
+
+\maketitle
+
+\section{Questions}
+\begin{enumerate}
+
+
+\item
+\textbf{Which register number is used for the stack pointer (sp) in OS/161?}: \$29
+\item
+\textbf{What bus/busses does OS/161 support?}: LAMEbus
+\item
+\textbf{What is the difference between splhigh and spl0?}: \texttt{splhigh}
+sets spl to the highest value, disabling all interrupts. \texttt{spl0} sets spl
+to 0 and enables all interrupts.
+\item
+\textbf{Why do we use typedefs like u\_int32\_t instead of simply saying "int"?}:
+My ideas: u\_int32\_t is slightly shorter than ``unsigned int." It is also more
+descriptive of the size of that type (exactly 32 bits).
+\item
+\textbf{What does splx return?}: it assigns a new spl value and then returns
+the old one.
+\item
+\textbf{What is the highest interrupt level?}: SPL\_HIGH
+\item
+\textbf{How frequently are hardclock interrupts generated?}: 100 times every second.
+\item
+\textbf{What functions comprise the standard interface to a VFS device?}: these
+functions are in vfs.h under low-level and mid-level operations.
+\item
+\textbf{How many characters are allowed in a volume name?}: 32
+\item
+\textbf{How many direct blocks does an SFS file have?}: 15
+\item
+\textbf{What is the standard interface to a file system (i.e., what functions
+must you implement to implement a new file system)?}: These funcs are listed in
+fs.h
+\item
+\textbf{What function puts a thread to sleep?}: \texttt{thread\_sleep}
+\item
+\textbf{How large are OS/161 pids?}: 32 bits
+\item
+\textbf{What operations can you do on a vnode?}: all the operations are listed
+in vnode.h
+\item
+\textbf{What is the maximum path length in OS/161?}: 1024
+\item
+\textbf{What is the system call number for a reboot?}: 8
+\item
+\textbf{Where is STDIN\_FILENO defined?}: \texttt{/kern/unistd.h}
+\item
+\textbf{Is it OK to initialize the thread system before the scheduler? Why
+(not)?)}: No, the scheduler provides the curthread (not sure on this one).
+\item
+\textbf{What is a zombie?} Zombies are threads/processes that have exited but
+have not been fully deleted yet.
+\item
+\textbf{How large is the initial run queue?}: 32
+\item
+\textbf{What does a device name in OS/161 look like?}: \texttt{lhd0, emu0,
+somevolume, null, etc}
+\item
+\textbf{What does a raw device name in OS/161 look like?}: \texttt{lhd0raw}
+\item
+\textbf{What lock protects the vnode reference count?}:
+\texttt{lock\_acquire(vn->vn\_countlock)}
+\item
+\textbf{What device types are currently supported?}: ``block device" and
+``character device." Not sure about this one.
+\end{enumerate}
+\section{My Procedure Used to Create a New System Call}
+\begin{enumerate}
+\item 
+Created the file \texttt{simple\_syscall.c} in \texttt{/src/kern/userprog/}.
+\item Modified kern/arch/mips/syscall.c to have a
+case for sys\_helloworld(). Copied case body from
+the reboot case.
+
+\item Created kern/userprog/simple\_syscall.c with
+a function called sy \_hellworld() that takes no
+arguments and simply does a kprintf.
+
+\item Included simple\_syscalls.c into the build by
+modifying conf/conf.kern to include the file
+
+\item Modified lib/libc/syscalls.S to append
+SYSCALL(helloworld, 32) to the end
+
+\item Added "int sys\_helloworld();" to
+kern/include/syscall.h
+
+\item Modified kern/include/kern/callno.h to have "\#define SYS\_helloworld 32"
+
+\item Modified include/unistd.h to have our
+prototype without the sys\_ (int helloworld();)
+
+\item Finally, I created a test for helloworld in
+testbin. When I ran it, it worked but looped
+endlessly. 
+
+\item I then added the \_exit call by defining
+sys\_\_exit in userprog, which calls thread\_exit
+and then following the same procedure as above
+(modifying syscalls.c). 
+
+\item With exit implemented the test call to
+helloworld did not loop, and I took that to mean
+that it worked.
+
+\end{enumerate}
+
+\end{document}
+

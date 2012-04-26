@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{multirow}
+\title{Assignment 6, Operating Systems}
+\author{Jay R Bolton}
+
+\begin{document}
+\maketitle
+
+Ch 6 problems: 6.1, 6.2, 6.4, 6.5, 6.6, 6.11, 6.14, 6.15, 6.18
+
+\begin{enumerate}
+
+\item[\textbf{6.1}]
+
+\item[\textbf{6.2}]
+
+\item[\textbf{6.4}]
+
+\item[\textbf{6.5}]
+
+\item[\textbf{6.6}]
+
+\item[\textbf{6.11}]
+
+\item[\textbf{6.14}]
+
+\item[\textbf{6.15}]
+
+\item[\textbf{6.18}]
+
+\end{enumerate}
+
+\end{document}

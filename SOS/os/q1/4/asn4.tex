@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{multirow}
+\title{Assignment 4, Operating Systems}
+\author{Jay R Bolton}
+
+\begin{document}
+\maketitle
+
+Ch 4 problems: 4.1, 4.2, 4.3, 4.4, 4.5, 4.7, 4.8, 4.11 (4.7 is a trick question, really just a setup for 4.8)
+
+\begin{enumerate}
+
+\item[\textbf{4.1}]
+Yes. Any processor state information that needs to be saved and is shared among
+the threads only needs to be saved once for all the threads.
+
+\item[\textbf{4.2}]
+If a ULT does a system call that manipulates the user address space, all
+threads in that process will rely on that thread's system call.
+
+\item[\textbf{4.3}]
+\begin{enumerate}
+\item[\textbf{a.}]
+ Threads might lose some kernel level functionality that processes within
+ sessions had.
+\item[\textbf{b.}]
+ Process level. If processes are replacing sessions, then processes are
+ directly assigned the keyboard, mouse, and screen.
+ \end{enumerate}
+
+\item[\textbf{4.4}]
+ Without the mapping, the ULT that does a system call would block all other
+ threads within that process.
+
+\item[\textbf{4.5}]
+ No. 
+
+\item[\textbf{4.7}]
+\begin{enumerate}
+\item[\textbf{a.}]
+Nothing.
+\item[\textbf{b.}]
+No because the list is all negatives.
+\end{enumerate}
+
+\item[\textbf{4.8}]
+If r is set in A but assigned to global positives in B, then if A and B are not
+exactly synchronized, global positives will be incorrect.
+
+\item[\textbf{4.11}]
+\begin{enumerate}
+\item[\textbf{a.}]
+Possibly ULTs don't have to block the other ULTs in the same process if it does
+a system call. Also we would not need to do a kernel level mode switch, I
+guess. 
+\item[\textbf{b.}]
+LWP will go immediately to the running state upon wakeup. 
+\item[\textbf{c.}]
+A ULT is created and runs, which maps it to an LP that starts in the running
+state. LWPs can be preempted and blocked and runs independently of the ULT.
+
+\end{enumerate}
+
+
+\end{enumerate}
+\end{document}

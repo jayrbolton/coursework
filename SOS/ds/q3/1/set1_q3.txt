@@ -1,0 +1,166 @@
+04.03.12
+Analysis of Algorithms
+Set 1 Homework, Quarter 3 (spring)
+Jay R Bolton
+
+P 14: exercises 1.2-2, 1.2-3, Problem 1-1
+P 37: exercises 2.3-1, 2.3-3, 2.3-4, 2.3-6
+Problems 2-2, 2-3
+
+Chapter 1
+
+Exercise 1.2-2
+  He just wants us to compare the growth of these two
+  functions. In haskell they are:
+
+  a n = 8 * (n ^ 2)
+  b n = 64 * n * (logBase 2 n)
+
+  And we can get a large sample of data with:
+
+  sample = map (\n -> (n, (a n, b n))) [1..(10^6)]
+
+  And we can filter our sample with:
+
+  filt = filter (\(n,(x,y)) -> x < y) sample
+
+  which gives us: 2 - 43
+
+Exercise 1.2-3
+  A very similar problem to the previous. I'll do it in
+  haskell again cuz it's fun.
+
+  a n = 100 * n^2
+  b n = 2^n
+  sample = map(\n->(n,(a n, b n))) [1..10^4]
+  filt = find (\(n,(x,y))->x<y) sample
+
+  which gives us: 15
+
+Problem 1-1
+
+  10^6 microseconds = 1 second
+  So we are solving each equation to equal (10^6 * secs), where secs is the number
+  of seconds, which I've listed in the top row
+
+  I'll just make generic equations using 'secs' to save work, except for the ones
+  where it's not immediately easy to write a generic equation.
+
+          | 1 second | 1 minute | 1 hour | 1 day  | 1 month | 1 year   | 1 century
+  ---------------------------------------------------------------------------------
+  secs    | 1        | 60       | 360    | 8640   | 259200  | 94608000 | 9460800000
+
+  lg(n)   | 2^(secs * 10^6)
+  rt(n)   | (secs * 10^6)^2
+  n       | secs * 10^6
+  n*lg(n) | 2^(secs * 10^6 / n) ?not sure
+  n^2     | rt(secs * 10^6)
+  n^3     | cube_root(secs * 10^6)
+  2^n     | lg(secs * 10^6)
+  n!      | (secs * 10^6)/(n-1)! ?not sure
+
+Chapter 2
+
+Exercise 2.3-1
+  mergesort [3, 41, 52, 26, 38, 57, 9, 49]
+  
+  [3, 9, 26, 38, 41, 49, 52, 57]
+    [3, 26, 41, 52]
+      [3, 41]
+        [3]
+        [41]
+      [26, 52]
+        [26]
+        [52]
+    [9, 38, 49, 57]
+      [38, 57]
+        [38]
+        [57]
+      [9, 49]
+        [9]
+        [49]
+
+Exercise 2.3-3
+
+T(n) = 2T(n/2) + n
+T(2^n) = 2T(2^n/2) + n
+T(2^n) = 2T(2^(n-1)) + n
+T(2^n) = 2(2T(2^(n-1)) + n) + n
+T(2^n) = 2(2(2T(2^(n-1)) + n) + n) + n
+T(2^n) = 2(2(2(2T(2^(n-1)) + n) + n) + n) + n
+...
+T(2^n) = (2^n) * T(2^(n-1)) + 2^n*n + 2^(n-1)*n + 2^(n-2)*n + ... + 2^0*n
+
+
+Exercise 2.3-4
+
+  T(n) = T(n-1) + n
+
+
+Exercise 2.3-6
+
+  No, because we'd still have to shift elements on an insert up to n times on
+  every iteration, making it still n^2.
+
+Problem 2-2
+
+  a.
+    That each element of A is in A'?
+  b.
+    Invariant: Before each iteration, A[j] is the least element in
+               A[j...A.length]
+    Initialization: When j == A.length, A[j] is least among A[j..j] (the
+                    singleton list).
+    Maintenance: Before the jth iteration, we assume the invariant holds. After
+                 lines 3 and 4, we have swapped A[j] and A[j-1] to make A[j-1]
+                 the least element among A[j] and A[j-1] and thus also
+                 A[j-1...A.length]
+    Termination: the loop terminates when j == i+1, which means that j-1, or i,
+                 will be the least element among A[i..A.length].
+  c.
+    Invariant: Before each iteration, A[1..i-1] holds smallest/sorted i-1
+               elements of A.
+    Initialization: When i == 1, A[1..0] is empty.
+    Maintenance: Before the ith iteration, we assume the invariant holds. After
+                 loop 2-4, we know that A[i] is the smallest among
+                 A[i..A.length], and thus A[1..i] are the first i-1 smallest
+                 elements in sorted order.
+    Termination: The loop terminates when i == A.length-1, so that A[1..i] will
+                 be the least elements of A in sorted order, and A[A.length]
+                 will be the greatest element, which will be at the end.
+  
+Problem 2-3
+
+  a. Theta(n)
+  b. 'The naive polynomial-evaluation algorithm that computes each term of the
+     polynomial from scratch'
+
+     Okay, so he's just saying to do it without Horner's rule (took me a while
+     to realize that). In haskell:
+
+     A sample set for a:
+     a = [1..100]
+     x = 1
+
+     poly 0 = a[n]
+     poly n = a[n] * x ^ n + poly (n-1)
+
+     The exponentiation will increase the running time: Theta(n*lg(n)) if the
+     running time of '^' is lg(n)
+
+   c. The loop invariant is stating that we have the correct sum from the nth
+      loop to the i+1st loop.
+
+      sum b t e means take the sum from 'b' up to 't' using equation 'e'
+
+      Maintenance: (using the invariant)
+      After line 3:
+      y = a[i] + x * (sum 0 (n-i+1) (a[k+i+1]*x^k))
+        = sum 0 (n-i) (a[k+i]*x^k)
+
+      The loop terminates when i = 0, which will be:
+      y = sum 0 n (a[k]*x^k)
+
+    d. It factors out x's at each term. For each level of nested parentheses,
+       the distributed x's result in terms with increasing numbers of exponents
+       for the x's.

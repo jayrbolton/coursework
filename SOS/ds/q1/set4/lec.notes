@@ -1,0 +1,7 @@
+Think about type types vs. term types.
+ 
+int** p has the type type of pointer to pointer to int
+
+p in a righthand expression has the term type of int.
+
+a for loop is always N as long as the computation inside the for loop is <=N*c

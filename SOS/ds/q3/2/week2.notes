@@ -1,0 +1,11 @@
+Week 2 was passover and only had meetings with sherri.
+
+She suggested the following method for cpp OO printing:
+
+void output(ostream& out) const {
+	out << "JobRqst(" << name << "," << numTcks << "," << numProcessors << ")" ;
+}
+
+ostream& operator<<(ostream& out, const JobRqst& x) {x.output(out); return out;}
+
+She also suggested that I do the quicksort testing project on the SLACR cluster.

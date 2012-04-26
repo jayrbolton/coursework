@@ -1,0 +1,139 @@
+\documentclass{article}
+\title{Quarter 1 Final, Data Structures}
+\author{Jay R Bolton}
+
+\begin{document}
+\maketitle
+
+\textbf{Note:} This is the work I did within the class time. I will also be
+sos\_submitting a better version later on.
+
+\begin{enumerate}
+
+\item[\textbf{1.}]
+  \begin{enumerate}
+  \item[\emph{(a)}]
+    \begin{verbatim}
+    abcde
+    -f-g-
+    --h--
+    -i-j-
+    klmno
+    compact = [a,b,c,d,e,f,g,h,i,j,k,l,m,n,o]
+    (which is each row concatenated)
+    \end{verbatim}
+
+  \item[\emph{(b)}]
+    \begin{verbatim}
+    get(row, col, list)
+      if(row == 1)
+        return index(list, col)
+      else if(row == 5)
+        return index(list, 10+col)
+      else if(row == col)
+        return index(list, row + col + 1)
+      else if(row == (6 - col))
+        return index(list, 4 + row)
+      else
+        error("Invalid index")
+    \end{verbatim}
+    
+  \end{enumerate}
+
+\item[\textbf{2.}]
+   \begin{verbatim}
+               A
+            /     \
+           B       D
+            \    / \
+             C   E   G
+                /   / \
+               F   H   J
+                  /
+                 I
+
+   For some reason I wrote this algo in haskell last night.
+   Tree a = Node a (Tree a, Tree a) | Nil
+   rtrav [] [] = Nil
+   rtrav (p:ps) in = let i = find p in
+                         lin = take i in
+                         rin = drop (i+1) in
+                         lpre = take (length lin) ps
+                         rpre = drop (length lin) ps
+                      in Tree p ((rtrav lpre lin),(rtrav rpre rin))
+   \end{verbatim}
+
+\item[\textbf{3.}]
+  \begin{enumerate}
+    \item[\emph{(a)}]
+      \begin{tabular}{l | l}
+      \textbf{Index} & \textbf{Key} \\ \hline
+
+      0 & 38 \\
+      1 & 14 \\
+      2 & 11 \\
+      3 & 42 \\
+      4 &  \\
+      5 &  \\
+      6 &  \\
+      7 & 7 \\
+      8 & 73 \\
+      9 & 8 \\
+      10 & 22 \\
+      11 & 34 \\
+      12 & 25 \\
+
+
+      \end{tabular}
+  
+    \item[\emph{(b)}]
+    Not too sure about linear probe deletion. This is my best guess: collided
+    keys migrate back towards their correct bucket.
+
+      \begin{tabular}{l | l}
+      \textbf{Index} & \textbf{Key} \\ \hline
+
+      0 & 38 \\
+      1 & 14 \\
+      2 &  \\
+      3 & 42 \\
+      4 &  \\
+      5 &  \\
+      6 &  \\
+      7 & 7 \\
+      8 & 8\\
+      9 & 34 \\
+      10 &  \\
+      11 & 11 \\
+      12 & 25 \\
+
+
+      \end{tabular}
+
+  \end{enumerate}
+
+\item[\textbf{4.}]
+
+  \begin{enumerate}
+    \item[\emph{(a)}]
+      \begin{verbatim}
+        ElementType computeS(TreeNode t) {
+          if(t == NULL) return -1 /* base case */
+          else return 1 + max(computeS(t->left), computeS(t->right))
+        }
+        /* Leaves return 0. This is similar logic to the book's height balancing
+           for AVL trees. */
+      \end{verbatim}
+
+    \item[\emph{(b)}]
+      $ \mathcal{O}(N) $
+
+      Or more closely: $ \matchcal{O}(N + ceil(log(N))*2) $ (to account for two extra visits for each leaf).
+
+
+  \end{enumerate}
+
+
+
+\end{enumerate}
+\end{document}

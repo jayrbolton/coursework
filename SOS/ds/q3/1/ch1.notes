@@ -1,0 +1,21 @@
+algorithm: takes input, performs steps, produces output
+	achieving an input/output relationship
+
+instance of a problem: a specific input needed to compute the solution to a problem.
+
+correctness: if, for every input instance, it _halts_ with the correct output.
+
+the biggest challenge is deciding among *candidate solutions*
+
+no algorithm for an NP-complete problem has been found, but nobody has proven that it cannot exist.
+	if somebody finds an _efficient_ solution to one NP-complete problem, then efficient algorithms exist for all.
+	e.g. traveling salesman problem
+		select an order of delivery stops that yields the lowest overall distance traveled
+
+if computers had infinite speed, then we'd only be concerned with correctness.
+
+calculating time of execution in seconds:
+
+divide: complexity instructions (e.g. 2*10^7 instructions for 2n^2 complexity on 10mil items)
+by: instructions executed per second (probably 10^x)
+equals: seconds

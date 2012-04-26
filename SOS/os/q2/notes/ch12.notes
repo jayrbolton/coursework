@@ -1,0 +1,49 @@
+Goals:
+ * Describe basic concepts of files/file systems
+ * Understand principal techniques for file organization and access.
+ * Define b-trees
+ * Explain file directories.
+ * Understand the requirements for file sharing.
+ * Understand the concept of record blocking.
+ * Describe the principal design issues for secondary storage management.
+ * Understand the design issues for file system security.
+ * Explain the OS file systems used in Linux, Unix and Windows 7
+
+File management system consists of a system utility program that runs as a privileged application.
+
+Files have:
+ * Long term persistence
+ * Sharability
+ * Internal structure/formatting.
+
+Field: basic element of data. 
+Record: collection of fields.
+File: collection of records
+Database: collection of data. lol.
+
+files are not organized into records in unix, it's just a stream of bytes
+
+filesys objectives for the user:
+ * create, delete, read write, modify
+ * permissions/authentication/authorization
+ * custom structuring and naming
+ * move/backup/recover
+
+ filesys levels:
+  1 devices and device drivers for io
+	2 basic filesystem/physical io with disk
+	3 basic io supervisor manages device io, the connection between 1 and 2 
+	4 logical io interfaces user to file records (rather than lv 2 which interfaces with disk blocks)
+
+Blocking is the translation interface between file records and physical blocks in main memory buffers and then physical blocsk in secondary storage.
+
+file structures:
+pile: just a pile of variable sized fields with no uniform structure. bad at retrieval, easy to update
+sequential: fixed length records with fixed fields. 
+ first field usually the "key field," which uniquely id's the record. 
+ easily stored on tape and disk
+ bad for updates
+indexed sequential file: has advantages of sequential but is better with updating. Each field has a pointer to an "overflow file".
+indexed: an indexed pile, i think. 
+hashed
+

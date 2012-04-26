@@ -1,0 +1,76 @@
+OVERVIEW
+This program allows you to add processors, processes, and increment the clock
+cycles slowly to see how the job scheduler works. It prioritizes the processes
+by their running time, which the user specifies.
+
+I chose to use an interactive user interface so that you can play with
+the scheduler on the fly.
+
+Run it with ./sched and then enter 'help' to get the commands. Recompile it with
+'make.'
+
+My data structures are in lib/. I used only a Binary Heap and a large List data
+structure that I wrote for a previous assignment.
+
+Ideas for future add-ons:
+ * Create processes with custom prioritization strategies besides shortest
+   ticks.
+ * Let it read from a file of parameters, then run a very large amount
+   of ticks, and then GNU-plot the results.
+
+DESIGN
+I tried to structure the program as object-oriented as possible. The cluster
+itself is encompassed within a ClusterState object, which holds the various
+process and processor queues.
+
+Processes are encapsulated by the Process object and processors by the Processor object.
+
+The one file that is not an object is 'controller.cpp.' That is more like a
+module that contains the program's UI implementatation: the event loop and a
+large case statement for the different commands.
+
+I used only the data structures that I implemented and none from the STL. Find
+my implementations in lib/ and see the below section for more details.
+
+DATA STRUCTURES
+The main data structures of this program are inside the ClusterState object.
+They are as follows:
+
+ 'done' -    An ordered list of finished processes. I used a list because I
+						 wanted it to be ordered and we're not doing any operations besides
+						 insertion and traversal for printing.
+ 'free' -    The pool of idle processors. Since we are not prioritizing the
+						 processors themselves, we only need to pop and push from this
+						 pool. I used a list data structure that has stack-like methods
+						 rather than a separate stack data structure because I had already
+						 written this list data structure for a previous assignment.
+ 'running' - the pool of running processors. I used a list for this as well. I
+						 considered using a binary heap prioritized by the remaining ticks,
+						 but then realized that we will always have to traverse the whole
+						 thing to decrement on every tick, so I used a simple list.
+ 'waiting' - A binary heap of queued processes waiting to run. This is a
+             priority queue ordered by the '<' operator for processes. We
+             mainly need to worry about deletion and insertion, so a binary
+             heap with average constant time O(1) for insertion and O(n) from
+             deletion seems our best bet. We don't do any merging so leftist or
+             binomial heaps are unneded. Two that may be arguably better are
+             Fibonacci heaps (with O(1) insertion) and Brodal heaps (with O(1)
+             insertion also). Brodal seems far and above too complex for our
+             little scheduler. Fibonacci is not as good with delete_min so
+             doesn't have a lot of payoff for more complexity.
+
+RESULTS
+Everything works well from what I've played with. There are no slow downs whatsoever.
+
+I had a lot of difficulty overloading the << operator and finally got it to
+work by lots of hacking. I also had a lot of troubleshooting difficulty with
+transferring objects to different lists that were later deleted, or with
+pointers that pointed to indexes of a container rather than the actual object I
+wanted. I wrestled with segfaults for hours upon hours. C++'s error messages
+are horrendous. Its fully expanded type signatures in the messages are
+unreadable, and it likes to offer like 100 possible alternatives to the
+operator you used wrong.
+
+CITATIONS
+None really. My data structures originally came from what sherri provided but
+then I spent a very long time rewriting and tweaking them.

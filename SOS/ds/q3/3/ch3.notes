@@ -1,0 +1,122 @@
+Growth of Functions
+-------------------
+3.1
+---
+
+Big-theta:
+0 <= c1*g(n) <= f(n) <= c2*g(n) for all n >= n0
+g(n) is our complexity function, f(n) the function we are measuring
+
+so for two arbitrary constatns, f(n) is less than the first constant times our
+complexity function, and greater than our second constant times our complexity
+function.
+
+asymptotically nonnegative:
+n in all these complexity functions must be nonnegative when n is sufficiently large
+
+o-notation:
+in o-notation for the function f(n) and complexity g(n), we have:
+  lim(n,infinity), f(n)/g(n) = 0.
+
+since we are talking about this stuff with constants, for something to be
+f(n)=o(g(n) means that the *growth rate* of f(n) is strictly less than the
+growth rate of g(n), which means that the distance between the functions will
+become greater and greater and greater. If we approach infinity, the fraction gets
+infinitely small, so it is 0.
+
+little-omega-notation
+  lim(n,infinity), f(n)/g(n) = infinity
+for the reasons explained in the paragraph above.
+
+
+not all functions are asymptotically comparable
+
+for two functions f(n) and g(n), it may be the case that neither f(n) = O(g(n))
+nor f(n) = Omega(g(n))
+
+3.2
+---
+
+monotonicity:
+monotonically increasing: m <= n -> f(m) <= f(n)
+monotonicity decreasing:  m <= n -> f(m) >= f(n)
+strictly increasing/decreasing with strict gt/lt
+it means dat line keep risin and don't drop
+
+properties of floor and ceiling functions:
+x-1 < flr(x) <= x <= ceil(x) < x+1
+for integers: ceil(x/2) + flr(x/2) = x
+	        eg: ceil(5/2) + flr(5/2) = ceil(2.5) + flr(2.5) = 3 + 2 = 5
+
+For any real number x and integers a,b
+ceil(ceil(x/a)/b) = ceil(x/a*b)
+eg: ceil(ceil(4.6/2)/4) = ceil(3/4) = 1
+    ceil(4.6/2*4) = ceil(4.6/8) = 1
+
+same with floor
+
+*the floor and ceiling functions are monotonically increasing*
+in other words, for all m and n parameters to the floor function, if m <= n, then f(m) <= f(n)
+it's not strict cuz ceil/flr(9.0) = 9.0, so it's <=/>=
+
+Mod:
+a mod n = a - n * flr(a/n)
+
+eg:
+5 mod 3 = 2 * 1
+2 = 2
+5 mod 7 = 5 - 7 * flr(5/7)
+0 = -2 * 0
+0 = 0
+
+if a mod n = b mod n 
+then a `equivalency` b (mod n)
+also:
+a `equivalency` b (mod n) iff n is a divisor of b-a
+why is this, intuitively?
+
+Ohhh, so imagine the natural numbers partitioned into modulus sets.
+The space in between two numbers of the same modulus will equal our divisor.
+
+eg: (divisor 7) 8, 15, 22, 29, 36
+or: (still divisor 7) 9, 16, 23, 30, 37
+
+Polynomials
+They are asymptotically positive only if the last coefficient > 0
+Which implies that all below the last coefficent could be < 0
+Which means that n^k simply must be raised to greater than all the other coefficients.
+If the last coefficient were negative, then n^k would be negative and the
+polynomial would get more negative as we go towards infinity.
+
+n^k is monotonically increasing (exception: k=0).
+
+it is monotonically decreasing with a negative coefficient
+
+f(n) is "polynomially bounded" if f(n) `elem` O(n^k)
+
+Exponentials
+a^-1 = 1/a
+(a^m)^n = a^(mn)
+a^m*a^n = a^(m+n)
+
+lim(n,infinity), n^b/a^n = 0 
+where a,b constants and n increases
+In other words, an increasing exponent grows faster than an increasing base.
+
+e^x = 1 + x + x^2/2! + x^3/3! + ... = sum(0, infinity, x^i/i!)
+No intuition for this...
+
+e^x approximates to 1+x when x approaches 0
+useful for??
+
+
+Logarithms
+lg(n) = log(2,n)
+log(c,a*b) = log(c,a) + log(c,b)
+see more of these rules on p 56
+
+Factorial
+you know it
+weak upper bound: n! <= n^n
+
+

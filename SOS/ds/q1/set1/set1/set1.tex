@@ -1,0 +1,108 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\title{Assignment 1, Data Structures}
+\author{Jay R Bolton}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+
+\item[\textbf{1.6}]
+ \begin{enumerate}
+  \item[\textbf{a.}]
+   \begin{align}
+    S &= 1 + \frac{1}{4} + \frac{1}{4^2} \cdots \frac{1}{4^i} \cdots \\
+    4S &= 4 + 1 + \frac{4}{4^2} + \frac{4}{4^3} \cdots \frac{4}{4^i} \cdots \\
+    &= 4 + 1 + \frac{1}{4} + \frac{1}{4^2}  \cdots \frac{1}{4^i} \cdots \\
+    4S - S &=  4 = 3S \\
+    \frac{3S}{3} &= S = \frac{4}{3}
+   \end{align}
+  \item[\textbf{b.}]
+   \begin{align}
+    S &= \frac{1}{4^1} + \frac{2}{4^2} \cdots \frac{i}{4^i} \cdots \\
+    4S &= 1 + \frac{8}{4^2} + \frac{12}{4^3} \cdots \frac{4*i}{4^i} \cdots \\
+    &= 1 + \frac{1}{2} + \frac{3}{4^2} + \frac{4}{4^3} \cdots \frac{i}{4^{i-1}} \cdots \\
+    4S - S &= 1 + \frac{1}{4} + \frac{1}{4^2} + \frac{1}{4^3} \cdots \frac{1}{4^i} \cdots \\
+    &= \frac{4}{3} \\
+    \frac{3S}{3} &= S = \frac{4}{9}
+   \end{align}
+  \item[\textbf{c.}]
+   \begin{align}
+    S &= \frac{1^2}{4^1} + \frac{2^2}{4^2} \cdots \\
+    4S &= 2 + \frac{3^2}{4^2} + \frac{4^2}{4^3} \cdots \\
+    4S - S &= 3S = \frac{7}{4} + \frac{5}{4^2} + \frac{7}{4^3} \cdots\\
+    4*3S &= \frac{33}{4} + \frac{7}{4^2} + \frac{9}{4^3} \cdots \\
+    4*3S - 3S &= \frac{13}{2} + \frac{2}{4^2} + \frac{2}{4^3} \cdots \\
+              &= \frac{13}{2} + 2(\frac{1}{4^2} + \frac{1}{4^3}\cdots) \\
+              &= \frac{13}{2} + 2(\frac{4}{3} - \frac{5}{4}) \\
+              &= \frac{13}{2} + 2(\frac{1}{12}) \\
+              &= \frac{13}{2} + \frac{1}{6} \\
+              &= \frac{39}{6} + \frac{1}{6} \\
+              &= \frac{20}{3} \\
+    9S &= \frac{20}{3} \\
+    S &= \frac{20}{27}
+   \end{align}
+  \item[\textbf{d.}]
+   This one was a real monkey of a problem. I did not really get a solution. I
+   noted that with the powers, if we take the difference of their difference n
+   times (where n is the power), then we end up with n! in the numerators. To
+   take the difference of the differences of the numerators of S, we do $4S-S$
+   and then $3(4S) - 3S$. We continue to do that n times.
+   \begin{align}
+    f(x,1) &= 4x-x \\
+    f(x,n) &= f(4x-x,n-1) \\
+    f(S) = ?
+   \end{align}
+ \end{enumerate}
+
+\item[\textbf{1.10}]
+ \begin{enumerate}
+  \item[\textbf{a.}]
+   Prove:
+   \begin{align}
+    \sum_{i=1}^n2i-1 &= n^2
+   \end{align}
+   Inductive hypothesis:
+   \begin{align}
+    \sum_{i=1}^n2i-1 = n^2 \rightarrow \sum_{i=1}^{n+1}2i-1 = (n+1)^2 \\
+   \end{align}
+   Induction:
+   \begin{align}
+    n^2 + 2(n+1) - 1 &= (n+1)^2 \\
+    n^2 + 2n + 1 &= (n+1)^2 \\
+    (n+1)^2 &= (n+1)^2 \\
+   \end{align}
+  \item[\textbf{b.}]
+   Prove:
+   \begin{align}
+    \sum_{i=1}^ni^3 &= \left(\sum_{i=1}^ni\right)^2 \\
+                    &= \left(\frac{n(n+1)}{2}\right)^2\\
+                    &= \frac{n^2(n+1)^2}{4}
+   \end{align}
+   Base case:
+   \begin{align}
+    \frac{1^2(1+1)^2}{4} &= 1^3 \\
+    \frac{1^2(1+1)^2}{4} &= 1 \\
+    \frac{1(2)^2}{4}     &= 1\\
+    \frac{4}{4}          &= 1\\
+    1                    &= 1\\
+   \end{align}
+   Inductive hypothesis:
+   \begin{align}
+    \frac{n^2(n+1)^2}{4} \rightarrow &\frac{(n+1)^2(n+1)+1)^2}{4} \\
+                         &= \frac{(n+1)^2(n+2)^2}{4}
+   \end{align}
+   Induction:
+   \begin{align}
+    \frac{n^2(n+1)^2}{4} + (n+1)^3 &= \frac{(n+1)^2(n+2)^2}{4} \\
+    \frac{n^2(n+1)^2 + 4(n+1)^3}{4} &= \frac{(n+1)^2(n+2)^2}{4} \\
+    \frac{(n+1)^2(n^2 + 4n+4)}{4} &= \frac{(n+1)^2(n+2)^2}{4} \\
+    \frac{(n+1)^2(n+2)^2}{4} &= \frac{(n+1)^2(n+2)^2}{4}
+   \end{align}
+ \end{enumerate}
+
+\end{enumerate}
+
+\end{document}

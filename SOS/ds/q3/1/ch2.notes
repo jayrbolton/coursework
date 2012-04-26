@@ -1,0 +1,67 @@
+insertion sort!
+
+input: number sequence
+output: ordered
+
+continually insert, scanning the sorted list
+	in-place: let the leftmost be the first insertion
+		continually scan up to the current index, swapping elements
+
+loop invariant: constant properties across any iteration of a loop.
+
+Initialization/base case
+Maintenance/k -> k+1 step
+Termination/?
+
+Init:
+	j = 2
+	A[1..j-1] = A[1]
+	the singleton list is sorted (definition of sorted)
+Maintentance:
+	body of for loop:
+		moves A[j-1], A[j-2], ... one position to the right until it finds a proper position for A[j]
+		book provides no formalization
+Termination:
+	condition: j > A.length = n
+	or j == n + 1
+
+Analysis of algorithms:
+
+The RAM model has certain ambiguities --- built-in instructions that may or may not be constant.
+	Just ignore em
+
+input size: usually the number of items in the input
+	for multiplication, the total number of bits
+	sometimes 2-dimensional, if the input is a matrix or some such
+
+insertion sort best case:
+	the pre-sorted list
+	n - linear
+	the form is an + b --- in other words, it has multiplication and addition
+	no inner loop
+
+worst case
+	the loop always goes j times, where j is our current index
+	the form is an^2 + bn + c --- in other words, it has squaring, multiplication, and adition.
+
+worst-case analysis provides a _guarantee_
+
+worst-case is often average case: the average case with insertion sort still
+causes the inner loop to execute some number of times, making it quadratic.
+
+Designing Algorithms
+--------------------
+
+Mergesort!
+
+Auxilliary procedure "merge" which takes Theta(n)
+	takes (A,p,q,r) where A is an array and [p..q] is the first sorted array while [q+1..r] is the second.
+
+his mergesort:
+	first he populates arrays L and R from A. the indexes are confusing/less complicated than they look.
+	then he places sentinel nodes at the end.
+	he's doing all this sorting in-place so he needs to store L and R as copies to not lose them when he overwrites.
+
+This time when proving the loop invariant we do cases:
+	suppose L[i] <= R[j]
+		then: L[i] is the smallest uncopied element --- it's copy will maintain the invariant.
