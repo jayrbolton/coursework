@@ -1,0 +1,47 @@
+import java.io.*;
+
+/* 
+    For the sake of simplicity, the Source is only a long String.  I see no
+    discernable reason to use the BufferedReader API in my implementation of
+    the lexer using regular expressions.
+*/
+
+
+public class Source {
+
+    private String source;
+
+    Source (String filename) {
+        source = "";
+        BufferedReader input = null;
+        try {
+            input = new BufferedReader (new FileReader(filename));
+        }
+        catch (FileNotFoundException e) {
+            error("File not found: " + filename);
+        }
+        do { 
+            try { s += input.readChar(); }
+            catch { error("Cannot read from : " + filename); }
+        } while input is not empty (??)
+    }
+
+
+    //Accessors
+    public String line() {return line;}
+    public char ch() {return ch;}
+    public int lineno() {return lineno;}
+    public int col() {return col;}
+
+    //Error methods
+    private void error(String msg) {
+        System.err.println("File reading error:" + msg);
+        System.err.println("Line " + lineno + ", Column " + col);
+        System.err.println(line);
+        System.exit(1);
+    }
+
+    public static void main(String[] argv) {
+        Source s = new Source(argv[0]);
+    }
+}

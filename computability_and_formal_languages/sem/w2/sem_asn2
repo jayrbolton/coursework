@@ -1,0 +1,205 @@
+J Bolton
+Exercises from 'Polymorphic Type Inference'
+by Michael I. Schwartzbach
+
+2.1
+let length = fun(l) if null(l) then 0 else length(cdr(l))
+
+3.1
+This rule establishes initial types of values that we know to already be in our
+symbol table. It is the first step in any bottom up inference.
+
+3.2
+Having the two expressions e1 and e2 derive after already deriving some
+metavariable for f allows us to do recursion. If it was just e1: s ; e2 : t,
+then the algorithm would loop infinitely. With the above definition for length,
+for example, we can infer the type of e1 immediately by having f : s already
+ our type map.
+
+3.3
+Identity (bottom left)
+Application
+succ
+Abstraction (fun)
+Abstraction (fun)
+
+4.1
+Preorder tree traversal is when the node is visited before the children are
+visited left to right. Preorder typing that the author describes is when we
+have a type variable S that is substituted for a type scheme (eg, A -> B). The
+tree might then look like:
+S
+    Arrow
+        A
+        B
+Where we traverse S, then Arrow, then A and B. The substituted type is always
+more general than the substituter.
+
+4.2
+It seems like, according to his above definition, any substition can create a
+preordering, so I'm going to assume he's just asking which of the type schemes
+are substitutable. The single variables alpha and beta can be unified with any
+of the others. The third scheme can unify with the forth or the fifth.
+2/3
+
+4.3
+The substituted scheme has more constraints on its domain, while the
+substituting scheme is more general. This is the very reason that they are
+unifiable. 
+
+The set of all values that can be in sigma is greater than the set of all
+values that can be inside tau, because by the definition of unification, sigma
+is more general than tau.
+
+The set of all types unifiable with tau are also unifiable with sigma. However,
+a larger number of types are unifiable with sigma than with tau since sigma is
+more general.
+
+4.4
+It's ambiguous because we haven't specified what exact type we're talking
+about. It's a way to talk about generic types without actually implementing
+them. More specifically, two identical pieces of syntax can refer to two
+different type variables.
+
+4.5
+Abstraction
+Abstraction
+Successor
+Application
+
+4.6
+To verify the solution, we can unify the right side of the solution with the
+type constraints that we already know.
+
+[[g]] = ([[x]] -> Int)
+[[x]] -> [[succ(g(x))]] = ([[x]] -> int)
+
+4.7
+
+[[fun(x) fun(y) x((car(y))(x)) end end]] = [[x]] -> [[fun(y) x((car(y))(x)) end]]
+[[fun(y) x((car(y))(x))]] = [[y]] -> [[x((car(y))(x))]]
+[[x]] = [[car(y)]] -> [[x]] -> [[x((car(y))(x))]
+[[car(y)]] = [[y]] = list([[car(y)]] 
+
+I can't figure out how to type x((car(y))(x)). If x takes a list and then
+returns a function that takes a function that has the same type as x, wouldn't
+it create an infinite type?
+
+4.8
+The type of car(x) will be list(int), yet the type of x will be
+list([[car(x)]]). We will thus have the type list(list(list(list...
+
+Second part:
+
+1. Using the monomorphic type rules in the Schwartzbach paper, give a
+monomorphic typing derivation for the following program.
+A |- x:a ; A |- g:a->b
+=>
+A |- g(x) : b ; A |- b -> int
+=>
+A |- succ(g(x)) : int ; A |- x:a
+=>
+A |- (fun(x)succ(g(x))) : a -> int ; A |- y : d
+=>
+A |- (fun(y)fun(x)succ(g(x))) : d -> a -> int
+
+2. Now give a derivation of a principle polymorphic type using typing rules in
+the Schwartzbach paper, but with type schemes instead of types.
+[[fun (g) fun (x) succ (g(x))]] = [[g]] -> [[fun(x) succ (g(x))]]
+[[fun(x) succ (g(x))]] = [[x]] -> [[succ(g(x))]]
+[[succ(g(x))]] = int
+[[g(x)]] = int
+[[g]]
+
+[[fun (g) fun (x) succ (g(x))]] = [[g]] -> [[x]] -> int
+
+
+3. Finally, using the type rules from the Cardelli paper (pp 13,14), give the
+type rules used in deriving the type the above program.  
+identity, application, successor, abstraction, abstraction
+
+4. Study the simple Robinson unification algorithm given in the Lecture Notes
+for Basic Polymorphic TypeChecking
+
+6. Generate and solve type constraints for the following program by hand.
+fun(x) fun(y) x((hd(y))(x))
+This is exactly the same type inference procedure as #4.7 except where car is 
+replaced with 'hd'
+
+
+7.Use the Robinson unification algorithm to solve the type constraints for the program in the previous exercise.
+
+I have no idea how the expression x((hd(y)))(x))) could be typed, so I'm going to assume it is x(hd(y))
+
+env = A
+e = (fun(x)fun(y)x(hd(y)))
+L.Abs(x, fun(y)...)
+beta = a
+(s1, t1) = algW(A.x:a, fun(y)...)
+	L.Abs(y, x((hd...)))
+	beta = b
+	(s1, t1) = algW(A.y:b, x((hd(y))))
+		L.App(x, ((hd(y))))
+		(s1, t1) = algW(A, x)
+			L.Var x
+			sigma = x:b
+			(x, b)
+		(s2, t2) = algW(A.x:b, ((hd(y))))
+			L.App(hd, y)
+			(s1, t1) = algW(A, hd)
+				L.Var hd
+				sigma = hd : c
+				(hd, c)
+			(s2, t2) = algW(A.hd:c, y)
+				L.Var y
+				sigma = y : d
+				(y, d)
+			beta = e
+			s3 = (d -> e)
+			
+			
+
+
+let S(xi) = xi (i.e. S is initially just the identity sub)
+while S is not a solution do
+   let {s,t} = del(S(xi), S(sigi)),
+             where S(xi)!= S(sigi);
+   if s and t are both type constructions then fail;
+   Assume s=xj;
+   if xj occurs in t then fail;
+   let S(xi) = {xj |-> t} (S(xi))
+   
+Tree:
+->
+    x
+    ->
+    y
+    x((hd(y))(x))
+   
+S(xi) = {x:a, y:b}
+{s,t} = 
+
+8. Now use the Schartz unification algorithm to solve the type constraints for the program in the previous exercise.
+
+I'm really grasping in the dark on these algorithms. Where do these trees come from. Is one an AST? What about the other?
+
+S(xi) = fun(x)fun(y)x(hd(y))
+{s,t} = {
+
+9. Generate the constraints for the following and show why they are unsolvable:
+cons (succ(x), hd(x))
+
+succ(x) means x must be an int, while hd(x) implies that x must be a list.
+
+A |- x : list(a)
+=>
+A |- hd(a) : list(a)
+=>
+A  |- x : list(a) ; 
+=>
+A |- succ(x) -- undefined
+
+
+10. Implement one or both of the above unification algorithms. As input to your unification algorithm you should have a list of constraints that you generate by hand, and a set S of initial type mappings (identity for all the variables and any constants such as 3 is an Int, True is a Bool).
+
+See asn2_unifier.hs

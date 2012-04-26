@@ -1,0 +1,50 @@
+import java.io.*;
+
+public class Source {
+    private BufferedReader input;
+    private char ch;
+    private String line;
+    private int lineno;
+    private int col;
+
+    public Source (String filename) {
+        try {
+            input = new BufferedReader (new FileReader(filename));
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("File not found: " + filename);
+            System.exit(1);
+        }
+        ch = ' '; line = ""; lineno = 0; col = 1;
+    }
+
+    public char next () {
+        if (ch == '\004') { // End of file
+            System.err.println("Line" + lineno + ", column " + col);
+            System.err.println("File reading error: attempted to read past end of file");
+            System.exit(1);
+        } 
+        col++;
+        if (col >= line.length()) {
+            try { line = input.readLine( ); } 
+            catch (IOException e) {
+                System.err.println(e);
+                System.exit(1);
+            } 
+            if (line == null) line = "" + '\004';
+            else {
+                lineno++;
+                line += '\n';
+            } 
+            col = 0;
+        } 
+        ch = line.charAt(col);
+        return ch;
+    }
+    
+    // Accessors
+    public char ch () { return ch; }
+    public int lineno () { return lineno; }
+    public int col () { return col; }
+
+}

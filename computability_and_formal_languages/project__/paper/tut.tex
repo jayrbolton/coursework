@@ -1,0 +1,318 @@
+\documentclass[11pt]{article}
+
+\author{J Bolton}
+\title{A Comparitive Exploration of Three Unusual Languages}
+\frenchspacing
+\pagestyle{headings}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\begin{abstract}
+    This paper provides an introductory tutorial to three contrasting and
+    unusual programming languages: Smalltalk, SETL, and Agda. Some prior
+    experience in programming is assumed. The languages are highly abstract yet
+    represent very different perspectives: the object oriented paradigm,
+    functional programming with dependent types, and set-based imperative
+    programming. Working with each of them at the same time will be an
+    invigorating brain exercise and will hopefully provide some unique insights
+    into the strengths and weaknesses of each style.
+\end{abstract}
+
+\section{Introduction}
+    Agda represents the extreme end of functional type theory based on the
+    elegant syntax of Haskell. The language will introduce the very
+    interesting world of dependent types and all the expressiveness that comes
+    with them. Smalltalk is a much older language known for its pure
+    implementation of the object oriented type system, made famous by such
+    extremely popular languages as C++ and Java. Finally, SETL is the oldest of 
+    the three languages whose main feature is its flexible, built-in support 
+    for creating and manipulating sets and tuples.
+
+    We will start out with a very quick overview of each language,
+    starting with the least difficult, SETL, and progressing to the most
+    difficult, Agda. This paper will emphasize a discussion of the typing
+    model of each language.
+
+    We will then examine three programs chosen to showcase the advantages of
+    each of the languages. We will follow this with a larger, single program
+    (an LL parser generator) written in all three languages to provide a
+    direct, contrasting example among all three styles.  The larger program, a
+    top down parser, was chosen in the hope that none of the three paradigms
+    would have a very big advantage in its implementation over the others 
+
+\section{SETL}
+
+\subsection{Squishing Trees of Numbers}
+
+SETL uses an imperative style of programming similar to the classic language
+Ada. The language has assignments, loops, conditionals, and arithmetic that
+shouldn't look all that foreign to those familiar with other imperative
+languages. 
+
+We will examine the language by walking through a couple problems that seem
+to particularly suit its style. We will end by examining a general problem
+that we will also implement in Smalltalk and Agda later on. 
+
+The first of our problems comes from the puzzle website called Project
+Euler. It involves finding a maximal path through a large tree of random
+numbers. These aren't quite binary trees, but more like lattices, where every
+child node is shared to the left and right. This is the statement of the problem
+from the website:
+
+\begin{quote}
+By starting at the top of the triangle below and moving to adjacent numbers on
+the row below, the maximum total from top to bottom is 23.
+
+\begin{verbatim}
+   3
+  7 4
+ 2 4 6
+8 5 9 3
+\end{verbatim}
+
+That is, 3 + 7 + 4 + 9 = 23.
+
+Find the maximum total from top to bottom in [a triangle with 100 levels].
+\end{quote}
+
+The strategy is to select the second highest level and `collapse' each node by
+finding the largest adjacent node above it. Eventually, we will produce a
+single list consisting of the bottom row where each node is the maximum sum of
+some path that led to it.
+
+This problem is made simpler by the fact that we only need to find the maximum
+sum, and we don't have to list the path. 
+
+\begin{verbatim}
+   3
+  7 4
+ 2 4 6
+8 5 9 3
+First, we select the row [7,4], and collapse the top level to make:
+  10 7
+ 2  4 6
+8  5 9 3
+Now select the row [2,4,6] and collapse it with the top level again. 
+In the case of the middle node, 4, choose its maximum adjacent node (10).
+ 12  14 13 
+8  5   9  3
+A final time:
+20 19 23 16
+Now, we simply need to fold the two-ary max function over this final list to
+get our answer, which is 23.
+\end{verbatim}
+
+Let's translate this to SETL. Our first step is to get our tree into 
+the language. We can use SETL's read function, which takes a string of a certain
+format and returns a corresponding data type. For example, if we give it...
+
+\begin{verbatim}
+[[3]
+[7 4]
+[2 4 6]
+[8 5 9 3]]
+\end{verbatim}
+
+... we will get a tuple of tuples. In SETL, tuples are represented by brackets and
+can be heterogenous, but ours will contain only numbers. Tuples differ
+from sets in that they can contain duplicates and follow a specific sequence.
+
+We will need to iterate over our tree, which is a tuple of tuples. We
+know we're done when there is only one level left in the tree. Our
+loop can then look like:
+
+\begin{verbatim}
+loop while #Tree /= 1
+    ...
+end loop;
+\end{verbatim}
+
+The pound sign is the unary function 'length of'. Nice and terse, isn't it?
+Inside this loop, we need to manipulate the level that is second to the top, as
+planned. In SETL, we have really handy subtuple extraction similar to many other
+languages by simply inserting an index (or a range of indices) inside a pair of
+parens after the tuple. \begin{verbatim}Tree(1)\end{verbatim} will return the
+top level of our tree, while Tree(2) will return the second to the top, as we
+need.
+
+When we have a tuple of tuples, we can layer these subtuple extractions.
+\begin{verbatim}Tree(2)(1)\end{verbatim} will return the first node of the
+second level of our tree. Tree(2)(\#Tree(2)) will return the last node of the
+second level of our tree. In our loop, we will define what happens to the
+leftmost and rightmost nodes in the level first, since they are a special
+case. For all the nodes in the middle, we have to find the maximum of the two
+nodes that are above and adjacent to the them. For nodes at the very beginning
+and end, we only need to add the node above, since they have only one adjacent
+node.
+
+\begin{verbatim}
+  loop while \#Tree /= 1
+      tree(2)(1) +:= tree(1)(1);
+      tree(2)(#tree(2)) +:= tree(1)(#tree(1));
+  end loop;  
+\end{verbatim}
+
+Next, we need to loop through the nodes in the middle, adding the maximum of
+their adjacent nodes. In SETL, we can create lists with the form
+\begin{verbatim}
+[start..end]
+\end{verbatim}
+
+We need to iterate from the second node in our level to the second to last
+node. 
+\begin{verbatim}
+[2..#tree(2)-1]
+\end{verbatim}
+will do just the thing. Let's put the loop together:
+\begin{verbatim}
+  (for n in [2..#tree(2)-1])
+    tree(2)(n) +:= tree(1)(n) max tree(1)(n-1);
+  end;
+\end{verbatim}
+
+'max' is an infix binary operator. The head of the loop could also be written as
+'loop for n in...', but surrounding it by parentheses means you can get rid of
+the 'loop' keyword.
+
+All that's left to do is to remove the top row. Both sets and tuples in SETL are
+mutable, so you can remove stuff, add stuff, and monkey with them as much as you
+please. The binary operator 'fromb' will remove an element from the beginning of
+a tuple. \footnote{'fromb' requires a left hand side variable to assign
+  our discarded level to. We don't need to do anything with that variable,
+  however, so it would be cleaner if we didn't do any assignment, but I have not
+  seen any such function built in.} Let's put it all together.
+
+\begin{verbatim}
+read(Tree);
+(while #Tree /= 1)
+  tree(2)(1) +:= tree(2-1)(1);
+  tree(2)(#tree(2)) +:= tree(1)(#tree(1));
+  (for n in [2..#tree(2)-1])
+    tree(2)(n) +:= tree(1)(n) max tree(1)(n-1);
+  end;
+  q fromb tree;
+end;
+\end{verbatim}
+
+We have one last step. After the above loop finishes, we will be left
+with a single tuple. Now we need to fold 'max' over our final
+tuple. Fold in SETL is the wonderfully terse forward slash character.
+
+\begin{verbatim}
+print(max/Tree(1));
+\end{verbatim}
+
+\subsection{Best Friend Numbers}
+
+Let's work through another problem, this time emphasizing \textit{set
+  and tuple generation} using SETL's wonderful built-in syntax. This
+next problem also comes from the wonderfully addictive Project
+Euler. I will let the website do the explaining for me:
+
+\begin{quote}
+Let d(n) be defined as the sum of proper divisors of n (numbers less
+than n which divide evenly into n).
+
+If d(a) = b and d(b) = a, where a ≠ b, then a and b are an amicable
+pair and each of a and b are called amicable numbers.
+
+For example, the proper divisors of 220 are 1, 2, 4, 5, 10, 11, 20,
+22, 44, 55 and 110; therefore d(220) = 284. The proper divisors of 284
+are 1, 2, 4, 71 and 142; so d(284) = 220.
+
+Evaluate the sum of all the amicable numbers under 10000.
+\end{quote}
+
+The algorithm for this problem is a little more straighforward than the
+last one. Let's first tackle the 'proper divisors' function.
+
+The set generating syntax in SETL is the same as what is now known to
+be called `list comprehension' in Haskell. Functions in GNU SETL are
+denoted by the 'proc' keyword and take untyped parameters.
+
+We'll start with a naive version of the proper divisors function:
+
+\begin{verbatim}
+proc properdivisors(n);
+     return {x : x in [1..n] | n mod x = 0};
+end proc;
+\end{verbatim}
+
+The curly braces denote a set. Before the colon, we have x, which is
+going to be the format of the elements in our set. This could be an
+expression or tuple as well. 'x in [1..n]' denotes an iterator that
+repeatedly assigns x to each value in the tuple [1..n]. After the bar,
+we have a boolean expression which can specify constraints on our
+variables. 
+
+This is a very brute force way of finding the divisors of n. Since
+we're going to have to do this thousands and thousands of times, let's
+clean it up a bit. We'll use an algorithm called the Sieve of
+Eratosthenes, the details of which I won't cover here. There is an
+optimized version called the Sieve of Atkin, but we're only working
+with numbers less than 10,000, so we might as well keep it simple.
+
+
+
+\subsection{Set Magic}
+
+% This section will hold a tutorial on all of SETL's set, tuple, and
+% map generators and operations. This is the meat of the language.
+
+\subsection{SETL's Type Model}
+
+% I may need to do more work here, reading up on classes and such. 
+% Emphasize the fact that SETL is all about maps. Use the quote from Dewar.
+
+\subsection{Case Study: Climbing Trees}
+
+% Describe, step by step, the project euler problem. Maybe make a
+% more functional implementation of the solution?
+
+\subsection{Case Study: A Top-Down Parser}
+% Implement FIRST, FOLLOW, and the parser on a simple grammar.
+
+\section{Smalltalk}
+\subsection{The Type Model}
+% Begin with the type model because Smalltalk is very type pure.
+% Give a brief and intuitive primer on object oriented programming.
+% Give a primer on dynamic typing. I should probably do some reading
+% on the implementation of Smalltalk and finish Part 1 of the book.
+
+\subsection{Control Flow}
+% Describe how to use methods to do conditionals and iteration.
+
+\subsection{Case Study: A Simple Text Adventure Interpreter}
+% Describe the type model of the interactive fiction world
+
+\subsection{The Parser Revisited}
+% Adapt the SETL top-down parser into a more object-oriented style}
+
+\section{Agda}
+
+\subsection{Ordinary Types}
+% Describe Haskell-style types using the Agda syntax.}
+
+\subsection{Dependent Types}
+% Do some example of a dependent type with a couple functions 
+% ver it
+
+\subsection{Pattern Matching Heaven}
+% Show the mechanics of Agda's neat pattern matching system}
+
+\subsection{Case Study: A Lambda Expression Evaluator}
+% Implement a lambda expression evaluator using a type that depends
+% on the number of free variables?
+
+\subsection{The Parser a Final Time}
+% Implement the parser again, this time using dependent types}
+
+\section{Summary and Final Comparison}
+% Offer final thoughts about the advantages and disadvantages
+% of the languaes, and speculate how these advantages could be combined.
+
+\end{document}

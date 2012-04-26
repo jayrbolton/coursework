@@ -1,0 +1,8 @@
+
+match([X], YS):- var(X), X=YS.
+match([X|[Y|XS]], YS):- var(X), not(var(Y)), prefix(X, Y, YS, RYS), match(XS, RYS).
+match([X|XS], [X|YS]):- not(var(X)), match(XS,YS).
+
+prefix([], Z, [Z|YS], YS).
+prefix(X, Z, [Y|YS], RYS):- Y \= Z, X=[Y|Z1], prefix(Z1, Z, YS, RYS).
+

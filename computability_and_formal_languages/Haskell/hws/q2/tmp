@@ -1,0 +1,22 @@
+Assignment 6 - State Monad Programming
+
+1. Code a Haskell program that computes the nth Fibonacci number in a way that
+circumvents the redundant recursive calls in a simple recursive Fibonacci
+program. Do this without monads for this step. Note that there are many ways to
+do this. Think about using lazy infinite lists as one of the simplest.
+
+2. Now code the Fibonacci program as a monadic program in Haskell that
+corresponds to an imperative program that you would code with a while loop. Use
+the State monad, either your's or the built-in state monad. Note that we have a
+CliteF program that you can model your implementation on if you want. Hint:
+code that program as a working Java or C program and then translate it to a
+Haskell Monadic program. Use the GCD lecture example program as a guide.
+
+3. Write a functional program in a non-monadic style that both sorts and keeps
+track of the count of the number of comparisons that have occurred in the
+program. You can do a heapSort, mergeSort, quickSort, or insertionSort. But
+whichever sort you choose, you must accumlate the number of comparisons that
+have occurred along with the sorted list.
+
+4. Now write a monadic version of your sort program that keeps track of the
+number of comparisons as an effect hidden by your sorting monad.

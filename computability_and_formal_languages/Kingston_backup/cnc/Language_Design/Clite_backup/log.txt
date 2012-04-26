@@ -1,0 +1,230 @@
+Compile log for test1.cl
+
+Abstract Syntax Tree:
+Program
+  Declarations
+    Declaration
+      Type int
+      Value a
+    Declaration
+      Type int
+      Value x
+    Declaration
+      Type int
+      Value y
+    Declaration
+      Type int
+      Value b
+    Declaration
+      Type bool
+      Value boo
+    Declaration
+      Type float
+      Value f
+    Declaration
+      Type float
+      Value z
+  Statements
+    Assignment
+      Target a
+      Source 
+        Value 0
+    Assignment
+      Target b
+      Source 
+        Value 44
+    Assignment
+      Target a
+      Source 
+        Binary
+          Operator +
+          First term
+            Variable b
+          Second term
+            Variable b
+    Assignment
+      Target z
+      Source 
+        Value 3.3
+    Assignment
+      Target f
+      Source 
+        Binary
+          Operator -
+          Variable z
+    Assignment
+      Target x
+      Source 
+        Binary
+          Operator +
+          First term
+            Value 4
+          Second term
+            Value 6
+    Assignment
+      Target boo
+      Source 
+        Value true
+    Conditional
+      Expression
+        Binary
+          Operator >
+          First term
+            Variable a
+          Second term
+            Value 44
+      Statement
+        Assignment
+          Target boo
+          Source 
+            Value true
+
+
+    Conditional
+      Expression
+        Variable boo
+      Statement
+        Assignment
+          Target a
+          Source 
+            Binary
+              Operator +
+              First term
+                Variable a
+              Second term
+                Value 1
+        Conditional
+          Expression
+            Binary
+              Operator >
+              First term
+                Variable a
+              Second term
+                Value 73282
+          Statement
+            Assignment
+              Target boo
+              Source 
+                Value false
+
+
+
+
+
+
+Type Map:
+{f=float, boo=bool, b=int, a=int, z=float, y=int, x=int}
+Type-transformed AST:
+Program
+  Declarations
+    Declaration
+      Type int
+      Value a
+    Declaration
+      Type int
+      Value x
+    Declaration
+      Type int
+      Value y
+    Declaration
+      Type int
+      Value b
+    Declaration
+      Type bool
+      Value boo
+    Declaration
+      Type float
+      Value f
+    Declaration
+      Type float
+      Value z
+  Statements
+    Assignment
+      Target a
+      Source 
+        Value 0
+    Assignment
+      Target b
+      Source 
+        Value 44
+    Assignment
+      Target a
+      Source 
+        Binary
+          Operator INT+
+          First term
+            Variable b
+          Second term
+            Variable b
+    Assignment
+      Target z
+      Source 
+        Value 3.3
+    Assignment
+      Target f
+      Source 
+        Binary
+          Operator FLOAT-
+          Variable z
+    Assignment
+      Target x
+      Source 
+        Binary
+          Operator INT+
+          First term
+            Value 4
+          Second term
+            Value 6
+    Assignment
+      Target boo
+      Source 
+        Value true
+    Conditional
+      Expression
+        Binary
+          Operator INT>
+          First term
+            Variable a
+          Second term
+            Value 44
+      Statement
+        Assignment
+          Target boo
+          Source 
+            Value true
+
+
+    Conditional
+      Expression
+        Variable boo
+      Statement
+        Assignment
+          Target a
+          Source 
+            Binary
+              Operator INT+
+              First term
+                Variable a
+              Second term
+                Value 1
+        Conditional
+          Expression
+            Binary
+              Operator INT>
+              First term
+                Variable a
+              Second term
+                Value 73282
+          Statement
+            Assignment
+              Target boo
+              Source 
+                Value false
+
+
+
+
+
+
+Final State:
+{f=-3.3, boo=true, b=44, a=89, z=3.3, y=undef, x=10}

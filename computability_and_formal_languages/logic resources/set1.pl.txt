@@ -1,0 +1,21 @@
+app([], X, X).
+app([X|XS], Y, [X|YS]):- app(XS,Y, YS).
+
+
+un([], X, X).
+un([X|XS], Y, YS):- mem(X,Y), un(XS,Y,YS).
+un([X|XS], Y, [X|YS]):-not(mem(X,Y)), un(XS,Y,YS).
+
+
+inter([], _, []).
+inter([X|XS], Y, [X|YS]):- mem(X,Y), inter(XS,Y,YS).
+inter([X|XS], Y, YS):- not(mem(X,Y)), inter(XS, Y, YS).
+
+
+mem(X, [X|_]).
+mem(X, [Y|XS]):- X \= Y, mem(X,XS).
+
+
+setdiff([], _, []).
+setdiff([X|XS], YS, ZS):- mem(X,YS), setdiff(XS,YS, ZS).
+setdiff([X|XS], YS, [X|ZS]):- not(mem(X,YS)), setdiff(XS,YS,ZS).

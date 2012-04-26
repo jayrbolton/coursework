@@ -1,0 +1,39 @@
+<html>
+<head>
+<Title>Graph module using Set-of-edges representation
+  </Title>
+<style type="text/css">
+      BODY {background-color: lightyellow}
+   </style>
+</head>
+
+<body>
+
+<center>
+<h2>Graph module using Set-of-edges representation
+  </h2>
+</center>
+
+Build a GraphSE.hs module that implements a Graph Abstract Data type using
+a Set-of-edges internal representation. Here's a type definition to get
+you started. This represents as a pair of a vertex set and and edge set.
+Assume that you will use this representation to implement both directed
+graphs (di-graphs) and un-directed graphs (graphs). 
+<p>
+> newtype Graph a = Graph (Set a, Set (a,a))
+<p>
+Altogether your will build a Set module (the first part
+of this assignment), a Graph module using the
+Set module (this part of the assignment),
+and a top level GraphAlgsSimple.lhs module or script with some graph
+functions. This part of the lab is to construct just the Graph module.
+<p>
+If you want, you can start with the
+<a href="GraphSE-skel.lhs">GraphSE-skel.lhs skeleton</a>,
+a modified version of the Graph module skeleton given in class. (It is pretty
+rough at the moment.)
+<p>
+Be sure to test your GraphSE module using at least the tests given in the
+skeleton file.
+</body>
+</html>

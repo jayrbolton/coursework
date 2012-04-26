@@ -1,0 +1,2 @@
+* why do the superclasses require null constructors?
+* change java.util.* to java.util.ArrayList for all 

@@ -1,0 +1,44 @@
+$ J Bolton
+$ Project Euler, problem 18/67
+
+program pe_18_67;
+
+read(Tree);
+
+(while #Tree /= 1)
+  tree(2)(1) +:= tree(2-1)(1);
+  tree(2)(#tree(2)) +:= tree(1)(#tree(1));
+  (for n in [2..#tree(2)-1])
+    tree(2)(n) +:= tree(1)(n) max tree(1)(n-1);
+  end;
+  q fromb tree;
+end;
+
+m := max/ tree(1);
+
+print(m);
+
+$ First version: 
+
+$ Start out at the root node
+Visited := [];
+Visited with:= [n,x,y] := [Tree(1)(1),1,1];
+height := #Tree;
+
+$ 1. Get the maximum of the two adjacent nodes
+$ 2. Rinse and repeat until we've hit the bottom
+
+(while x /= height)
+  x +:= 1;
+  left := [Tree(x)(y), x, y];
+  right := [Tree(x)(y+1), x, y+1];
+  if (left(1) max right(1) = left(1))
+    then Visited with:= left;
+    else Visited with:= right;
+  end if;
+end while;
+
+Path := [n : [n,x,y] in Visited];
+Sum := +/Path;
+
+end program;

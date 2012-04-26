@@ -1,0 +1,3 @@
+* Crazy pattern matching capabilities (read more about this)
+* Overlapping constructor names
+* Defining type signatures with types that depend on values

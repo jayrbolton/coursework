@@ -1,0 +1,33 @@
+interface asn4 where {
+import Prelude;
+hiding data Prelude.Int;
+hiding data Prelude.Success;
+data Card = Card Rank Suit;
+data Rank
+  = Ace
+  | Two
+  | Three
+  | Four
+  | Five
+  | Six
+  | Seven
+  | Eight
+  | Nine
+  | Jack
+  | Queen
+  | King;
+data Suit = Hearts | Diamonds | Clubs | Spades;
+data Task = Cut | Polish;
+data Worker = Alex | Bert | Chuck;
+assign :: Task -> Worker;
+cuts :: Worker -> Prelude.Success;
+fh :: [Card] -> (Rank, Rank);
+insert :: a -> [a] -> [a];
+permute :: [a] -> [[a]];
+permute' :: [a] -> [[a]];
+polishes :: Worker -> Prelude.Success;
+split :: Prelude.Int -> [a] -> ([a], [a]);
+splitAll :: [a] -> [([a], [a])];
+suffixes :: [a] -> [[a]];
+suffixes' :: [a] -> [a]
+}

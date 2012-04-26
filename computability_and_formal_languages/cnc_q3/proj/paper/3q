@@ -1,0 +1,51 @@
+\documentclass[11pt]{article}
+
+\author{J Bolton}
+\title{A Comparitive Exploration of Three Unusual Languages}
+\frenchspacing
+\pagestyle{headings}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\begin{abstract}
+    This paper provides an introductory tutorial to three contrasting and
+    unusual programming languages: Smalltalk, SETL, and Agda. Some prior
+    experience in programming is assumed. The languages are highly abstract yet
+    represent very different perspectives: the object oriented paradigm,
+    functional programming with dependent types, and set-based imperative
+    programming. Working with each of them at the same will be an invigorating
+    brain exercise and will hopefully provide some unique insights into the
+    strengths and weaknesses of each style.
+\end{abstract}
+
+\section{Introduction}
+    Agda represents the extreme end of functional type theory based on the
+    elegant syntax of Haskell. The language will introduce the very
+    interesting world of dependent types and all the expressiveness that comes
+    with them. Smalltalk is a much older language known for its pure
+    implementation of the object oriented type system, made famous by such
+    extremely popular languages as C++ and Java. Finally, SETL is the oldest of 
+    the three languages whose main feature is its flexible, built-in support 
+    for creating and manipulating sets and tuples.
+
+    We will start out with a quick overview of the syntax of each language,
+    starting with the least difficult, SETL, and progressing to the most
+    difficult, Agda. This paper will emphasize a discussion of the typing
+    model of each language.
+
+    We will then examine three programs chosen to showcase the advantages of
+    each of the languages. We will follow this with a larger, single program
+    written in all three languages to provide a direct, contrasting example
+    among all three styles.  The larger program, a top down parser, was chosen
+    in the hope that none of the three paradigms would have a very big
+    advantage in its implementation over the others.
+    
+\section{Basic SETL Syntax}
+\section{Basic Smalltalk Syntax}
+\section{Basic Agda Syntax}
+
+\end{document}

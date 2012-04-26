@@ -1,0 +1,44 @@
+## Peter Lynn and Jay Bolton.
+## Navigation program for scribbler robot.
+## Day 2 of robotics with Richard Weiss.
+
+threshold = 800
+speed = .75
+
+def cruise():
+	return True, 0, speed
+
+def avoid():
+	obstacle = getObstacle()
+	if obstacle[1] < threshold:
+		return False, 0, 0
+	elif obstacle[1] > 1000 or getStall == 1:
+		rear = getIR()
+		if rear[0] or rear[1]:
+			return True, 0, speed
+		else:
+			return True, -speed, 0
+	elif obstacle[0] < obstacle[2]-100:
+		return True, speed, speed
+	elif obstacle[0]-100 > obstacle[2]:
+		return True, speed, -speed
+
+	return True, speed, 0
+	
+# move as far as possible in a single direction
+# while avoiding obstacles
+# def travel():
+
+behaviors = [avoid, cruise]
+
+def arbitrate():
+	for behavior in behaviors:
+		output, T, R = behavior()
+		if output:
+			 return T, R
+		
+def main():
+	while True:
+		T, R = arbitrate()
+		move(T, R)
+main()

@@ -1,0 +1,2 @@
+\beamer@endinputifotherversion {3.07pt}
+\beamer@sectionintoc {1}{This is a section}{2}{0}{1}

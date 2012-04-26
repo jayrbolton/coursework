@@ -1,0 +1,7 @@
+//J Bolton
+//Invoice program:
+//
+//    * input customer name, cost of services, cost of product
+//    * add sales tax, 5% of product, compute total
+//    * print header, services, product, total
+

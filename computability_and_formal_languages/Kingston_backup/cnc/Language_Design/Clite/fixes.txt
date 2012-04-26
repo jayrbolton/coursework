@@ -1,0 +1,14 @@
+Parser
+* Make sure that braces denoting a block without a loop/conditional works
+
+Type Transformer
+* Make sure the boolean operators && and || work inside loops and conditionals
+* Make sure INT_NEG and FLOAT_NEG work
+* Make sure adding two characters works (optional?)
+* Make sure there are exceptions for bool+int, float+char, and others
+* Make sure that int = int + float creates a type error (if you are only doing widening)
+* (related to above) If you're doing implicit casting, make sure typeOf is returning what it should
+
+Semantics
+* Make sure the operators on boolean values work
+?
