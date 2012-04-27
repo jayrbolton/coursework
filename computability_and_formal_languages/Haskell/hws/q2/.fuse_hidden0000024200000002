@@ -1,0 +1,69 @@
+-- J Bolton
+-- Assignment 2, quarter 2
+
+import Prelude hiding (Functor)
+import Data.Monoid
+
+class Functor f where
+  fmap :: (a -> b) -> f a -> f b
+
+class Functor f => Pointed f where
+  pure :: a -> f a
+
+class Functor f => Applicative f where
+  (<*>) :: f (a -> b) -> f a -> f b
+
+instance Functor ((->) r) where
+  fmap g h = (\x -> g (h x))
+
+instance Pointed ((->) r) where
+  pure x = (\_ -> x)
+
+instance Applicative ((->) r) where
+  g <*> h = \x -> g x (h x)
+
+instance Functor Maybe where
+  fmap g (Just x) = Just (g x)
+  fmap g Nothing  = Nothing
+
+instance Pointed Maybe where
+  pure = Just
+
+instance Applicative Maybe where
+  (Just g) <*> (Just x) = Just (g x)
+  _ <*> _               = Nothing
+
+instance Functor (Either a) where
+  fmap _ (Left x) = Left x
+  fmap g (Right x) = Right (g x)
+
+instance Pointed (Either a) where
+  pure = Right
+
+instance Applicative (Either a) where
+  (Right g) <*> (Right x) = Right (g x)
+  _ <*> (Left x) = Left x
+  (Left x) <*> _ = Left x
+
+instance Functor ((,) a) where
+  fmap g (x,y) = (x, (g y))
+
+data Exp = Var String | Val Int | Add Exp Exp 	deriving (Show)
+data Env = Env [(String, Int)]			deriving (Show)
+
+env = Env [("x", 1), ("y",2)]
+expr = Add (Add (Var "x") (Var "y")) (Val 4) 
+
+fetch :: String -> Env -> Maybe Int
+fetch x (Env xs) = lookup x xs
+
+eval :: Exp -> Env -> Maybe Int
+eval (Var x)   = fetch x
+eval (Val x)   = k $ Just x
+eval (Add x y) = (k $ Just (+)) `s` eval x `s` eval y
+
+k :: a -> Env -> a
+k x _ = x
+
+s :: (Env -> Maybe (a -> b)) -> (Env -> a) -> (Env -> b)
+s ef es e = (ef e) (es e)

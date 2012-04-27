@@ -1,0 +1,44 @@
+J Bolton
+Quesions to answer about the "What to Know about Typing" paper.
+
+What is the principle thesis of this paper?
+Framing the type system debate in terms of the upper and lower bound programs
+that are defined by static and dynamic type checking. 
+
+What is a type?
+A type is a domain labeling that is used by the type system to prove some
+property of the program's behavior.
+
+What is a static type?
+A static type is a type that is determined and known before the program is
+executed.
+
+What is a dynamic Type?
+A dynamic type is a type that is determined and known after the execution of
+the program has begun.
+
+What is testing in relation to typing?
+Dynamic typing systems emphasize testing because they have no way of formally
+proving program correctness before the program is run, so the best that can be
+done is thorough testing.
+
+What are proofs of correctness in relation to types?
+Static typing allows us to check the type correctness of a program before it is
+ever run, which is effectively a proof of the program's correctness in regard
+to its types
+
+What does he mean by "upper bound"? "Lower bound"?
+It could be said to refer to the same concept found in the diagram at the
+beginning of the schwartzbach paper.
+
+What does "Sound type system" mean?
+Soundness in a type system means that every possible proof in the system has a
+correspondence into semantics.
+
+What does "type safe" mean?
+Type safety means that the only operations that we can perform on some data are
+the operations sanctioned by that data.
+
+what kind of properties can I only use dynamic typing
+Reflection, metaprogramming, dynamic message dispatch, mock objects, rapid
+prototyping

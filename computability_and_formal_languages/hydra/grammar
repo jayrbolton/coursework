@@ -1,0 +1,8 @@
+ignore "[ \t\n\r]"      --Whitespace
+ignore "--.*\n"         --Single line comment
+ignore "{\*.*\*}"       --Multi-line comment
+
+Program -> "main" "{" Statement "}"
+Statement -> Identifier ":=" Value
+Identifier -> "[a-zA-z]+"
+Value -> "[0-9]+"

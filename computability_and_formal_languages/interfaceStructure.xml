@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--Created by jFAST v1.2-->
+<!--Contains the Menu structure of jFAST-->
+<interfaceStructure>
+<MenuBar>
+<name>Editor Menu</name>
+<menu>
+<title>File</title>
+<mnemonic>70</mnemonic>
+<item>
+<text>New</text>
+<accelerator>ctrl pressed N</accelerator>
+<mnemonic>78</mnemonic>
+</item>
+<item>
+<text>Open</text>
+<accelerator>ctrl pressed O</accelerator>
+<mnemonic>79</mnemonic>
+</item>
+<item>
+<text>Save Automata</text>
+<accelerator>ctrl pressed S</accelerator>
+<mnemonic>83</mnemonic>
+</item>
+<item>
+<text>Save Automata as...</text>
+<accelerator>ctrl pressed A</accelerator>
+<mnemonic>65</mnemonic>
+</item>
+<item>
+<text>Save as JPEG</text>
+<accelerator>ctrl pressed J</accelerator>
+<mnemonic>74</mnemonic>
+</item>
+<item>
+<text>Run</text>
+<accelerator>ctrl pressed R</accelerator>
+<mnemonic>82</mnemonic>
+</item>
+<separator/>
+<item>
+<text>Print</text>
+<accelerator>ctrl pressed P</accelerator>
+<mnemonic>80</mnemonic>
+</item>
+<item>
+<text>Exit</text>
+<accelerator>ctrl pressed X</accelerator>
+<mnemonic>88</mnemonic>
+</item>
+</menu>
+<menu>
+<title>View</title>
+<mnemonic>86</mnemonic>
+<item>
+<text>Viewing Properties</text>
+<accelerator>ctrl pressed W</accelerator>
+<mnemonic>87</mnemonic>
+</item>
+</menu>
+<menu>
+<title>Automata</title>
+<mnemonic>65</mnemonic>
+<item>
+<text>Test On Input</text>
+<accelerator>ctrl pressed Z</accelerator>
+<mnemonic>90</mnemonic>
+</item>
+<item>
+<text>Mathematical Definition</text>
+<accelerator>ctrl pressed T</accelerator>
+<mnemonic>84</mnemonic>
+</item>
+<item>
+<text>Center Automaton</text>
+<accelerator>ctrl pressed C</accelerator>
+<mnemonic>67</mnemonic>
+</item>
+<item>
+<text>Refresh Automaton</text>
+<accelerator>ctrl pressed Q</accelerator>
+<mnemonic>81</mnemonic>
+</item>
+</menu>
+<menu>
+<title>Help</title>
+<mnemonic>72</mnemonic>
+<item>
+<text>Help Manual</text>
+<accelerator>ctrl pressed M</accelerator>
+<mnemonic>77</mnemonic>
+</item>
+<item>
+<text>Tutorials</text>
+<accelerator>ctrl pressed T</accelerator>
+<mnemonic>84</mnemonic>
+</item>
+<separator/>
+<item>
+<text>About jFAST</text>
+<accelerator>ctrl pressed B</accelerator>
+<mnemonic>66</mnemonic>
+</item>
+</menu>
+</MenuBar>
+</interfaceStructure>

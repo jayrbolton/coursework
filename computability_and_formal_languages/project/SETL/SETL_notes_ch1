@@ -1,0 +1,385 @@
+$ J R Bolton
+$ Notes on learning SETL from the book by Dewar
+
+$ Chapter one samples. This is a comment.
+
+$ Assignment statements:
+
+abc := 4.56;
+
+$ Printing: 
+
+print(abc);
+
+$ Variable data types seem to be able to change dynamically. 
+
+abc := 4;
+
+print(abc);
+
+$ While the book allows for constants, my compiler throws a syntax error when
+$ there's no assignment:
+
+$ 534345 $ integer
+$ 3.14159 $ real
+$ 0.11E+10 $ real
+$ 'ain"t' $ string with single quote
+$ '' $ null string
+
+$ Arithmetic operators are pretty much just like all other languages. 
+$ Integer division is 'div' while real division is '/'
+
+$ String concatenation
+
+abc := 'abc' + 'abc';
+
+def := ' acta ' + 'non ' + 'verba';
+
+print(abc+def);
+
+$ +:= operates like += in C
+
+abc := 3.5;
+abc +:= .5;
+
+$ Assignment returns a value.
+
+abc := 3;
+b := abc +:= 2;
+print(b);
+
+$ Unlike the book, assignment inside expressions appears to require parens.
+
+abc := 3 * (b := 2+2);
+print(abc);
+
+$ Type conversion, integers:
+
+abc := str -45; $ int to string
+abc := float 4.5; $ int to float/real
+strtype := type abc; $ yields a string describing whatever type it is applied to
+
+$ Real type conversion and other unary operators:
+
+abc := ceil 4.5; $ ceiling
+abc := floor 4.5;
+abc := str 4.56; $ float to string
+abc := fix 4.56; $ seems to do the same as floor
+
+$ Very easy substring extraction. This must be a syntax abuse of the parser
+$ itself, unless all values can act as functions?
+$ Format is string(a..b) -- indexing starts at 1, not 0
+$ The compiler seems to detect out of range indexing
+
+abc := 'somnambulist';
+cde := abc(1..4) + '|' + abc(5..8) + '|' + abc(9..12);
+print(cde);
+cde := cde(1..5) + cde(3..6); 
+print(cde); $ works
+
+$ More interesting uses:
+
+print(cde(3..)); $ prints from 3 to end of string
+cde(4..6) := 'replacing elements 4 through 6 with this large string';
+print(cde);
+
+$ A an undefined integer is called 'om' for omega
+
+undefined := om; $ nil is undefined
+
+$ 1.4. Tuples!
+
+$ Tuples are heterogenous.
+
+t := [324, 23, 'not an int', 4534.334, [1,2,3]];
+print(t);
+
+$ Alternative syntax:
+
+t := (/ 1,2,3 /);
+
+$ Just like strings, we can easily extract sub-tuples:
+$ (Remember, it's 1-indexed)
+
+t(2) := 2342;
+print(t);
+print(t(2..));
+
+$ We can assign out of range values. Intermediate values are 'om'.
+$ Very strange but pretty cool.
+
+t(9) := 1;
+print(t); $ om is printed as *
+
+$ Just like strings, tuples are concatenated with +
+
+$ Cardinality with the '#' unary operator:
+
+card := #t;
+print(card); $ neat!
+
+$ Another subtuple assignment example. This seems quite powerful
+
+t(4..) := [];    $ remove all elements after the third
+print(t);
+
+$ Generating sequences:
+
+seq1 := [1..10];
+seq2 := [0,2..10];
+seq3 := [10,9..1];
+
+$ Making 1-to-1 assignments between two tuples
+
+abc := [1,2,3];
+[x,y,z] := abc;
+print(str x + str y + str z);
+
+$ The 'with' operator adds a value to the end of a list
+
+seq2 := seq1 with 11;
+seq1 with:= 99; $ This syntax is apparently in the same spirit as +:=
+                $ However, 'with :=' also appears to work
+print(seq2); print(seq1);
+
+$ the 'fromb' infix operator removes an element from the beginning of a tuple
+$ and assigns it to the left variable. This seems to be a double assignment
+
+b fromb seq2; $ b = 1, seq2 = rest
+c := [];
+b fromb c;  $ b = om, a = [] 
+print(b); print(c);
+
+$ Using with/fromb/frome for queues and stacks. This is neat!
+
+q := []; $ Initialize queue
+q with:= 9;
+q with:= 10;
+q with:= 11;
+e fromb q;
+e fromb q;
+e fromb q; $ e = 11, q = []
+
+$ Sets! Yay!!
+
+$ Also heterogenous
+
+s := {1,2,3,'abc'};
+
+$ No duplicates!
+
+s := {2,2,2,2,2,2};
+print(s);
+
+$ Alternative syntax!
+
+s := <<1,2,3>>;
+
+$ + is set union!!!
+
+s := {1,2,3,4,5} + {3,4,5,6,7};
+print(s);
+
+$ - is set difference! 
+
+s := {1..5} - {3..7};
+print(s);
+
+$ * is set intersection
+
+s := {1..5} * {3..7};
+print(s);
+
+$ with and less add and remove elements
+$ why not just use + and - for everything?
+
+s := {1..10};
+s with:= 99;
+s less:= 10;
+print(s);
+
+$ from nondeterminstically removes a particular element and assigns it to the
+$ left value. arb does the same but without the left side assignment. 
+
+a := {1..10};
+b := arb a;
+print(b);
+c from a;
+print(c);
+
+$ Sets cannot be indexed like tuples. But, if you create a set of pairs (a
+$ map), then you can index based on the first value. Neat!
+
+todolist := {[1,'pet cat'],[2,'wash cat'],[3,'feed cat'],[4,'walk cat']};
+print(todolist);
+print(todolist(2));
+
+$ The above can also be used to add new pairs to the set:
+
+todolist(5) := 'pet cat';
+
+$ What about pairs with the same key?
+
+eek := {[1,'hi'],[1,'there'],[1,'pal']};
+print(eek(1)); $ this prints 'om'/*. Strange
+
+$ the operation set{key} will return the set of all values with that key.
+$ Problem solved!
+
+print(eek{1}); $ prints 'hi pal there'.
+$ what about:
+print(eek{9999}); $ prints {}
+$ and what about:
+print(eek(9999)); $ prints * 
+
+$ Apparently all sets are sorted. Observe:
+
+sort := {1,54,2,76,3,1,74,2};
+print(sort);
+
+$ domain and range return the keys and values (respectively) of a map
+$ What applications could this have on type theory?
+
+dom := domain todolist;
+ran := range todolist;
+print(dom); print(ran);
+
+$ all three of these will remove elements in a map
+
+todolist lessf:= 1;
+todolist(2) := om;
+todolist{3} := {};
+print(todolist);
+
+$ Conditionals looks like ada. They must end with end; or end if;.
+$ One neat thing is that they can end with 'end if tokens;' where tokens
+$ exactly matches the test expression at the beginning.
+
+a := 2.99; b:= 2.999;
+if a < b
+    then 
+    c := 2.9999;
+    else
+    c := 2.9;
+    end if a< b;
+print(c);
+
+$ Boolean ops look just like ada. Equality is '=', and its negation is /=
+$ 'in' is the same as 'elem' in haskell
+$ subset and incl (superset) do what they look like they do
+$ Case statements also look standard. 
+$ 'case of' will simply test a list of boolean expressions
+$ 'case [expression] of' will test a list of possible values
+
+$ Loops 
+$ 'continue;' will go back to the top of the loop
+$ 'quit;' is like break
+$ as with 'end if [tokens]', we have 'end loop [tokens]'
+
+$ Loops don't take a boolean expression, they take an iterator
+$ I really like this. It must come from ada.
+
+loop for x in [1,2,3,4,5] do
+    print('bananas!');
+end loop for x in [1,2,3,4,5];
+
+$ Alternate syntactic sugar:
+
+(for x in [34,7,3,34,8])
+    print(x);
+end;
+
+$ Sweet! This style of looping is so much better than C
+$ You can also loop through sets and maps
+$ Looping through a set (like for i in {1..100}) is going to assing i
+$ non-deterministically. That is so cool.
+
+$ We can add a vert. bar in an iterator, meaning 'where' or 'such that'. Double
+$ sweet. 
+
+(for i in {1..10} | even i) 
+    print(i);
+end;
+
+$ We can do silly normal C-style loops with 'loop while [test] do' or 'loop
+$ until [test] do' with the syntactic sugar being (while test) and (until test)
+
+$ We can put iterators inside set comprehension! Now we're getting into the
+$ really sweet stuff.
+
+sqs := { [n,n**2] : n in {1..100}};    $ map of squares 
+
+$ Man oh man oh man, I wish SETL had lazy evaluation
+$ I imagine some beautiful language with dependent types and set construction
+$ and parametric polymophism and subtyping and lazy evaluation
+
+$ {a in [x..z]} is syntactic sugar for {a : a in x..z]}
+
+$ iterators can also generate tuples in the same way
+
+$ exists and forall are interesting. They are a special kind of assignment.
+$ exists x in set | test
+$ assigns x to the first element in 'set' that satisfies test
+$ forall x in set | test
+$ Can also be used in conditionals, where failure means no assignment.
+
+$ Fold! OMG! In SETL it's known as a 'compound operator'. 
+$ '+/ set' is just like foldr1 in haskell, using the first elem as the accum
+$ '99 +/ set' is just like foldr (+) 99 set in haskell
+
+$ Input/output
+
+input := {};
+loop for x in [1..3] do
+    read(next);
+    if eof then quit; end;
+    input with:= next;     $ append 'next' to 'input'
+end loop;
+
+loop for x in input do print(x); end;
+
+$ SETL has gotos. Oh no look away!
+
+$ pass; simply does nothing
+
+$ A complete program starts with 'program name;' and ends with 'end program
+$ name;'
+
+$ global declarations can be made with 'var name, name, name...;'
+$ constants have the form 'const name=vlaue, name=value;'
+
+$ Refinements are a control structure that llows code to be labeled and
+$ executed later.
+
+refine;
+
+refine :: 
+    print('gloop');
+    print('glop');
+
+$ a procedure is a function. syntax is 'proc procname(a1,a2..); ... end proc;
+$ procs can return tuples just fine.
+
+f := fac(9);
+print(f);
+
+proc fac(n);
+    if n = 1 then 
+        return 1; 
+    else 
+        return n * fac(n-1); 
+    end if;
+end proc;
+
+$ Like ada, we can do call by reference with the rw and wr tags in front of
+$ parameters
+$ Strangely enough, we can put a '(*)' at the end of the last parameter to
+$ indicate an arbitrary number of arguments and then reference them with
+$ argn(int)
+$ I'm not really liking that. Just use a tuple or set as the argument.
+
+$ To make an operator, do 'op .identifier(arguments)' instead of 'proc
+$ identifier(arguments)'
+$ This of course only works with one or two arguments
+$ Can't specify precedence, it's automatically low
+$ Not rw or wr tags on operator arguments

@@ -1,0 +1,52 @@
+J Bolton
+Exercises from 'Polymorphic Type Inference'
+by Michael I. Schwartzbach
+
+2.1
+let length = fun(l) if null(l) then 0 else length(cdr(l))
+
+3.1
+This rule establishes initial types of values that we know to already be in our
+symbol table. It is the first step in any bottom up inference.
+
+3.2
+Having the two expressions e1 and e2 derive after already deriving some
+metavariable for f allows us to do recursion. If it was just e1: s ; e2 : t,
+then the algorithm would loop infinitely. With the above definition for length,
+for example, we can infer the type of e1 immediately by having f : s already
+ our type map.
+
+3.3
+Identity (bottom left)
+Application
+succ
+Abstraction (fun)
+Abstraction (fun)
+
+4.1
+Preorder tree traversal is when the node is visited before the children are
+visited left to right. Preorder typing that the author describes is when we
+have a type variable S that is substituted for a type scheme (eg, A -> B). The
+tree might then look like:
+S
+    Arrow
+        A
+        B
+Where we traverse S, then Arrow, then A and B
+
+4.2
+It seems like, according to his above definition, any substition can create a
+preordering, so I'm going to assume he's just asking which of the type schemes
+are substitutable. The single variables alpha and beta can be unified with any
+of the others. The third scheme can unify with the forth or the fifth.
+2/3
+
+4.3
+The substituted scheme has more constraints on its domain, while the
+substituting scheme is more general. This is the very reason that they are
+unifiable. 
+
+4.4
+It's ambiguous because we haven't specified what exact type we're talking
+about. It's a way to talk about generic types without actually implementing
+them.

@@ -1,0 +1,22 @@
+int main() {
+    while (b && c) { 
+        if (b > c) {
+
+        }
+        else 
+            c = false;
+    }
+    if (a > b) { 
+        if (b > c) {
+            c = true;        
+        }
+    }
+    {
+
+    }
+    else { }
+    if (a && b) { }
+    else { }
+    while ((b || d) && (!q)) { }
+
+}

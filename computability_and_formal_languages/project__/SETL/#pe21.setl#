@@ -1,0 +1,48 @@
+$ J Bolton
+$ Project Euler, problem 21
+$ 
+$ Let d(n) be defined as the sum of proper divisors of n (numbers less
+$ than n which divide evenly into n).
+$ 
+$ If d(a) = b and d(b) = a, where a ≠ b, then a and b are an amicable
+$ pair and each of a and b are called amicable numbers.
+$ 
+$ For example, the proper divisors of 220 are 1, 2, 4, 5, 10, 11, 20,
+$ 22, 44, 55 and 110; therefore d(220) = 284. The proper divisors of 284
+$ are 1, 2, 4, 71 and 142; so d(284) = 220.
+$ 
+$ Evaluate the sum of all the amicable numbers under 10000.
+
+program pe21;
+as := amicables(10000);
+sum := 0 +/ as;
+print(sum);
+
+proc properdivisors(n);
+     return {x in [1..n div 2] | n mod x = 0};
+end proc;
+
+proc sieve(n);
+     return 2 + {x in [3,5..n] | forall
+
+primesTo n = 2 : eratos [3,5..n] where
+     eratos []       = []
+     eratos (p : xs) = p : eratos (xs `minus` [p*p, p*p+2*p..n])
+
+3
+[9,15,21
+
+$ This is the function described in the statement of the problem
+proc d(n); 
+     return 0 +/properdivisors(n);
+end proc;
+
+$ Return the set of all amicable pairs under n
+proc amicables(n); 
+     return {a+b : a in [1..n], b in [d(a)] | a > b and d(b) = a}; 
+end proc;   
+
+$ naive solution:
+$ return {a,b : a in [1..n], b in [1..n] | a /= b and d(a) = b and d(b) = a};
+
+end program;

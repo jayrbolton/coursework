@@ -1,0 +1,43 @@
+
+BNF Grammar of BNF Grammar:
+
+Grammar -> Assignments Productions
+Assignments -> Assignment Assignments | .\
+Assignment -> 'ignore :=' Regexp | 'comment :=' Regexp
+Productions -> Production Productions
+Production -> Id '->' RHS
+RHS -> '|' Deriv | Deriv
+Deriv -> Id Deriv | Word Deriv | Regex Deriv | Id | Word | Regex
+
+BNF Grammar Parsing algorithm:
+
+Lexemes = {Identifier, Word, Regex, Arrow, LeftBrace, RightBrace, LeftBracket, RightBracket, LeftParent, RightParen, Or, Star, Plus, Assign}
+
+lexGrammar : String -> {Lexeme}
+
+lexGrammar = 
+
+do {
+    get next ch;
+    if ch is alpha,
+        return new Identifier(getId)
+    else if ch is single quote,
+        return new Word(getWord)
+    else if ch is double quote,
+        return new Regex(getRegex)
+    else if ch is '-',
+        get next ch;
+        if ch is '>',
+            return Arrow
+        else error;
+    else if ch is '{'
+        return LeftBrace;
+    else if ch is other meta character,
+        return that type;
+    else if ch is '='
+        get next ch
+        if ch is '='
+    
+        
+
+} while (ch != '$')  // end of stream

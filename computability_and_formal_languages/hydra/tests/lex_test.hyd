@@ -1,0 +1,5 @@
+-- Test 1!
+main : (x:Bool, y:Bool, z:Bool) -> Bool = x || y && z
+
+Int Bool Char Float + - * / ** % -> : := > < >= <= != == = && || ! {
+} [ ] ( ) ; , 2312 True

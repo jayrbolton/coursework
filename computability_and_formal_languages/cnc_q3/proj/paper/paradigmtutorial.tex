@@ -1,0 +1,183 @@
+\documentclass[11pt]{article}
+
+\author{J Bolton}
+\title{A Comparitive Exploration of Three Unusual Languages}
+\frenchspacing
+\pagestyle{headings}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\begin{abstract}
+    This paper provides an introductory tutorial to three contrasting and
+    unusual programming languages: Smalltalk, SETL, and Agda. Some prior
+    experience in programming is assumed. The languages are highly abstract yet
+    represent very different perspectives: the object oriented paradigm,
+    functional programming with dependent types, and set-based imperative
+    programming. Working with each of them at the same time will be an
+    invigorating brain exercise and will hopefully provide some unique insights
+    into the strengths and weaknesses of each style.
+\end{abstract}
+
+\section{Introduction}
+    Agda represents the extreme end of functional type theory based on the
+    elegant syntax of Haskell. The language will introduce the very
+    interesting world of dependent types and all the expressiveness that comes
+    with them. Smalltalk is a much older language known for its pure
+    implementation of the object oriented type system, made famous by such
+    extremely popular languages as C++ and Java. Finally, SETL is the oldest of 
+    the three languages whose main feature is its flexible, built-in support 
+    for creating and manipulating sets and tuples.
+
+    We will start out with a very quick overview of each language,
+    starting with the least difficult, SETL, and progressing to the most
+    difficult, Agda. This paper will emphasize a discussion of the typing
+    model of each language.
+
+    We will then examine three programs chosen to showcase the advantages of
+    each of the languages. We will follow this with a larger, single program
+    (an LL parser generator) written in all three languages to provide a
+    direct, contrasting example among all three styles.  The larger program, a
+    top down parser, was chosen in the hope that none of the three paradigms
+    would have a very big advantage in its implementation over the others 
+
+\section{SETL}
+
+\subsection{Squishing Trees of Numbers}
+
+SETL uses an imperative style of programming similar to the classic language
+Ada. The language has assignments, loops, conditionals, and arithmetic that
+shouldn't look all that foreign to those familiar with other imperative
+languages. 
+
+We will examine the language by walking through a couple problems that seem
+to particularly suit its style. We will end by examining a general problem
+that we will also implement in Smalltalk and Agda later on. 
+
+The first of our problems comes from the puzzle website called Project
+Euler. It involves finding a maximal path through a large tree of random
+numbers. These aren't quite binary trees, but more like lattices, where every
+child node is shared to the left and right. This is the statement of the problem
+from the website:
+
+\begin{quote}
+By starting at the top of the triangle below and moving to adjacent numbers on
+the row below, the maximum total from top to bottom is 23.
+
+\begin{verbatim}
+   3
+  7 4
+ 2 4 6
+8 5 9 3
+\end{verbatim}
+
+That is, 3 + 7 + 4 + 9 = 23.
+
+Find the maximum total from top to bottom in [a triangle with 100 levels].
+\end{quote}
+
+This problem is made simpler by the fact that we only need to find the maximum
+sum, and we don't have to list the path. 
+
+The strategy is to select the second highest level and `collapse' each node by
+finding the largest adjacent node above it. Eventually, we will produce a
+single list consisting of the bottom row where each node is the maximum sum of
+some path that led to it. For example:
+
+\begin{verbatim}
+   3
+  7 4
+ 2 4 6
+8 5 9 3
+First, select the row [7,4], and collapse the top level to make:
+  10 8 
+ 2  4 6
+8  5 9 3
+Now select the row [2,4,6] and collapse it with the top level again. 
+In the case of the middle node, 4, choose its maximum adjacent node (10).
+ 12  14 14 
+8  5   9  3
+A final time:
+20 19 23 17
+Now, we simply need to fold the two-ary max function over this final list to
+get our answer, which is 23.
+\end{verbatim}
+
+Let's translate this to SETL. Our first step is to get our tree into 
+the language. We can use SETL's read function, which takes a string of a certain
+format and returns a corresponding data type. For example, if we give it:
+
+\begin{verbatim}
+[[3]
+[7 4]
+[2 4 6]
+[8 5 9 3]]
+\end{verbatim}
+
+We will get a tuple of tuples. In SETL, tuples are represented by brackets and
+can be heterogenous, but ours will contain only numbers.
+
+% Make a table with all the basic operations, their name, their
+% description. I think that's all that's needed.
+
+\subsection{Set Magic}
+
+% This section will hold a tutorial on all of SETL's set, tuple, and
+% map generators and operations. This is the meat of the language.
+
+\subsection{SETL's Type Model}
+
+% I may need to do more work here, reading up on classes and such. 
+% Emphasize the fact that SETL is all about maps. Use the quote from Dewar.
+
+\subsection{Case Study: Climbing Trees}
+
+% Describe, step by step, the project euler problem. Maybe make a
+% more functional implementation of the solution?
+
+\subsection{Case Study: A Top-Down Parser}
+% Implement FIRST, FOLLOW, and the parser on a simple grammar.
+
+\section{Smalltalk}
+\subsection{The Type Model}
+% Begin with the type model because Smalltalk is very type pure.
+% Give a brief and intuitive primer on object oriented programming.
+% Give a primer on dynamic typing. I should probably do some reading
+% on the implementation of Smalltalk and finish Part 1 of the book.
+
+\subsection{Control Flow}
+% Describe how to use methods to do conditionals and iteration.
+
+\subsection{Case Study: A Simple Text Adventure Interpreter}
+% Describe the type model of the interactive fiction world
+
+\subsection{The Parser Revisited}
+% Adapt the SETL top-down parser into a more object-oriented style}
+
+\section{Agda}
+
+\subsection{Ordinary Types}
+% Describe Haskell-style types using the Agda syntax.}
+
+\subsection{Dependent Types}
+% Do some example of a dependent type with a couple functions 
+% ver it
+
+\subsection{Pattern Matching Heaven}
+% Show the mechanics of Agda's neat pattern matching system}
+
+\subsection{Case Study: A Lambda Expression Evaluator}
+% Implement a lambda expression evaluator using a type that depends
+% on the number of free variables?
+
+\subsection{The Parser a Final Time}
+% Implement the parser again, this time using dependent types}
+
+\section{Summary and Final Comparison}
+% Offer final thoughts about the advantages and disadvantages
+% of the languaes, and speculate how these advantages could be combined.
+
+\end{document}

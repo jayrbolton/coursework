@@ -1,0 +1,32 @@
+Player
+  "You are wearing your favorite silver and gold jumpsuit."
+  inventory:
+    hamster, cell phone
+  cell phone:
+    "It's an early model -- a big grey box with a long antenna"
+  hamster:
+    "The little hamster chirps happily"
+  jumpsuit/suit:
+    "Your friends say it's gaudy, but you like it."
+
+Inner Courtyard
+  "The bright inner courtyard is filled with ancient marble statues and
+  surrounded by peeling frescos. The walkways are overgrown with ivy. An exit
+  leads to the south and an open window leads to the west.
+
+  You can hear a frog croaking."
+
+  statue/statues: 
+    "Most of them are chipped and have missing limbs."
+  frog/toad (takeable): 
+    "There is a fat green frog sitting on the shoulder of
+    one of the statues, looking at you."
+
+South Hallway (south of Inner Courtyard)
+  "This is a passage leading west to east. A large oak door opens up to the
+  Inner Courtyard to the north. The purple carpet is worn and faded, scattered
+  with debris."
+
+Master Suite (west of Inner Courtyard)
+  "The master suite, blah blah blah"
+*/

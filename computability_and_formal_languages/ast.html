@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 2.4  (Linux)">
+	<META NAME="CREATED" CONTENT="20110209;11124800">
+	<META NAME="CHANGED" CONTENT="20110209;15163900">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { size: 8.5in 11in; margin: 0.79in }
+		P { margin-bottom: 0.08in }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<P STYLE="margin-bottom: 0in"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=4 STYLE="font-size: 16pt">Concrete
+Syntax</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Over
+the next several weeks, I'm going to try and create my own customized
+programming language based on 'Clite' from the textbook Programming
+Language Design. I will tentatively call the language 'Hydra.' It
+will be a mishmash of imperative and functional concepts, allowing
+the coder to use concepts from either, and will use a pure object
+oriented, table-driven interpreter written in Java. It will not have
+any advanced data structure features such as classes or objects, but
+will have functions, nested functions, and data types. If I get
+encouragement, I will take it further.</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Some
+features:</FONT></FONT></P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>A
+	program is simply any number of statements.</FONT></FONT></P>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Declarations
+	and functions are statements</FONT></FONT></P>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>A
+	function can be purely functional, where it is just an expression,
+	using an equals sign, and no return is required, or it can be more
+	imperative using a block and a return. </FONT></FONT>
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Nested
+	functions are allowed, either using the 'where' below a pure
+	function or by defining them in a statement.</FONT></FONT></P>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>The
+	type syntax is similar to Haskell and real mathematics. Colon
+	indicates a declaration of types, and an arrow indicates a mapping
+	from one set to another. These type declarations are required for
+	functions.</FONT></FONT></P>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>New
+	data types can be declared in a way that is similar to normal
+	declarations. You simply make a constructor with parameters and then
+	specify its type with any identifier. You can make as many
+	constructors as desired, and the types may be recursive.</FONT></FONT></P>
+	<LI><P STYLE="margin-bottom: 0in"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Theoretically
+	I should be able to do partial application, depending on how the
+	semantics is implemented in Java.</FONT></FONT></P>
+</UL>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Here
+is the concrete syntax:</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Program
+-&gt; <B>{ </B><SPAN STYLE="font-weight: medium">Statement </SPAN><B>}</B></FONT></FONT></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Function
+-&gt; Identifier :<B> </B>Parameters -&gt; Type <B>( </B>Block <B>| </B>=
+Expression <B>[ </B>LocalFs <B>] )</B> </FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>LocalFs
+-&gt; where Function <B>{ </B>Function <B>}</B></FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Parameters
+-&gt; <B>[ </B>(Parameter) <B>{</B> -&gt; (Parameter) <B>} ]</B></FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Parameter
+-&gt; Identifier : Type</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Block
+-&gt; { <B>{</B> Statement <B>} </B>}</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Statement
+-&gt; </FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>	;
+| \n | Block | Declaration | Assignment | Conditional | Loop |
+Function</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Assignment
+-&gt; Identifier := Expression <B>( </B>;<B> | </B>\n<B> )</B></FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Conditional
+-&gt; if (Expression) Statement <B>[</B> else Statement <B>]</B></FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Loop
+-&gt; while (Expression) Statement</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Expression
+-&gt; Term <B>{</B> BinOp Term <B>}</B></FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Op
+-&gt; + <B>|</B> - <B>|</B> * <B>|</B> / <B>|</B> % <B>| </B>**</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Term
+-&gt; <B>[</B> UnOp <B>] </B>Primary</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>UnOp
+-&gt; - <B>|</B> !</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Primary
+-&gt; ( Expression ) <B>| </B>Type ( Expression ) <B>| </B>Literal <B>|
+</B>Accessor</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Declaration
+-&gt; Identifier <B>{ </B>(Parameter)<B> }</B> : Type</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Type
+-&gt; Int <B>|</B> Bool <B>|</B> Float <B>|</B> Char</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Identifier
+-&gt; Letter <B>{</B> Letter <B>|</B> Digit <B>}</B></FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Accessor
+-&gt; Identifier . Identifier</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Letter
+-&gt; a <B>|</B> b<B> |</B> ...<B> |</B> z <B>| </B>A<B> |</B> B <B>|</B>
+... <B>|</B> Z</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Digit
+-&gt; 0 <B>|</B> 1 <B>|</B> ...<B> |</B> 9</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Literal
+-&gt; Integer <B>|</B> Boolean<B> |</B> Floating<B> |</B> Character</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Integer
+-&gt; Digit<B> {</B> Digit <B>}</B></FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Boolean
+-&gt; True<B> | </B>False</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Floating
+-&gt; Integer . Integer</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Chararacter
+-&gt; ' ASCIIChar '</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>An
+example:</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>Person
+(height:Int) (weight:Int) : Person</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>getWeight
+: (p:Person) -&gt; Int = p.weight</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>getHeight
+: (p:Person) -&gt; Int {</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>	return
+p.height;</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>}</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>main()
+-&gt; Int {</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>	p:Person</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>	p.</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; font-weight: medium"><FONT FACE="DejaVu Sans, sans-serif"><FONT SIZE=3>}</FONT></FONT></P>
+</BODY>
+</HTML>

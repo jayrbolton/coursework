@@ -1,0 +1,60 @@
+$ J Bolton
+$ 'The SETL Programming Language'
+$ Chapter 2
+$ Notes
+
+program Ch2Notes;
+
+$ Problem: given a partially ordered set, create a linear order.
+$ In other words:
+$ Given a set of predecessor/successor pairs, visit each element
+$ that either has no predecessor or a predecessor that has already
+$ been visited. 
+$ We can only start on nodes that have no nodes leading into them.
+
+$ The graph from the book is in graph.txt
+
+input;
+
+$ Map every node to the number of predecessors it has
+preds := {[x,0] : x in ns};
+(for [w,x] in ps)
+    preds(x) +:= 1;
+    end;
+
+nopreds := {n in ns | preds(n) = 0};
+
+(while nopreds /= {}) 
+    n from nopreds;
+    ns less:= n;
+    print(n);
+    $ update preds
+    (for p in ps{n}) 
+        preds(p) -:= 1; 
+        if preds(p) = 0 then
+            nopreds with:= p;
+        end if;
+    end;
+end;
+
+$ alternate set comprehension version
+
+
+
+if ns /= {} then
+    print('No ordering possible');
+end;
+
+input ::
+    ps := ns := {};
+    read(x,y);
+    loop while not eof do
+        ps with:= [x,y];
+        ns with:= x;
+        ns with:= y;
+        read(x,y);
+    end loop;
+    print(ps);
+
+end program Ch2Notes;
+

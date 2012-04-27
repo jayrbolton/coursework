@@ -1,0 +1,100 @@
+$ LL(1) Parser Generator
+$ J Bolton
+
+$ Our grammar: simple arithmetic expressions
+$ It must be strong LL(k). Ours is strong LL(1).
+
+$ A context free grammar is a quadruple (V, Sigma, P, S) where V is a
+$ finite set of variables, Sigma (the alphabet) is a finite set of
+$ terminal symbols, P is a finite set of rules, and S is a distinguished
+$ element of V called the start symbol. The sets V and Sigma are assumed
+$ to be disjoint.
+
+V := {"S", "A", "T", "Z", "B", "Y"};
+Sigma := {"#", "+", "b", "(", ")", ""};
+P := {["S", "A", "#"],
+      ["A", "T", "B"],
+      ["B", "Z"],
+      ["B", ""],
+      ["Z", "+", "T", "Y"],
+      ["Y", "Z"],
+      ["Y", ""],
+      ["T", "b"],
+      ["T", "(", "A", ")"]};
+S := "S";
+G := [V,Sigma,P,S];
+
+print(first(1,G));
+print(follow(1,G));
+
+proc maptrunc(n, X);
+     return {u(1..n) : u in X};
+end proc; 
+
+op .ct(a,b);
+     return {x + y : x in a, y in b};
+end op;
+
+proc first(n, G);
+     [V, Sigma, P, S] := G;
+     $ Initiliaze F and F'
+     F := F1 := {};
+     for a in Sigma loop
+     	 F1(a) := {a};
+     end loop;
+     for A in V loop
+     	  if ([A, ""] in P) 
+	     then F(A) := {""};
+	     else F(A) := {};
+	  end if;
+     end loop;
+     until (forall A in V | F(A) = F1(A)) loop	
+          for A in V loop
+	       F1(A) := F(A);
+	  end loop;
+	  for R in P | #R > 1 loop
+	       A := R(1);
+	       allfirst := .ct/[F1(u) : u in R(2..)];
+	       F(A) +:= maptrunc(n,allfirst);
+	  end loop;
+     end loop;
+     return F;
+end proc;
+
+proc follow(k, G);
+     [V, Sigma, P, S] := G;
+     FIRSTK := first(k,G);
+     $ Initialize FL and FL'
+     FL := FL1 := {};
+     $ 1.
+     FL(S) := {""};
+     $ 2.
+     for A in (V - {S}) loop
+     	 FL(A) := {};
+     end loop;
+     $ 3.
+     until forall A in V | FL(A) = FL1(A) loop
+     	   for A in V loop
+	       FL1(A) := FL(A);
+	   end loop;
+	   for R in P | exists u in R(2..) | u in V loop
+	       A := R(1);
+	       n := #R;
+	       L := FL1(A);
+	       if R(n) in V 
+	       	  then FL(R(n)) +:= L;
+	       end if;
+	       for i in [n-1..2] loop
+	       	   print(FIRSTK);
+		   print(L);
+		   print(R(i+1));
+		   print(FIRSTK(R(i+1)) .ct L);
+	       	   L := maptrunc(k, FIRSTK(R(i+1) .ct L));
+		   if R(i) in V 
+		      then FL(R(i)) +:= L;
+		   end if;
+	       end loop;
+	   end loop;
+     end loop;
+     return FL;
+end proc;

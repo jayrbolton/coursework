@@ -1,0 +1,9 @@
+* Create table-driven parser!
+    * Create the LALR(1) parsing generator 
+      * finish creating the data structure
+      * create the FIRSt and FOLLOW methods
+
+* implement the type checking methods
+  * add error throwing 
+* Implement the M methods
+  * What memory crap will i have to do? read up.

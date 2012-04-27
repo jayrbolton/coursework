@@ -1,0 +1,4 @@
+Expression -> Variable | Function | Application
+Function -> '\' Variable+ '.' Expression
+Application -> Expression Expression
+Variable -> Identifier

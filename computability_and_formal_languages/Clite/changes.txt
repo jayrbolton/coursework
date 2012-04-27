@@ -1,0 +1,54 @@
+
+* A new object called Source has been created, which holds a buffered reader,
+  current line's string, current character, and line/col numbers. It also
+  contains the method for returning the next character in the input.
+* The Token class is renamed Lexeme and now has a single constructor. It holds
+  an enumeration and a String field for values, as well as line and column
+  number fields for errors. It also contains methods such as isAddOp, isType,
+  etc.
+* The Lexer class is renamed Lexis to emphasize the fact that it is an object,
+  rather than a process or a function. It contains the lexical processes
+  (next()), as well as the match() method, check, and keyword
+* Lexis contains several private helper functions previously found in Lexer.
+  concat(String) has been changed to getLetters() and getDigits(). 
+* The Lexis behaves similar to Source, where it has a current token field,
+  similar to Source's current character field
+* Parsing is handled through the abstract syntax object constructors: each
+  syntax objects receives a Lexis, parses itself out, and returns a syntax
+  object on success and throws an error on failure.
+* The abstract syntax tree is no longer in one large skeleton file containing
+  many classes. Instead, every syntax object has its own file with all its own
+  special methods contained within it. These files are Program, Statement,
+  Expression, Type, and Operator
+* The Declaration class is now a subclass of Statement, which allows
+  declarations to be intermixed with other statements. There is no longer a
+  Declarations (plural) class. Each Declaration contains an ArrayList of
+  variables, which is a more accurate interpretation of the syntax (Declaration
+  -> type variable {, variable}
+* The syntax for program is simplified to Program -> Block
+* The class 'Type' is simplified to just an enum. A Type can be constructed by
+  simply using the built-in method valueOf(String)
+* Expressions are constructed using the same method as the original, using the
+  Expression constructor and a number of private helper functions, such as
+  conjunction(), addition(), which feeds into a Binary, Unary, Value, or
+  Variable constructor.
+* The Operator class is now a simple enumeration.
+* The V validation functions are now object methods contained within the syntax
+  objects
+
+
+Miscellaneous changes:
+* Syntax has been changed in two ways:
+  * functions now have the form: functionName (parameters) -> returnType {}
+  * the assignment operator is :=
+
+Parser generator:
+* Grammar.java is run with a source EBNF grammar with a simple format, parses
+  it out, generates the LALR(1) table and lexemes, and then saves itself so
+  that it only needs to be run once.
+* Grammar.java needs the filename of the source grammar and can optionally be
+  provided the output Grammar filename as a second parameter. If no second
+  parameter is supplied, the default name is grammar_out
+* The parser, by default, reads the grammar from a file called 'grammar_out',
+  but can optionally be given a second parameter as well to specify a custom
+  name

@@ -1,0 +1,115 @@
+public class Lexis {
+
+    private Lexeme l;
+    private Source s;
+    
+    public Lexis (Source src) {
+        s = src;
+        s.next();
+    }
+    
+    public Lexeme next () { // Return next token
+        do {
+            if (isLetter(s.ch())) { // ident or keyword
+                String w = getWord();
+                if (isKeyword(w)) return new 
+                return Token.keyword(spelling);
+            }
+            else if (isDigit(ch)) { // int or float literal
+                String number = concat(digits);
+                if (ch != '.')  // int Literal
+                    return Token.mkIntLiteral(number);
+                number += concat(digits);
+                return Token.mkFloatLiteral(number);
+            } else switch (ch) {
+            case ' ': case '\t': case '\r': case eolnCh:
+                ch = nextChar();
+                break;
+
+            case '/':  // divide or comment
+                ch = nextChar();
+                if (ch != '/')  return Token.divideTok;
+                // comment
+                do {
+                    ch = nextChar();
+                } while (ch != eolnCh);
+                ch = nextChar();
+                break;
+
+            case '\'':  // char literal
+                char ch1 = nextChar();
+                nextChar(); // get '
+                ch = nextChar();
+                return Token.mkCharLiteral("" + ch1);
+
+            case eofCh: return Token.eofTok;
+
+            case '+': ch = nextChar();
+                return Token.plusTok;
+
+            case '-': ch = nextChar();
+                return Token.minusTok;
+
+            case '*': ch = nextChar();
+                return Token.multiplyTok;
+
+            case '(': ch = nextChar();
+                return Token.leftParenTok;
+
+            case ')': ch = nextChar();
+                return Token.rightParenTok;
+
+            case '{': ch = nextChar();
+                return Token.leftBraceTok;
+
+            case '}': ch = nextChar();
+                return Token.rightBraceTok;
+
+            case ';': ch = nextChar();
+                return Token.semicolonTok;
+
+            case ',': ch = nextChar();
+                return Token.commaTok;
+
+            case '[': ch = nextChar();
+                return Token.leftBracketTok;
+
+            case ']': ch = nextChar();
+                return Token.rightBracketTok;
+
+            case '&': check('&'); return Token.andTok;
+            case '|': check('|'); return Token.orTok;
+
+            case ':': check('='); return Token.assignTok;
+
+            case '=':
+                return Token.eqTok;
+
+            case '<':
+                return chkOpt('=', Token.ltTok, Token.lteqTok);
+
+            case '>':
+                return chkOpt('=', Token.gtTok, Token.gteqTok);
+
+            case '!':
+                return chkOpt('=', Token.notTok, Token.noteqTok);
+
+            default:  error("Illegal character " + ch);
+            } // switch
+        } while (true);
+    } // next
+
+    private boolean isLetter(char c) {
+        return c>='a' && c<='z' || c>='A' && c<='Z';
+    }
+
+    private String getWord() {
+        String r = "";
+        do {
+            r += s.ch();
+            s.next();
+        } while (s.ch().isLetterOrDigit());
+        return r;
+    }
+
+}

@@ -1,0 +1,132 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+</head><body><h3> CSF   <br>
+Haskell Programming Final Exam<br>
+March 11, 2010</h3>
+<p>
+This exam is open book, open note. You may use a computer
+to look at syllabus notes or previous assignments, 
+or even Hugs if you wish. (But don't get too caught up
+in trying to write a perfect program: it will just waste time.)
+Collaboration of any kind is not allowed. <b>Please submit
+your answers </b> as a literate haskell file, with any text responses
+included..
+</p>
+<ol>
+<li>
+(25 points total)<br> The use of <b>where</b> to avoid recomputation
+and improve readability is strongly encouraged in both parts of this
+question (and where appropriate in other questions).<br>
+(a) (15 points) Write a function <b>partition</b> that splits a list
+of Int into two lists, one containing elements of the original list
+that are greater than a partitioning value (which is an Int), the
+other containing all elements that are less than or equal to the
+partitioning value. <b>Do not use list comprehension in your
+function!</b>
+<br>
+(b) (10 points) Qsort is a sorting function that can be described
+as follows:
+<ul>
+<li> If the list is empty it is sorted.
+</li><li> If the list is non-empty, use the first element of the list
+as a pivot and partition the list into two lists: elements less than
+the pivot in one list,
+and elements greater than the pivot in the other list.
+</li><li> perform quicksort on each list.
+</li><li> Construct the sorted list by appending the results of the previous step,
+including the pivot in the middle.
+</li></ul>
+There is an implementation of quicksort in the textbook on p 127:
+<pre>
+&gt;	qSort [] = []
+&gt;	qSort (x:xs) = qSort [y | y&lt;-xs, y&lt;=x] ++ [x] ++ [y | y&lt;-xs, y&gt;x]
+
+</pre>
+Write a new <b>qSort</b> that <b>does not use list comprehension.</b>
+</li>
+<li> (25 points total)<br>
+(a) (10 points) Use <b>foldr</b> to define a function <b>unZip4</b> that
+unzips a list of four-tuples into a four-tuple of lists. Use the most
+general type definition possible for your function.
+Use the definition of <b>unzip3</b> from the prelude as a model:
+<pre>
+&gt;	unzip3'   =  foldr (\(a,b,c) (as,bs,cs) -&gt; (a:as,b:bs,c:cs))
+&gt;                  ([],[],[])
+
+</pre>
+(b) (10 points) Define the same function using recursion and pattern matching.
+<b>Do not use list functions other than :</b> in your definition
+<br>
+(c) (5 points) Can the function be defined using <b>foldr1</b>?<br>
+Why or why not?
+</li>
+<li>
+(25 points total) All parts of this question refer to the following
+Haskell code.  The code is all in the same file.
+<hr>
+<pre>
+&gt;	p :: (Int -&gt; [Int] -&gt; [Int]) -&gt; [Int] -&gt; [Int]
+&gt;	p f [] = []
+&gt;	p f (x:xs) = f x (p f xs)
+&gt;	
+&gt;	f :: Int -&gt; [Int] -&gt; [Int]
+&gt;	f x [] = [x]
+&gt;	f x (y:ys)
+&gt;	  | x &gt; y = x:(y:ys)
+&gt;	  | otherwise = y : f x ys
+&gt;	
+&gt;	g :: Int -&gt; [Int] -&gt; [Int]
+&gt;	g x [] = [x]
+&gt;	g x (y:ys)
+&gt;	  | x == y = (y:ys)
+&gt;	  | x &lt; y = x:(y:ys)
+&gt;	  | otherwise = y : g x ys
+
+</pre>
+<hr>
+In the following calculations, be very careful to show all steps. Your result
+should proceed one evaluation step at a time. You should show how patterns
+are matched, and clearly show replacement of parameters by the arguments.
+You should show evaluation of each guard in order. See page 341 for an
+example of how guards and pattern matching should be hand calculated.<br>
+<br>
+(a) (10 points) Show a line by line calculation of
+<pre>p f [5,2,-3,2]</pre>
+(b) (10 points) Show a line by line calculation of
+<pre>p g [5,2,-3,2]</pre>
+(c) (5 points) Use <b>foldr</b> to redefine p.
+</li>
+<li>(25 points total) Redefine each of the following functions <b>without
+using list comprehension.</b> Instead, use <b>map</b> or <b>filter</b> (or
+both). For each function, give a type definition that is as general as
+possible. Assume all numbers are of type <b>Int</b>.<br>
+<br>
+(a) (5 points)
+<pre>
+&gt;	f1 ns = [x | x&lt;-ns, x &gt; 5]
+
+</pre>
+(b) (5 points)
+<pre>
+&gt;	f2 ns = [x++x | x&lt;-ns ]
+
+</pre>
+(c) (5 points)
+<pre>
+&gt;	f3 ns = [x*10 - x*x | x&lt;-ns, x &gt; 5, x &lt;= 24]
+
+</pre>
+(d) (5 points)
+<pre>
+&gt;	f4 ns = [x&lt;20 | x&lt;-ns, x &gt; 5]
+
+</pre>
+(e) (5 points)
+<pre>
+&gt;	f5 [] = []
+&gt;	f5 (n:ns) = [x | x&lt;-ns, x/=n]
+
+</pre>
+</li>
+</ol>
+</body></html>

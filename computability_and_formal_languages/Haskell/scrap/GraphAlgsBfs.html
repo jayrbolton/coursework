@@ -1,0 +1,104 @@
+<html>
+<head>
+<Title>
+  Breadth First Search
+</title>
+<style type="text/css">
+  BODY {background-color: lightyellow}
+</style>
+</head>
+
+<body>
+
+<center>
+  <h2>Breadth First Search</h2>
+</center>
+
+In this assignment you'll use your simple graph data structure and simple
+graph functions to write breadth first graph search algorithm.
+<p>
+
+Breadth first search is a general method of traversing a graph that can
+be used as the basis of many algorithms. For this lab you'll use a
+breadth first search as the basis of
+a simple application that just returns the list of nodes 
+<em> reachable </em> from a given starting node.
+
+<ol>
+<li> Write a recursive function <code> bfs vs g visited </code>
+which takes a list of vertices <code> vs</code>, a graph 
+<code> g</code>, and a list of vertices<code> visited </code>
+of already visited nodes
+and returns a list of visited nodes. The <code> visited </code> 
+argument in the bfs function carries the set of visited nodes down
+through recursion for use in checking whether a vertex has already
+been visited and should not be traversed again.
+
+<li> Write a simple function <code> reachable a g </code> that
+takes a graph <code> g </code> and a node <code> a </code> and calls
+<code> bfs </code> passing it the list of nodes consisting of the start
+node <code> a </code> by itself. The function <code> reachable </code> 
+is not itself recursive, it just gets the recursive <code> bfs </code> 
+started. The result should be the list of all nodes that are reachable
+by some path from the start node and the order of the reachable list
+should represent a breadth first search order. (Depending on your coding,
+the resulting breadth first search order list might be reversed.)
+</ol>
+
+<p>
+The <code>bfs</code> function is implemented by
+recursion over the first argument list of vertices that
+can be throught of as a <em>work queue</em> list of vertices to traverse.
+During the algorithm the head vertex of the work queue is marked as
+visited and then its adjacent non-visited vertices are added to the end of the
+work queue, resulting in a breadth first search strategy. 
+<p>
+The vertex v at the head of the work queue is marked visited before the
+recursive call to <code>bfs</code>, by simply adding the node to the
+visited list argument of the recursive <code>bfs</code> call. Your bfs
+should not make a recursive call when the head of the work queue has
+already been visited, so the algorithm will eventually end with an
+empty work queue as all connected nodes have been visited.
+
+<p>
+
+Here is a test graph. Try testing reachable from node 'i'. Your
+output should be a list of nodes by level in the graph starting at 'i'.
+The order of the nodes visited at each level may vary depending on
+how you coded your adjacentList function.
+
+<pre>
+level 0  i
+level 1  st   (in either order)
+level 2  owe4 (or any permutation of these letters)
+level 3  krm  (or any permutation of these letters)
+</pre>
+
+<blockquote>
+<pre>
+
+> -- Test graphs
+> g0 :: Graph Char
+> g0 = ( (['a' .. 'z'] ++ ['1' .. '9']),      -- Vertices
+>	       [('i','t'),                    -- Edges
+>		('i','s'),
+>		('t','w'),
+>		('t','4'),
+>		('t','e'),
+>		('o','r'),
+>		('o','k'),
+>		('o','w'),
+>		('o','s'),
+>		('w','s'),
+>		('w','4'),
+>		('w','m'),
+>		('4','m'),
+>		('4','e')
+>               ]
+>              )
+
+</pre>
+</blockquote>
+
+</body>
+</html>

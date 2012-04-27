@@ -1,0 +1,23 @@
+interface asn5 where {
+import Prelude;
+hiding data Prelude.Bool;
+hiding data Prelude.Char;
+hiding data Prelude.Int;
+hiding data Prelude.Success;
+data Nat = Zero | Suc Nat;
+add :: Nat -> Nat -> Nat;
+add' :: Nat -> Nat -> Nat -> Prelude.Success;
+delete :: a -> [a] -> [a];
+distance :: a -> a -> [a] -> Prelude.Int;
+dup :: [a] -> a;
+encode :: [a] -> [a] -> Prelude.Int -> [a];
+game24 :: Prelude.Int -> Prelude.Int -> Prelude.Int ->
+	  Prelude.Int -> [Prelude.Char];
+insert :: a -> [a] -> [a];
+intersperse :: [[a]] -> [[a]] -> [[a]];
+member :: a -> [a] -> Prelude.Success;
+permute :: [a] -> [[a]];
+sort :: [a] -> [[a]];
+sorted :: [a] -> Prelude.Bool;
+splitEvery :: Prelude.Int -> [a] -> [[a]]
+}

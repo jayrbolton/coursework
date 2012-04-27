@@ -1,0 +1,11 @@
+* Create a parser generator
+  * Create a data structure for concrete syntax grammars
+    * Create a hand-written meta-syntax parser to generate the grammar
+       * Create a parse table data structure
+         * Create a grammar to parse table generator
+* Create the lexer based on the lexemes from the parse table
+* Create the table parser yay
+* Create the object-oriented type converter
+* Create the object-oriented type validator
+* Create the object-oriented evaluator
+  * What tricky stuff do I have to do with memory... figure it out when I get there.

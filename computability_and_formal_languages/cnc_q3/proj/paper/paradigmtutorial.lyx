@@ -1,0 +1,793 @@
+#LyX file created by tex2lyx 1.5.5
+\lyxformat 247
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+
+
+\author{J Bolton}
+\title{A Comparitive Exploration of Three Unusual Languages}
+\frenchspacing
+
+
+
+\end_preamble
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\paperfontsize 11
+\spacing single
+\papersize default
+\use_geometry false
+\use_amsmath 0
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle headings
+\tracking_changes false
+\output_changes false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+
+
+\begin_inset LatexCommand \tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+
+This paper provides an introductory tutorial to three contrasting and unusual programming languages: Smalltalk, SETL, and Agda. Some prior experience in programming is assumed. The languages are highly abstract yet represent very different perspectives: the object oriented paradigm, functional programming with dependent types, and set-based imperative programming. Working with each of them at the same time will be an invigorating brain exercise and will hopefully provide some unique insights into the strengths and weaknesses of each style. 
+\end_layout
+
+\begin_layout Section
+
+Introduction
+\end_layout
+
+\begin_layout Standard
+
+Agda represents the extreme end of functional type theory based on the elegant syntax of Haskell. The language will introduce the very interesting world of dependent types and all the expressiveness that comes with them. Smalltalk is a much older language known for its pure implementation of the object oriented type system, made famous by such extremely popular languages as C++ and Java. Finally, SETL is the oldest of the three languages whose main feature is its flexible, built-in support for creating and manipulating sets and tuples.
+\end_layout
+
+\begin_layout Standard
+
+We will start out with a very quick overview of each language, starting with the least difficult, SETL, and progressing to the most difficult, Agda. This paper will emphasize a discussion of the typing model of each language.
+\end_layout
+
+\begin_layout Standard
+
+We will then examine three programs chosen to showcase the advantages of each of the languages. We will follow this with a larger, single program (an LL parser generator) written in all three languages to provide a direct, contrasting example among all three styles. The larger program, a top down parser, was chosen in the hope that none of the three paradigms would have a very big advantage in its implementation over the others
+\end_layout
+
+\begin_layout Section
+
+SETL
+\end_layout
+
+\begin_layout Subsection
+
+Squishing Trees of Numbers
+\end_layout
+
+\begin_layout Standard
+
+SETL uses an imperative style of programming similar to the classic language Ada. The language has assignments, loops, conditionals, and arithmetic that shouldn't look all that foreign to those familiar with other imperative languages.
+\end_layout
+
+\begin_layout Standard
+
+We will examine the language by walking through a couple problems that seem to particularly suit its style. We will end by examining a general problem that we will also implement in Smalltalk and Agda later on.
+\end_layout
+
+\begin_layout Standard
+
+The first of our problems comes from the puzzle website called Project Euler. It involves finding a maximal path through a large tree of random numbers. These aren't quite binary trees, but more like lattices, where every child node is shared to the left and right. This is the statement of the problem from the website:
+\end_layout
+
+\begin_layout Quote
+
+By starting at the top of the triangle below and moving to adjacent numbers on the row below, the maximum total from top to bottom is 23.
+\end_layout
+
+\begin_layout Quote
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+begin{verbatim}
+\end_layout
+
+\end_inset
+
+ 3 7 4 2 4 6 8 5 9 3 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+end{verbatim}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quote
+
+That is, 3 + 7 + 4 + 9 = 23.
+\end_layout
+
+\begin_layout Quote
+
+Find the maximum total from top to bottom in [a triangle with 100 levels]. 
+\end_layout
+
+\begin_layout Standard
+
+This problem is made simpler by the fact that we only need to find the maximum sum, and we don't have to list the path.
+\end_layout
+
+\begin_layout Standard
+
+The strategy is to select the second highest level and `collapse' each node by finding the largest adjacent node above it. Eventually, we will produce a single list consisting of the bottom row where each node is the maximum sum of some path that led to it. For example:
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+begin{verbatim}
+\end_layout
+
+\end_inset
+
+ 3 7 4 2 4 6 8 5 9 3 First, select the row [7,4], and collapse the top level to make: 10 8 2 4 6 8 5 9 3 Now select the row [2,4,6] and collapse it with the top level again. In the case of the middle node, 4, choose its maximum adjacent node (10). 12 14 14 8 5 9 3 A final time: 20 19 23 17 Now, we simply need to fold the two-ary max function over this final list to get our answer, which is 23. 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+end{verbatim}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+Let's translate this to SETL. Our first step is to get our tree into the language. We can use SETL's read function, which takes a string of a certain format and returns a corresponding data type. For example, if we give it:
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+begin{verbatim}
+\end_layout
+
+\end_inset
+
+ [[3] [7 4] [2 4 6] [8 5 9 3]] 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+end{verbatim}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+We will get a tuple of tuples. In SETL, tuples are represented by brackets and can be heterogenous, but ours will contain only numbers.
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% Make a table with all the basic operations, their name, their
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% description. I think that's all that's needed.
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+Set Magic
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% This section will hold a tutorial on all of SETL's set, tuple, and
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% map generators and operations. This is the meat of the language.
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+SETL's Type Model
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% I may need to do more work here, reading up on classes and such. 
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% Emphasize the fact that SETL is all about maps. Use the quote from Dewar.
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+Case Study: Climbing Trees
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% Describe, step by step, the project euler problem. Maybe make a
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% more functional implementation of the solution?
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+Case Study: A Top-Down Parser
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% Implement FIRST, FOLLOW, and the parser on a simple grammar.
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+
+Smalltalk
+\end_layout
+
+\begin_layout Subsection
+
+The Type Model
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% Begin with the type model because Smalltalk is very type pure.
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% Give a brief and intuitive primer on object oriented programming.
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% Give a primer on dynamic typing. I should probably do some reading
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% on the implementation of Smalltalk and finish Part 1 of the book.
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+Control Flow
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% Describe how to use methods to do conditionals and iteration.
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+Case Study: A Simple Text Adventure Interpreter
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% Describe the type model of the interactive fiction world
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+The Parser Revisited
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% Adapt the SETL top-down parser into a more object-oriented style}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+
+Agda
+\end_layout
+
+\begin_layout Subsection
+
+Ordinary Types
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% Describe Haskell-style types using the Agda syntax.}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+Dependent Types
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% Do some example of a dependent type with a couple functions 
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% ver it
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+Pattern Matching Heaven
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% Show the mechanics of Agda's neat pattern matching system}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+Case Study: A Lambda Expression Evaluator
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% Implement a lambda expression evaluator using a type that depends
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% on the number of free variables?
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+The Parser a Final Time
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% Implement the parser again, this time using dependent types}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+
+Summary and Final Comparison
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% Offer final thoughts about the advantages and disadvantages
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% of the languaes, and speculate how these advantages could be combined.
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
