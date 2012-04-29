@@ -1,0 +1,24 @@
+Variables in the current scope:
+
+  Attr Name             Size                     Bytes  Class
+  ==== ====             ====                     =====  ===== 
+       J_vals         100x100                    80000  double
+       X               97x2                       1552  double
+       alpha            1x1                          8  double
+       ans              1x1                          8  double
+       data            97x2                       1552  double
+       i                1x1                          8  double
+       iterations       1x1                          8  double
+       j                1x1                          8  double
+       m                1x1                          8  double
+       predict1         1x1                          8  double
+       predict2         1x1                          8  double
+       t                2x1                         16  double
+       theta            2x1                         16  double
+       theta0_vals      1x100                      800  double
+       theta1_vals      1x100                      800  double
+       x                1x4                         32  double
+       y               97x1                        776  double
+
+Total is 10701 elements using 85608 bytes
+
