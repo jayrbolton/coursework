@@ -1,3 +1,38 @@
+\documentclass{article}
+
+\usepackage{qtree}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+\usepackage{fancybox}
+
+\title{Quarter 2 Final, Data Structures}
+\author{Jay R Bolton}
+
+\addtolength{\oddsidemargin}{-.875in}
+\addtolength{\evensidemargin}{-.875in}
+\addtolength{\textwidth}{1.75in}
+
+\addtolength{\topmargin}{-.875in}
+\addtolength{\textheight}{1.75in}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+
+\item[\textbf{1.}]
+  \begin{enumerate}
+		\item[\emph{(a)}]
+		\ovalbox{
+			\Tree[.3 2 [.5 [.6 [.7 [.20 [.8 [.9 [.12 [.15 [17] ] ] ] ] 30 ] ] ] ] ] ]
+		}
+
+\end{enumerate}
+
+
+\end{enumerate}
+\end{document}
+
 04.22.12
 Analysis of Algorithms
 Set 2 Homework, Quarter 3 (spring)
@@ -109,7 +144,15 @@ Prove:
   This used equations on p56 above the equation we proved.
 
 3-1
-a. Prove: If k >= d, then p(n) = O(n^k)
+
+The following is a lemma that I'll use for this problem:
+
+Prove: sum{i=0 d n^i}
+
+  a. Prove: If k >= d, then p(n) = O(n^k)
+	p(n) = \Theta(sum{(i=0) d (a[i]n^i)})
+	     = \Theta(sum{(i=0) d (n^i)})
+			 = 
 
 b. Prove: If k <= d, then p(n) = Omega(n^k)
 
