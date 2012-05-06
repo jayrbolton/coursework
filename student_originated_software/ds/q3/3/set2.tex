@@ -1,4 +1,3 @@
-
 \documentclass{article}
 \usepackage{amsmath}
 
@@ -256,21 +255,86 @@ f(n) + o(n) \geq 1/2 \cdot f(n)
 
 \item[\textbf{4-1}]
 
+I'll use master theorem on all of them (because it's quick/easy), except for
+the last.
+
 \begin{enumerate}
 
 \item[\textbf{a.}]
 
+	\begin{align*}
+	& a = 2 \\
+	& b = 2 \\
+	& f(n) = n^4 \\
+	& f(n) = \Omega(n^{log_2^2 + e}) \\
+	& 2 \cdot (n^4)/(2^4) \leq c \cdot n^4 \\
+	& T(n) = \Theta(n^4)
+	\end{align*}
+
 \item[\textbf{b.}]
+
+	\begin{align*}
+	& a = 1 \\
+	& b = 7/10 \\
+	& f(n) = n \\
+	& f(n) = \Omega(n^{log_{7/10}^{1} + e}) \\
+	& e = 1 \\
+	& 1 \cdot (n)/(7/10) \leq c \cdot n \\
+	& T(n) = \Theta(n)
+	\end{align*}
 
 \item[\textbf{c.}]
 
+	\begin{align*}
+	& a = 16 \\
+	& b = 4 \\
+	& f(n) = n^2 \\
+	& f(n) = \Theta(n^{log_4^{16}}) \\
+	& T(n) = \Theta(n^2 lg n)
+	\end{align*}
+
 \item[\textbf{d.}]
+
+	\begin{align*}
+	& a = 7 \\
+	& b = 3 \\
+	& f(n) = n^2 \\
+	& f(n) = \Omega(n^{log_3^7 + e}) \\
+	& 7 \cdot (n^2)/(3^2) \leq c \cdot n^2 \\
+	& T(n) = \Theta(n^2)
+	\end{align*}
 
 \item[\textbf{e.}]
 
+	\begin{align*}
+	& a = 7 \\
+	& b = 2 \\
+	& f(n) = n^2 \\
+	& f(n) = \mathcal{O}(n^{log_2^7 - e}) \\
+	& T(n) = \Theta(n^{log_2^7})
+	\end{align*}
+
 \item[\textbf{f.}]
 
+	\begin{align*}
+	& a = 2 \\
+	& b = 4 \\
+	& f(n) = \sqrt{n} \\
+	& f(n) = \Theta(n^{log_4^2}) \\
+	& T(n) = \Theta(n^{1/2} lg n)
+	\end{align*}
+
 \item[\textbf{g.}]
+
+This recurrence can be represented by the sum:
+
+	\begin{align*}
+	& c \cdot \sum_{i=0}^{\lfloor n/2\rfloor}n^2 \\
+	& = c \cdot \frac{(n^2/4 + 1)(n + 1)}{6} \\
+	& = c \cdot\frac{n^3/4 + n^2/4 + n + 1}{6} \\
+	& = c \cdot (n^3 \cdot 1/24 + n^2 \cdot 1/24 + n/6 + 1/6 )\\
+	& = \Theta(n^3)
+	\end{align*}
 
 \end{enumerate}
 
@@ -280,23 +344,37 @@ f(n) + o(n) \geq 1/2 \cdot f(n)
 
 \item[\textbf{a.}]
 
+The recursive representation of the complexity of binary sort is: $T(n) = T(n/2) + 1$
+
+For case 1, our complexity is $T(lg n)$ by the master theorem.
+
+For case 2, our recurrence is $T(n') = T(n'/2) + n$ and our complexity for this is $T(n lg n)$.
+
+For case 3, our complexity is still $T(n lg n)$.
+
 \item[\textbf{b.}]
+
+For case 1, $T(n) = 2T(n/2) + n$ which is $\Theta(n lg n)$ by the master theorem.
+
+For case 2, $T(n') = 2T(n'/2) + 4n$ which is $\Theta(n lg n)$ by the master theorem.
+
+For case 3 $T(n) = 2T(n/2) + 4n$ which is $\Theta(n lg n)$ by the master theorem.
 
 \end{enumerate}
 
 \item[\textbf{4-4}]
 
-\item[\textbf{a.}]
+Show: $\mathcal{F}(z) = z + z \mathcal{F}(z) + z^2 \mathcal{F}z$
 
-\item[\textbf{b.}]
+\begin{align*}
+& \mathcal{F}(z) = \sum_{i=0}^\infty \mathcal{F}_i z^i \\
+& = z + \sum_{i=2}^\infty (\mathcal{F}_{i-1} + \mathcal{F}_{i-2}) z^i \\
+& = z + \sum_{i=2}^\infty \mathcal{F}_{i-1} z^i  + \sum_{i=2}^{\infty} \mathcal{F}_{i-2} z^i \\
+& = z + z \sum_{i=0}^\infty \mathcal{F}_{i} z^i  + z^2 \sum_{i=0}^{\infty} \mathcal{F}_{i} z^i \\
+& = z + z \mathcal{F}(z) + z^2 \mathcal{F}(z) 
+\end{align*}
 
-\item[\textbf{c.}]
-
-\item[\textbf{d.}]
-
-\begin{enumerate}
-
-\end{enumerate}
+Only had time to figure out the first part of this problem.
 
 \end{enumerate}
 
