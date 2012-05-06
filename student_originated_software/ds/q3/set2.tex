@@ -1,0 +1,303 @@
+
+\documentclass{article}
+\usepackage{amsmath}
+
+\title{Set 2 Homework, Analysis of Algorithms}
+\author{Jay R Bolton}
+
+\addtolength{\oddsidemargin}{-.875in}
+\addtolength{\evensidemargin}{-.875in}
+\addtolength{\textwidth}{1.75in}
+\addtolength{\topmargin}{-.875in}
+\addtolength{\textheight}{1.75in}
+
+\begin{document}
+\maketitle
+
+\begin{itemize}
+\item P 52: 3.1-1, 3.1-2
+\item P 60: 3.2-1, 3.2-2 and Problems: 3-1, 3-3, 3-4
+\item P 107 Problems: 4-1, 4-2, 4-4
+\end{itemize}
+
+
+\section*{Chapter 3}
+
+\begin{enumerate}
+
+\item[\textbf{3.1-1}]
+
+  Prove: $max(f(n), g(n)) = \Theta(f(n) + g(n))$
+
+  By theorem 3.1, in order for a func to be big-Theta, it should be both big-O
+  and big-Omega.
+  
+	\begin{align*}
+  & \mathcal{O} : \\
+  & max(f(n), g(n)) \leq f(n) + g(n) \\
+  & max(f(n), g(n)) = O(f(n) + g(n)) \\
+  & \Omega : \\
+  & 2 * max(f(n), g(n)) >= f(n) + g(n) \\
+  & max(f(n), g(n)) >= f(n) + g(n) * 1/2 \\
+  & max(f(n), g(n)) = \Omega(f(n) + g(n))
+	\end{align*}
+
+\item[\textbf{3.1-2}]
+
+  Prove: $ (n + a)^b = Theta(n^b) $
+
+  Similarly to 3.1-1, we need to prove that the RHS is both big-O and big-Omega
+  of the LHS.
+  
+	\begin{align*}
+  & \mathcal{O} : \\
+  & Show: (n+a)^b \leq n^b * c & \text{for some constant c} \\
+  & Where: b > 0  \\
+  & Cases: \\
+  & a \leq 0: \\
+  & (n-a))^b < n^b \\
+  & (n-a))^b = O(n^b) \\
+  & a > 0: \\
+  & n+a \leq n*a \\
+  & (n+a)^b \leq (n*a)^b = n^b * a^b \\
+  & (n+a)^b \leq n^b * a^b \\
+  & (n+a)^b = O(n^b) & \text{with constant $a^b$ for $a > 0$} \\ \\
+	\end{align*}
+	\begin{align*}
+  & \Omega : \\
+  & a \geq 0: \\
+  & (n + a) \geq n \\
+  & (n + a)^b \geq n^b \\
+  & (n + a)^b = \Omega(n^b) \\
+  & a < 0: \\
+  & (n - a) \geq n \cdot -a \\
+  & (n - a)^b \geq (n \cdot -a)^b \\
+  & (n - a)^b \geq n^b \cdot -a^b \\
+  & (n - a)^b = \mathcal{O}(n^b) & \text{with constant $a^b$ for $a < 0$}
+	\end{align*}
+
+\item[\textbf{3.2-1}]
+
+	\begin{align*}
+  & Show: \\
+	& \text{If f(n) and g(n) are monotonically increasing, then so are:} \\
+  & f(n) + g(n): \\
+    & f(n) \leq f(m) \\
+    & g(n) \leq g(m) \\
+    & f(n) + g(n) \leq f(m) + g(m) \\
+  & f(g(n)): \\
+    & f(n) \leq f(m) \\
+    & g(n) \leq g(m) \\
+    & f(g(n)) \leq f(g(m)) \\
+    & * \text{Let: $g(n) = p$ and $g(m) = q$ } \\
+    & * \text{We know that $p \leq q$ because it was stated that $g(n) \leq g(m)$} \\
+    & * \text{We already said $f(n) \leq f(m)$ for all $n \leq m$, and that $p \leq q$} \\
+    & * \text{Thus $f(p) \leq f(q)$, that is $f(g(n)) \leq f(g(m))$}
+	\end{align*}
+
+	\begin{align*}
+  & Show: \\
+  & \text{If $f(n)$ and $g(n)$ are nonnegative, then:} \\
+  & \text{$f(n) \cdot g(n)$ is monotonically increasing} \\
+  & Definitions: \\
+   & * f(n) \leq f(m) \text{  forall } n \leq m \\
+   & * g(n) \leq g(m) \text{  forall } n \leq m \\
+   & * f(n) > 0 \text{  forall } n \\
+   & * g(n) > 0 \text{  forall } n \\
+  & Conclusions: \\
+	 & * \text{Since $f(n)$ and $g(n)$ are monotonically increasing and only positive, then} \\
+		 & \text{they will only be positively increasing.} \\
+   & * f(n) \cdot g(n) \leq f(m) \cdot g(m) \text{  forall } n \leq m \\
+	 & * \text{This holds true because increasing positive integers multiplied will still} \\
+		 & \text{be increasing.}
+	\end{align*}
+
+\item[\textbf{3.2-2}]
+
+	\begin{align*}
+	& Prove: \\
+		& a^{log(b,c)} = c^{log(b,a)} \\
+		& \text{I assume we can use the equations above this one.} \\
+		& Definition: q = b^y <=> log(b,q) = y \\
+			& a^{log(b,c)} = c^{log(b,a)} \\
+			& = log(c,a^{log(b,c)}) = log(b,a) \\
+			& = log(b,c) * log(c,a) = log(b,a) \\
+			& = log(c,a) = log(b,a) / log(b,c) \\
+			& = log(c,a) = log(c, a) \\
+		& \text{This used equations on p56 above the equation we proved.}
+	\end{align*}
+
+\item[\textbf{3-1}]
+
+The following is a lemma that I'll use for this problem:
+
+\begin{enumerate}
+
+	\item[\textbf{a.}] Prove: $ k \geq d \rightarrow p(n) = \mathcal{O}(n^k) $
+
+	\begin{align*}
+	& Show: \sum_{i=0}^d a_i n^i \leq c \cdot n^k \text{    for some constant c} \\
+	& \text{Let $a_m = max(a_i)$ } \\
+	& \sum_{i=0}^d a_i n^i \leq (a_m d) \cdot n^d \leq (a_m d) \cdot n^k \\
+	& \sum_{i=0}^d a_i n^i = \mathcal{O}(n^k) & \text{    with constant $(a_m \cdot d)$ }
+	\end{align*}
+
+	\item[\textbf{b.}] Prove: $ k \leq d \rightarrow p(n) = \Omega(n^k) $
+
+	\begin{align*}
+		& Show: \sum_{i=0}^d a_i n^i \geq c \cdot n^k \text{    with some constant c} \\
+		& \sum_{i=0}^d a_i n^i \geq n^d \geq n^k \\
+		& \sum_{i=0}^d a_i n^i = \Omega(n^k) & \text{    with constant $1$ }
+	\end{align*}
+
+	\item[\textbf{c.}] Prove: $ k = d \rightarrow p(n) = \Theta(n^k) $
+
+  See proof in (a) and (b); by Theorem 3.1, $n^d$ is also $\Theta$.
+
+	\begin{align*}
+		& Show: \sum_{i=0}^d a_i n^i \geq c \cdot n^d \text{    with some constant c} \\
+		& Also: \sum_{i=0}^d a_i n^i \leq e \cdot n^d \text{    with some constant e} \\
+		& \sum_{i=0}^d a_i n^i \leq (a_m d) \cdot n^d  \\
+		& \sum_{i=0}^d a_i n^i \geq n^d \\
+	\end{align*}
+
+	\item[\textbf{d.}] Prove: $ k > d \rightarrow p(n) = o(n^k) $
+
+	\begin{align*}
+		& Show: \sum_{i=0}^d a_i n^i < c \cdot n^k \text{    with some constant c} \\
+		& \sum_{i=0}^d a_i n^i \leq (a_m d) \cdot n^d < (a_m d) \cdot n^k \\
+	\end{align*}
+
+	\item[\textbf{e.}] Prove: $ k < d \rightarrow p(n) = \omega(n^k) $
+
+	\begin{align*}
+		& Show: \sum_{i=0}^d a_i n^i > c \cdot n^k \text{    with some constant c} \\
+		& \sum_{i=0}^d a_i n^i \geq n^d > n^k \\
+	\end{align*}
+
+\end{enumerate}
+
+\item[\textbf{3-3}]
+
+From largest to smallest:
+
+\begin{align*}
+& 2^{2^n} \\
+& (n+1)! \\
+& n! \\
+& e^n \\
+& n \cdot 2^n \\
+& 2^n \\
+& (3/2)^n \\
+& (lg n)^{lg n} \\
+& (lg n)! \\
+& n^3 \\
+& n^2 \\
+& n lg n, lg(n!) \\
+& n \\
+& 2^{\sqrt{2 lg n}} \\
+& (lg n)^2 \\
+& lg n \\
+& \sqrt{lg n} \\
+& lg lg n \\
+& 2^{lg \cdot n} \\
+& (lg n)* \\
+& n^{1/lg n} \\
+\end{align*} 
+
+Some more of them may be in equivalence classes...
+
+\item[\textbf{3-4}]
+
+\begin{enumerate}
+\item[\textbf{a.}]
+
+False by counterexample: $n$ and $n^2$
+
+\item[\textbf{b.}]
+
+False by counterexample: $n$ and $n^2$
+
+\item[\textbf{c.}]
+
+True: $f(n) \leq g(n) \text{  and  } lg(f(n)) \leq lg(g(n))$
+
+\item[\textbf{d.}]
+
+True: $f(n) \leq g(n) \text{  and  } 2^{f(n)} \leq 2^{g(n)}$
+
+\item[\textbf{e.}]
+
+True: $f(n) \leq f(n)^2 $
+
+\item[\textbf{f.}]
+
+True by transpose symmetry.
+
+\item[\textbf{g.}]
+
+False: $n^2 > c * (n/2)^2$
+
+\item[\textbf{h.}]
+
+True:
+
+\begin{align*}
+f(n) + o(n) \leq 2 \cdot f(n) \\
+f(n) + o(n) \geq 1/2 \cdot f(n)
+\end{align*} 
+
+\end{enumerate}
+
+\end{enumerate}
+
+\section*{Chapter 4}
+\begin{enumerate}
+
+\item[\textbf{4-1}]
+
+\begin{enumerate}
+
+\item[\textbf{a.}]
+
+\item[\textbf{b.}]
+
+\item[\textbf{c.}]
+
+\item[\textbf{d.}]
+
+\item[\textbf{e.}]
+
+\item[\textbf{f.}]
+
+\item[\textbf{g.}]
+
+\end{enumerate}
+
+\item[\textbf{4-2}]
+
+\begin{enumerate}
+
+\item[\textbf{a.}]
+
+\item[\textbf{b.}]
+
+\end{enumerate}
+
+\item[\textbf{4-4}]
+
+\item[\textbf{a.}]
+
+\item[\textbf{b.}]
+
+\item[\textbf{c.}]
+
+\item[\textbf{d.}]
+
+\begin{enumerate}
+
+\end{enumerate}
+
+\end{enumerate}
+
+\end{document}

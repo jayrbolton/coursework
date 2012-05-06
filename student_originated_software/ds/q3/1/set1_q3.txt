@@ -24,7 +24,7 @@ Exercise 1.2-2
 
   filt = filter (\(n,(x,y)) -> x < y) sample
 
-  which gives us: 2 - 43
+  which gives us: [2..43]
 
 Exercise 1.2-3
   A very similar problem to the previous. I'll do it in
@@ -82,20 +82,28 @@ Exercise 2.3-1
 
 Exercise 2.3-3
 
-T(n) = 2T(n/2) + n
-T(2^n) = 2T(2^n/2) + n
-T(2^n) = 2T(2^(n-1)) + n
-T(2^n) = 2(2T(2^(n-1)) + n) + n
-T(2^n) = 2(2(2T(2^(n-1)) + n) + n) + n
-T(2^n) = 2(2(2(2T(2^(n-1)) + n) + n) + n) + n
-...
-T(2^n) = (2^n) * T(2^(n-1)) + 2^n*n + 2^(n-1)*n + 2^(n-2)*n + ... + 2^0*n
-
+  T(n) = 2T(n/2) + n
+       = 2(n/2)lg(n/2) + n
+       = n * lg(n/2) + n
+       = n(lgn - 1) + n
+       = nlgn - n + n
+       = nlgn
 
 Exercise 2.3-4
 
-  T(n) = T(n-1) + n
+  T(1) = Theta(1)
+  T(n) = T(n-1) + Theta(n)
 
+  Solving the recurrence:
+
+  Show that: T(n) <= d * n^2
+     for some constant d
+  BC: T(1) = 1 <= d * 1
+  IH: T(n-1) <= d * (n-1)^2
+  Induction:
+  T(n) <= (n-1)^2 + Theta(n)
+       <= d * (n-1)^2
+       <= d * n^2
 
 Exercise 2.3-6
 
@@ -146,21 +154,21 @@ Problem 2-3
      poly n = a[n] * x ^ n + poly (n-1)
 
      The exponentiation will increase the running time: Theta(n*lg(n)) if the
-     running time of '^' is lg(n)
+     running time of '^' is lg(n) or to Theta(n^2) if the running time of '^'
+     is n.
 
-   c. The loop invariant is stating that we have the correct sum from the nth
-      loop to the i+1st loop.
+   c. Invariant is the stated summation.
+      Maintenance:
+      We assume the invariant holds prior to entering the loop in lines 2-3.
+      y = a[i] + x * sum{(i=0) (n-i+1) (a[k+i+1] * x^k)}
+        = a[i] + sum{(i=0) (n-i+1) (a[k+i+1] * x^(k+1))}
+        = sum{(i=0) (n-i) (a[k+i] * x^k)}
 
-      sum b t e means take the sum from 'b' up to 't' using equation 'e'
+      The loop terminates when i = 0. The equation derived in the maintenance
+      step will then be:
+      y = sum{(i=0) n (a[k]*x^k)}
+      Which is our original form for polynomial equations.
 
-      Maintenance: (using the invariant)
-      After line 3:
-      y = a[i] + x * (sum 0 (n-i+1) (a[k+i+1]*x^k))
-        = sum 0 (n-i) (a[k+i]*x^k)
-
-      The loop terminates when i = 0, which will be:
-      y = sum 0 n (a[k]*x^k)
-
-    d. It factors out x's at each term. For each level of nested parentheses,
-       the distributed x's result in terms with increasing numbers of exponents
-       for the x's.
+   d. It factors out x's at each term. For each level of nested parentheses,
+      the distributed x's result in terms with increasing numbers of exponents
+      for the x's.
