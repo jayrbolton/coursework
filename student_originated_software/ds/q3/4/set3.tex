@@ -1,0 +1,89 @@
+
+\documentclass{article}
+\usepackage{amsmath}
+
+\title{Set 3 Homework, Analysis of Algorithms}
+\author{Jay R Bolton}
+
+\addtolength{\oddsidemargin}{-.875in}
+\addtolength{\evensidemargin}{-.875in}
+\addtolength{\textwidth}{1.75in}
+\addtolength{\topmargin}{-.875in}
+\addtolength{\textheight}{1.75in}
+
+\begin{document}
+\maketitle
+
+\begin{itemize}
+\item p 166: 6.5-6
+\item p 167: 6-1,6-2
+\item p 178: 7.2-1, 7.2-5
+\item p 180: 7.3-1
+\item p 284: 7.4-2
+\item p 185: 7-2, 7-4
+\end{itemize}
+
+
+\section*{Chapter 6}
+
+\begin{enumerate}
+
+\item[\textbf{6.5-6}]
+
+Do `exchange' in `Heap-Increase-Key' with one assignment.
+
+The original:
+
+\begin{align*}
+& HeapIncreaseKey(A, i, key): \\
+& \ \ if\ key < A[i] \\
+& \ \ \ \ error \ \text{``new key is smaller than current key''} \\
+& \ \ A[i] = key \\
+& \ \ while\ i > 1\ and\ A[Parent(i)] < A[i] \\
+& \ \ \ \ exchange\ A[i]\ with\ A[Parent(i)] \\
+& \ \ I = Parent(i)
+\end{align*}
+
+With three assignments:
+
+\begin{align*}
+& HeapIncreaseKey(A, i, key): \\
+& \ \ if\ key < A[i] \\
+& \ \ \ \ error \ \text{``new key is smaller than current key''} \\
+& \ \ A[i] = key \\
+& \ \ while\ i > 1\ and\ A[Parent(i)] < A[i] \\
+& \ \ \ \ tmp = A[i] \\
+& \ \ \ \ A[i] = A[Parent(i)] \\
+& \ \ \ \ A[Parent(i)] = tmp \\
+& \ \ \ \ i = Parent(i)
+\end{align*}
+
+With one assignment:
+
+\begin{align*}
+& HeapIncreaseKey(A, i, key): \\
+& \ \ if\ key < A[i] \\
+& \ \ \ \ error \ \text{``new key is smaller than current key''} \\
+& \ \ while\ i > 1\ and\ A[Parent(i)] < key \\
+& \ \ \ \ A[i] = A[Parent(i)] \\
+& \ \ \ \ i = Parent(i) \\
+& \ \ A[i] = key \\
+\end{align*}
+
+That was a real fun little puzzle.
+
+\item[\textbf{6-1}]
+
+\item[\textbf{6-2}]
+
+\end{enumerate}
+
+\section*{Chapter 7}
+
+\begin{enumerate}
+
+\item
+
+\end{enumerate}
+
+\end{document}
