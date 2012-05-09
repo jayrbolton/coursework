@@ -74,7 +74,112 @@ That was a real fun little puzzle.
 
 \item[\textbf{6-1}]
 
+	\begin{enumerate}
+
+	\item[\textbf{(a)}]
+	No. The counterexample is $[N,1,2,3]$. BMH produces $[N,3,2,1]$ while BMH' produces $[N,3,1,2]$. Both are heaps.
+
+	\item[\textbf{(b)}]
+	Max-Heap-Insert requires $\Theta(lg\ n)$ time. In Build-Max-Heap', we are
+	looping that function $n-1$ times. Everything else is constant, so our bound is
+	$\Theta(n\ lg\ n)$.
+
+	\end{enumerate}
+
 \item[\textbf{6-2}]
+
+	\begin{enumerate}
+
+	\item[\textbf{(a)}]
+	Same way, but you'd have to store or pass d and the children would be
+	calculated with $di + 1$ through $di+d$ where `i' is the current index.
+
+	\item[\textbf{(b)}]
+	The height would be $log_d(n)$.
+
+	\item[\textbf{(c)}]
+	
+	\begin{align*}
+	& \text{ExtractMax}(A) \\
+	& \ \ if\ A.\text{heapsize} < 1 \\
+	& \ \ \ \ \text{error}\ ``heap\ underflow" \\
+	& \ \ max = A[1] \\
+	& \ \ A[1] = A[A.\text{heapsize}] \\
+	& \ \ \text{MaxHeapify}(A,1) \\
+	& \ \ \text{return}\ max
+	\end{align*}
+	
+	\begin{align*}
+	& \text{MaxHeapify}(A,i) \\
+	& \ \ largest = i \\
+	& \ \ for\ c = di + 1\ upto\ di + d \\
+	& \ \ \ \ if\ c \leq A.\text{heapsize}\ and\ A[c] > A[largest] \\
+	& \ \ \ \ \ \ largest = c \\
+	& \ \ if\ largest \neq i \\
+	& \ \ \ \ exchange\ A[i]\ with\ A[largest] \\
+	& \ \ \ \ \text{MaxHeapify}(A,largest) 
+	\end{align*}
+
+	ExtractMax remains unchanged, but MaxHeapify must now loop d times through
+	all subtrees. Its complexity will be $\mathcal{O}(log_bn)$
+
+	\item[\textbf{(d, e)}]
+	Both Insert and IncreaseKey can be implemented the same since neither depend
+	on the selection of children.
+
+	\end{enumerate}
+
+\item[\textbf{6-3}]
+
+	\begin{enumerate}
+	\item[\textbf{(a)}]
+	\[ \begin{matrix}
+	2 & 3 & 4 \\
+	5 & 8 & 9 \\
+	12 & 14 & 16 
+	\end{matrix} \]
+	It seems like there might be quite a few possibilites to make that matrix.
+
+	\item[\textbf{(b)}]
+
+	Y[1,1] will be the least element in the matrix (least of the least of the
+	columns and least of the least of the rows). If Y[1,1] is infinity/null, then
+	there is no least element.
+
+	If Y[1,1] contains a non-null element then that means we have a least
+	element. We have at least one element in that case, where m and n are 1.
+
+	\item[\textbf{(c)}]
+
+\begin{verbatim}
+# We'll store our matrix as a 1d array, passing m and n.
+# So we'll have m column elements spaced out every n rows.
+# e.g. 3x3 matrix:
+# a b c
+# d e f
+# g h i
+# array version: [abcdefghi]
+extract_min(a, m, n):
+  min = a[1]
+  a[1] = a[a[m*n]]
+	tableauify(a,m-1,n+1)
+  return val
+\end{verbatim}
+
+I'm not sure how he expects this to look, but with my array representation the
+subproblem has to be $m-1, n+1$ or $m+1, n-1$. 
+
+\begin{align*}
+T(p) = 
+\end{align*}
+
+	\item[\textbf{(d)}]
+
+	\item[\textbf{(e)}]
+
+	\item[\textbf{(f)}]
+
+	\end{enumerate}
 
 \end{enumerate}
 
