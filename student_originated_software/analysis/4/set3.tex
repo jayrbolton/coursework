@@ -204,27 +204,56 @@ partitioned evenly in two.
 
 \item[\textbf{7-2}]
 
-	\begin{enumerate}
+		\begin{enumerate}
 
-	\item[\textbf{(a)}]
+		\item[\textbf{(a)}]
 
-	With all elements equal, the running time would be worst case at $\mathcal{O}(n^2)$
+		With all elements equal, the running time would be worst case at $\mathcal{O}(n^2)$
 
-	\item[\textbf{(b)}]
+		\item[\textbf{(b)}]
 
-	Rewrite partition so that all elements equal to the pivot are in the middle.
+		Rewrite partition so that all elements equal to the pivot are in the middle.
 
-	\begin{verbatim}
-	partition(a)
-	
-	\end{verbatim}
+    \begin{verbatim}
+    partition(a,p,r):
+      q,t = p
+      for j = p to r - 1:
+        if a[j] < a[r]:
+          exchange a[j] and a[t]
+          exchange a[t] and a[q]
+          q++, t++
+        if a[j] == a[r]:
+          exchange a[j] with a[t]
+          t++
+      exchange a[r] and a[t]
+      return (q,t)
+    \end{verbatim}
 
-	\item[\textbf{(a)}]
-	\item[\textbf{(a)}]
+	Wow that was really tricky. Took me forever to figure out.
 
-	\end{enumerate}
+		\item[\textbf{(c)}]
+
+	Not much to this one. Just make the recursive quicksort call on (A,p,q-1) and (A,t+1,r)
+
+		\item[\textbf{(d)}]
+
+	We would take out the special condition that element values be distinct; now it
+	is $\mathcal{O}(n\ lg\ n)$ even with repeated elements.
+
+		\end{enumerate}
 
 \item[\textbf{7-4}]
+
+Woah neat! We partition the list as we normally do, and then repeatedly
+quicksort the first partition, working our way forward every partition, until
+we reach the end of the list.
+
+The n-sized stack depth is achieved on the worst case, such as the sorted list,
+we will have to pass n, n-1, n-2, etc until it is finished.
+
+To optimize the stack depth to $\Theta(lg\ n)$, we can take the smaller of the
+two partitions, sort it first, then sort the second partition using tail
+recursion.
 
 \end{enumerate}
 
