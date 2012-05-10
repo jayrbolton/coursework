@@ -1,4 +1,3 @@
-
 \documentclass{article}
 \usepackage{amsmath}
 
@@ -22,9 +21,29 @@
 
 		\item[\textbf{\emph{{(a)}}}]
 
+		\begin{align*}
+			& T(n) = 3T(n/4) + n\ log\ n \\
+			& a = 3, b = 4, f(n) = n\ log\ n \\
+			& f(n) = \Omega(n^{log_4 3 + e})\ \ \text{ case 3} \\
+			& (n\ log\ n) / (n^{log_4 3}) \ \ \text{ (it is polynomially larger)}\\
+			& \text{Regularity condition:} \\
+			& 3(n/4)log(n/4) \leq c \cdot n\ log\ n \\
+			& n(3/4)(log\ n - log\ 4) \leq c \cdot n\ log\ n \\
+			& n(3/4)(log\ n - 2) \leq c \cdot n\ log\ n \\
+			& n(3/4)(log\ n)-(3/2) \leq c \cdot n\ log\ n \\
+			& (3/4) \cdot n(log\ n)-(3/2) \leq 1 \cdot n\ log\ n \\
+			& \text{(Passes)} \\\
+			& T(n) = \Theta(n\ log\ n)
+		\end{align*}
+
 		\item[\textbf{\emph{{(b)}}}]
 
-		\item[\textbf{\emph{{(c)}}}]
+		\begin{align*}
+			& T(n) = 3T(n/3) + n/3 \\
+			& a = 3, b = 3, f(n) = n/3 \\
+			& f(n) = \Theta(n^{log_3 3})\ \ \text{ case 2} \\
+			& T(n) = \Theta(n)
+		\end{align*}
 
 	\end{enumerate}
 
@@ -32,7 +51,129 @@
 
 	\begin{enumerate}
 
+		\item[\textbf{\emph{{(a)}}}]
+
+		$T(n) = 3T(n/4) + n\ log\ n$
+
+		\begin{verbatim}
+                 n log n
+          /           |         \
+(n/4)log(n/4)  (n/4)log(n/4)  (n/4)log(n/4)
+...                  ...          ...
+    \end{verbatim}
+
+		Height of tree is $h = log_4 n$, and width of leaves is $n^{log_4 3}$
+
+		$$
+		T(n) = \Theta(n^{log_4 3}) + \sum_{i=1}^h 3^i((n / 4^i)\ log\ (n / 4^i))
+		$$
+
+		$T(n) = 3T(n/3) + n/3$
+
+		\begin{verbatim}
+                     n/3
+          /           |         \
+     (n/3)/3        (n/3)/3     (n/3)/3
+...                  ...          ...
+    \end{verbatim}
+
+		Height of tree is $h = log_3 n$, and width of leaves is $n^{log_3 3}$
+
+		$$
+		T(n) = \Theta(n) + \sum_{i=1}^h (3^i ((n/3^i)/3))
+		$$
+
 		\item[\textbf{\emph{{(b)}}}]
+
+		\begin{align*}
+		& (b) \\
+		& T(n) = 3T(n/4) + n\ log\ n \\
+		&= \Theta(n^{log_4 3}) + \sum_{i=1}^h 3^i((n / 4^i)\ log\ (n / 4^i)) \\
+		&= \Theta(n^{log_4 3}) + \sum_{i=1}^h n\cdot 3^i/4^i \cdot log\ (n / 4^i)) \\
+		&= \Theta(n^{log_4 3}) + \sum_{i=1}^h n\cdot log (n/4^i) \cdot 3^i/4^i \\
+		&= \Theta(n^{log_4 3}) + \sum_{i=1}^h (n\ log\ n - n\ log\ 4^i) \cdot 3^i/4^i \\
+		&= \Theta(n^{log_4 3}) + \sum_{i=1}^h 3^i/4^i \cdot n\ log\ n - 3^i / 4^i \cdot n\ log\ 4^i \\
+		&= \Theta(n^{log_4 3}) + \sum_{i=1}^h 3^i/4^i \cdot n\ log\ n - \sum_{i=1}^h 3^i / 4^i \cdot n\ log\ 4^i \\
+		&= \Theta(n^{log_4 3}) + n\ log\ n \sum_{i=1}^h 3^i/4^i - \sum_{i=1}^h 3^i / 4^i \cdot n\ log\ 4^i \\
+		&= \Theta(n^{log_4 3}) + n\ log\ n \sum_{i=1}^h (3/4)^i - n \sum_{i=1}^h (3/4)^i \cdot log\ 4^i \\
+		&= \Theta(n^{log_4 3}) + n\ log\ n \sum_{i=1}^h (3/4)^i - n \sum_{i=1}^h (3/4)^i \cdot log\ 4^i \\
+		&< \Theta(n^{log_4 3}) + n\ log\ n \sum_{i=1}^{\infty} (3/4)^i - n \sum_{i=1}^h (3/4)^i \cdot log\ 4^i \\
+		&= \Theta(n^{log_4 3}) + n\ log\ n \left( \dfrac{1}{1-(3/4)}\right) - n\sum_{i=1}^h (3/4)^i \cdot log\ 4^i \\
+		&= \Theta(n^{log_4 3}) + n\ log\ n \cdot 4 - n\sum_{i=1}^h (3/4)^i \cdot log\ 4^i \\
+		&= \Theta(n^{log_4 3}) + \Theta(n\ log\ n) - n\sum_{i=1}^h (3/4)^i \cdot log\ 4^i \\
+		&= \Theta(n^{log_4 3}) + \Theta(n\ log\ n) - n\sum_{i=1}^h \dfrac{3^i\ log\ 4^i}{4^i} \\
+		&= \Theta(n^{log_4 3}) + \Theta(n\ log\ n) - n\sum_{i=1}^h \left(\dfrac{3\ log\ 4}{4}\right)^i \\
+		&< \Theta(n^{log_4 3}) + \Theta(n\ log\ n) - n\sum_{i=1}^{\infty} \left(\dfrac{3\ log\ 4}{4}\right)^i \displaybreak[3]\\
+		&= \Theta(n^{log_4 3}) + \Theta(n\ log\ n) - n\left(\dfrac{1}{1 - (3\ log\ 4/4)}\right) \\
+		&\approx \Theta(n^{log_4 3}) + \Theta(n\ log\ n) - n \cdot 0.15 \\
+		&= \Theta(n^{log_4 3}) + \Theta(n\ log\ n) - \Theta(n) \\
+		&= \Theta(n\ log\ n)\\
+		\end{align*}
+
+		So the final guess is actually $\mathcal{O}(n\ log\ n)$ because I had to
+		use A.6 twice.
+
+		\begin{align*}
+		& (b) \\
+		& T(n) = 3T(n/3) + n/3 \\
+		& = \Theta(n) + \sum_{i=1}^h (3^i (\dfrac{n/3^i}{3})) \\
+		& = \Theta(n) + \sum_{i=1}^h \dfrac{(3^i n)/3^i}{3} \\
+		& = \Theta(n) + \sum_{i=1}^h \dfrac{n}{3} \\
+		& = \Theta(n) + h/3 \cdot n \\
+		& = \Theta(n) + \Theta(n) \\
+		& = \Theta(n)
+		\end{align*}
+
+		\item[\textbf{\emph{{(c)}}}]
+
+		For (a), where $T(n) = \Theta(n\ log\ n)$:
+
+		Inductive hypothesis: $T(n) \leq c \cdot n\ log\ n$ for $\mathcal{O}$ and $T(n) \geq c \cdot n\ log\ n$ for $\Omega$.
+		Induction for $\mathcal{O}$:
+
+		\begin{align*}
+		& T(n) \leq 3\ (n/4)\ log\ (n/4) + n\ log\ n \\
+		&  = (3/4)n(log\ n - log\ 4) + n\ log\ n \\
+		&  = 3/4\cdot n\ log\ n - 3/4\cdot n\ log\ 4 + n\ log\ n \\
+		&  \leq 3/4 \cdot n\ log\ n + n\ log\ n \\
+		&  = \frac{7}{4} \cdot n\ log\ n \\
+		\end{align*}
+
+		\begin{align*}
+		& T(n) \geq 3\ (n/4)\ log\ (n/4) + n\ log\ n \\
+		&  = (3/4)n(log\ n - log\ 4) + n\ log\ n \\
+		&  = 3/4\cdot n\ log\ n - 3/4\cdot n\ log\ 4 + n\ log\ n \\
+		&  \geq 3/4 \cdot n\ log\ n + n\ log\ n \\
+		&  = n\ log\ n \\
+		\end{align*}
+
+		For (b), where $T(n) = \Theta(n)$:
+
+		Inductive hypothesis: $T(n) \leq c \cdot n\ log\ n$ for $\mathcal{O}$ and $T(n) \geq c \cdot n\ log\ n$ for $\Omega$.
+		Induction for $\mathcal{O}$:
+
+		\begin{align*}
+		& T(n) = 3\ (n/4)\ log\ (n/4) + n\ log\ n \\
+		&  = (3/4)n(log\ n - log\ 4) + n\ log\ n \\
+		&  = 3/4\cdot n\ log\ n - 3/4\cdot n\ log\ 4 + n\ log\ n \\
+		&  \leq 3/4 \cdot n\ log\ n - 3/4\cdot n\ log\ n + n\ log\ n \\
+		&  = n\ log\ n \\
+		\end{align*}
+		\item[\textbf{\emph{{(d)}}}]
+
+	\end{enumerate}
+
+\item[\textbf{3}]
+
+	\begin{enumerate}
+
+		\item[\textbf{\emph{{(a)}}}]
+
+		\item[\textbf{\emph{{(b)}}}]
+
+		\item[\textbf{\emph{{(c)}}}]
+
+		\item[\textbf{\emph{{(d)}}}]
 
 	\end{enumerate}
 
