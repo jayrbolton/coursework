@@ -129,37 +129,53 @@
 		For (a), where $T(n) = \Theta(n\ log\ n)$:
 
 		Inductive hypothesis: $T(n) \leq c \cdot n\ log\ n$ for $\mathcal{O}$ and $T(n) \geq c \cdot n\ log\ n$ for $\Omega$.
+
 		Induction for $\mathcal{O}$:
 
 		\begin{align*}
-		& T(n) \leq 3\ (n/4)\ log\ (n/4) + n\ log\ n \\
-		&  = (3/4)n(log\ n - log\ 4) + n\ log\ n \\
-		&  = 3/4\cdot n\ log\ n - 3/4\cdot n\ log\ 4 + n\ log\ n \\
-		&  \leq 3/4 \cdot n\ log\ n + n\ log\ n \\
-		&  = \frac{7}{4} \cdot n\ log\ n \\
+		& T(n) \leq 3c(n/4)\ log\ (n/4) + n\ log\ n \\
+		&  = (3/4)cn(log\ n - log\ 4) + n\ log\ n \\
+		&  = 3/4\cdot cn\ log\ n - 3/4\cdot cn\ log\ 4 + n\ log\ n \\
+		&  \leq cn\ log\ n + n\ log\ n \\
+		&  = (c+1)n\ log\ n \\
+		&  \leq cn\ log\ n \\
 		\end{align*}
 
+		Induction for $\Theta$:
+
 		\begin{align*}
-		& T(n) \geq 3\ (n/4)\ log\ (n/4) + n\ log\ n \\
-		&  = (3/4)n(log\ n - log\ 4) + n\ log\ n \\
-		&  = 3/4\cdot n\ log\ n - 3/4\cdot n\ log\ 4 + n\ log\ n \\
-		&  \geq 3/4 \cdot n\ log\ n + n\ log\ n \\
-		&  = n\ log\ n \\
+		& T(n) \leq 3c(n/4)\ log\ (n/4) + n\ log\ n \\
+		&  = (3/4)cn(log\ n - log\ 4) + n\ log\ n \\
+		&  = 3/4\cdot cn\ log\ n - 3/4\cdot cn\ log\ 4 + n\ log\ n \\
+		&  \geq 3/4\cdot cn\ log\ n - 3/4\cdot cn\ log\ n + n\ log\ n \\
+		&  = cn\ log\ n \\
 		\end{align*}
 
 		For (b), where $T(n) = \Theta(n)$:
 
-		Inductive hypothesis: $T(n) \leq c \cdot n\ log\ n$ for $\mathcal{O}$ and $T(n) \geq c \cdot n\ log\ n$ for $\Omega$.
+		Inductive hypothesis: $T(n) \leq c \cdot n$ for $\mathcal{O}$ and $T(n) \geq c \cdot n$ for $\Omega$.
+
 		Induction for $\mathcal{O}$:
 
 		\begin{align*}
-		& T(n) = 3\ (n/4)\ log\ (n/4) + n\ log\ n \\
-		&  = (3/4)n(log\ n - log\ 4) + n\ log\ n \\
-		&  = 3/4\cdot n\ log\ n - 3/4\cdot n\ log\ 4 + n\ log\ n \\
-		&  \leq 3/4 \cdot n\ log\ n - 3/4\cdot n\ log\ n + n\ log\ n \\
-		&  = n\ log\ n \\
+		& T(n) = 3(cn/3) + n/3 \\
+		& = cn + n/3 \\
+		& = 4/3cn \\
+		& \leq cn \\
 		\end{align*}
+
+		Induction for $\Theta$
+
+		\begin{align*}
+		& T(n) = 3(cn/3) + n/3 \\
+		& = cn + n/3 \\
+		& = 4/3cn \\
+		& \geq cn \\
+		\end{align*}
+
 		\item[\textbf{\emph{{(d)}}}]
+
+		Yay!
 
 	\end{enumerate}
 
@@ -169,9 +185,25 @@
 
 		\item[\textbf{\emph{{(a)}}}]
 
+		\[ \begin{matrix}
+		2 & 3 & 4 & 5\\
+		8 & 9 & 12 & \infty \\
+		14 & \infty & \infty & \infty  \\
+		16 & \infty & \infty & \infty 
+		\end{matrix} \]
+
 		\item[\textbf{\emph{{(b)}}}]
 
+		Y[1,1] will be the least element in the matrix (least of the least of the
+		columns and least of the least of the rows). If it is a singleton tableau,
+		then Y[1,1] is the only populated cell. If Y[1,1] is infinity/null, then
+		there is no least element and thus no elements.
+
+		If Y[1,1] contains a non-null element then that means we have a least
+		element, so m and n are 1 and our tableau is non-empty.
+
 		\item[\textbf{\emph{{(c)}}}]
+
 
 		\item[\textbf{\emph{{(d)}}}]
 
