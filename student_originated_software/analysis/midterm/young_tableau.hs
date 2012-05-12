@@ -1,18 +1,24 @@
 import Data.List
 
-data Tableau a = Tableau [a] Int Int
+data Tableau a = Tableau [[Maybe a]]
 	deriving Show
 
--- 1. extract x = 1,1 and swap with m,n
--- 2. percolate x down to where it belongs
--- 3. if x greater than cell below, then swap down
--- 4. else if x greater than cell right, then swap right
--- 5. else we're done.
--- 6. go to 2
---
--- extract_min t m n:
---   extract_min t m-1 n
+t0 = Tableau [[(Just 2),(Just 3),(Just 4),(Just 5)],
+              [(Just 8),(Just 9),(Just 12), Nothing],
+              [(Just 14), Nothing, Nothing, Nothing],
+              [(Just 16), Nothing, Nothing, Nothing]]
 
-create_tableau l = Tableau (sort l) 1 (length l) 
-
-extract_min (Tableau l m n) = (head l, Tableau (tail l) 1 (n-1))
+extract_min t@(Tableau [[]]) = (Nothing, t)
+extract_min t@(Tableau m) = (m!!0!!0, percolate t (1,1))
+  where
+  percolate (Tableau [[]]) _ = [[]]
+  percolate (Tableau m) (i,j)
+	 | !col_right && row_below = percolate (Tableau (swap (i,j) (i+1,j) m))
+	 | !row_below && col_right = percolate (Tableau (swap (i,j) (i,j+1) m))
+	 | !col_right && !row_below = Tableau m
+   | least_right = percolate (Tableau (swap (i,j) (i,j+1) m))
+   | least_below = percolate (Tableau (swap (i,j) (i+1,j) m))
+	 | otherwise = Tableau m
+	 where
+   least_right = 
+   least_below = 
