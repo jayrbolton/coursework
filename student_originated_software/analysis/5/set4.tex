@@ -24,7 +24,28 @@
 
 \item[\textbf{8.1-4}]
 
+To sort each $k$ sublist, we will use an efficient comparison sort ($\Omega(n\ lg\ n)$). 
+
+\begin{align*}
+& T(n) = k\Omega(n/k\ lg\ n/k) + \Theta(1) \\
+& = kc(n/k\ lg\ n/k) + d \\
+& = cn\ lg\ n/k + d \\
+& \geq cn\ lg\ n/k \\
+& \geq cn\ lg\ k \ \ \ \ \ \ \text{because k is a constant} \\
+\end{align*}
+
+Really not sure if I did that right.
+
 \item[\textbf{8.2-4}]
+
+First do counting sort up to line 9 ($\mathcal{O}(n + k)$) to get C. Then we get our output with:
+
+\begin{align*}
+& result := C[a + (a-b)] \\
+& result := result - C[a-1]\ \ \ if\ (a-1) \geq 0
+\end{align*}
+
+Which is $\Theta(1)$. That was an interesting/challenging puzzle.
 
 \item[\textbf{8.3-2}]
 
