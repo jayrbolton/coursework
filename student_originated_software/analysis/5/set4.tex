@@ -48,8 +48,26 @@ First do counting sort up to line 9 ($\mathcal{O}(n + k)$) to get C. Then we get
 Which is $\Theta(1)$. That was an interesting/challenging puzzle.
 
 \item[\textbf{8.3-2}]
+	Insertion sort is stable: if we scan left-to-right, we will insert elements their rightmost insertion slot, meaning that leftmost equal elements remain leftmost and rightmost remain rightmost.
+
+	Merge sort is also stable. The merge step scans left to right, and will insert the left element first between two equal elements. 
+
+	Heap sort is not a stable sort. If you are performing BuildMaxHeap, and your
+	current node is equal to the first left child, and you swap the current node
+	with the parent node, then the child will move to the current position, thus
+	reversing the order of the two equal nodes.
+
+	Quicksort is also not stable because of the partition function, which can swap elements out of order.
+
+	You can make any sort stable by pairing every element with its unique index.
+	After the sort you can sort the indices of equal elements, for a worst case
+	of also $n\ lg\ n$, which just adds a constant factor.
 
 \item[\textbf{8.4-2}]
+
+	The worst case occurs when all n the elements go into a single buckeet.
+
+	If we simply used n buckets, it basically becomes counting sort and avoids the quadratic worst case.
 
 \item[\textbf{8.3}]
 
