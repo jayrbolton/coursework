@@ -71,7 +71,19 @@ Which is $\Theta(1)$. That was an interesting/challenging puzzle.
 
 \item[\textbf{8.3}]
 
-\item[\textbf{8.4}]
+	\begin{enumerate}
+		\item[\textbf{(a)}]
+			We cannot use counting or radix sort because we're not assuming they are all d digits or they are all in range 0 to k.
+
+			First, partition the list into buckets based on the number of digits. The worst case for this is $\mathcal{O}(n)$ with n being the number of digits. Worst case is when all elements are single digits.
+
+			We then have a series of sublists, each with equal numbers of digits, which satisfies the requirement for radix sort. Sort all those in $$\mathcal{O}(m + k)$$ time, which will be faster than the first step.
+		\item[\textbf{(b)}]
+			Here our ordering is a bit different. More characters does not necessarily mean higher value.
+
+			My only idea is to perform radix sort, sorting right-to-left. When we run out of leading characters, we simply stay on the leftmost one. So this will take $\mathcal{O}(m + n) = \mathcal{O}(n)$. Radix sort takes $\mathcal{O}(d(n+k))$ to sort, where k is a constant. Our worst case for d is n, the total number of digits, in which case n would be 1, so $\mathcal{O}(d)$. n will always be less than or equal to d. 
+
+	\end{enumerate}
 
 \end{enumerate}
 
