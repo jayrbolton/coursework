@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\title{Analysis of Algorithms Final}
+\author{Jay R Bolton}
+
+\addtolength{\oddsidemargin}{-.875in}
+\addtolength{\evensidemargin}{-.875in}
+\addtolength{\textwidth}{1.75in}
+\addtolength{\topmargin}{-.875in}
+\addtolength{\textheight}{1.75in}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+
+\item[\textbf{1}]
+
+	\begin{enumerate}
+		\item[\textbf{\emph{(a)}}]
+
+		\item[\textbf{\emph{(b)}}]
+			\begin{align*}
+				& \sum_{i=0}^{log_3n} \frac{7^i n^2}{3^{i2}} + n^{log_37} \\
+				<& cn^2 \sum_{i=0}^{\infty} \frac{7^i}{9^{i}} + n^{log_37} \\
+				=& cn^2 \frac{1}{1 - 7/9} + n^{log_37} \\
+				=& 3cn^2 + n^{log_37} \\
+				<& $cn^2 \\
+				=& \mathcal{O}(n^2)
+			\end{align*}
+
+		\item[\textbf{\emph{(c)}}]
+			Induction for $$\mathcal{O}$$
+			\begin{align*}
+			\text{Inductive Hypothesis:} 
+			\end{align*}
+
+		\item[\textbf{\emph{(d)}}]
+	\end{enumerate}
+
+\end{enumerate}
+
+\end{document}
