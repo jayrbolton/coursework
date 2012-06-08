@@ -20,23 +20,67 @@
 	\begin{enumerate}
 		\item[\textbf{\emph{(a)}}]
 
+		(Each inner node has 7 children)
+
+    \begin{verbatim}
+                                cn^2                   ...7^0 * (cn^2/3^(2*0))
+    h=log_3 7                  /    \
+                             /       \
+                       c(n/3)^2   ... c(n/3)^2             ...7^1 * (cn^2/3^(2*1)
+                       /       \        /       \
+                      /         \      /         \
+              c(n/9)^2  ... c(n/9)^2  c(n/9)^2 ... c(n/9)^2     ...7^2 * (cn^2/3^(2*2))
+                  ...         ...    ...     ...       ...leaves=n^(log_3 7)
+		\end{verbatim}
+
+		Width of leaves, each with $T(1) = \Theta(1)$, is $n^{log_{3}7}$. Height
+		of the tree is $log_3 n$.
+
+		The summation form is $T(n) = \sum_{i=0}^{h} 7^i \frac{n}{3^i}^2$.
+
 		\item[\textbf{\emph{(b)}}]
 			\begin{align*}
-				& \sum_{i=0}^{log_3n} \frac{7^i n^2}{3^{i2}} + n^{log_37} \\
-				<& cn^2 \sum_{i=0}^{\infty} \frac{7^i}{9^{i}} + n^{log_37} \\
-				=& cn^2 \frac{1}{1 - 7/9} + n^{log_37} \\
-				=& 3cn^2 + n^{log_37} \\
-				<& $cn^2 \\
-				=& \mathcal{O}(n^2)
+				& \sum_{i=0}^{log_3n} \frac{7^icn^2}{3^{i2}} + n^{log_37} \\
+				<&\ cn^2 \sum_{i=0}^{\infty} \frac{7^i}{9^{i}} + n^{log_37} \\
+				=&\ cn^2 \frac{1}{1 - 7/9} + n^{log_37} \\
+				=&\ 3cn^2 + n^{log_37} \\
+				<&\ 4cn^2 \\
+				=&\ \mathcal{O}(n^2)
 			\end{align*}
 
 		\item[\textbf{\emph{(c)}}]
-			Induction for $$\mathcal{O}$$
+
+			Induction for $\mathcal{O}$
+
 			\begin{align*}
-			\text{Inductive Hypothesis:} 
+			& \text{Inductive Hypothesis: } T(n) \geq cn^2\\
+			& \text{Induction: } T(n) \geq 7c\frac{n^2}{3^2} + dn^2 \\
+			& = cn^2 \frac{7}{9} + dn^2 \\
+			& \geq cn^2 \ \ \ \ \text{with $c \leq 4$ and $n \geq 0$}
+			\end{align*}
+
+			Induction for $\Omega$
+
+			\begin{align*}
+			& \text{Inductive Hypothesis: } T(n) \leq cn^2\\
+			& \text{Induction: } T(n) \leq 7c\frac{n^2}{3^2} + dn^2 \\
+			& = cn^2 \frac{7}{9} + dn^2 \\
+			& \leq cn^2 \ \ \ \ \text{with $c \geq \frac{9}{3}d$ and $n \geq 0$}
 			\end{align*}
 
 		\item[\textbf{\emph{(d)}}]
+
+			\begin{align*}
+			& a = 7,\ b = 3 \\
+			& f(n) = n^2 = \Omega(n^{log_37 + \epsilon}) \\
+			& lim_{n\rightarrow \infty}\frac{n^2}{n^{log_37+ \epsilon}} < \infty \text{   (it is polynomially larger)} \\
+			& \text{Regularity condition:} \\
+			& 7\frac{n^2}{3^2} \leq cn^2 \\ 
+			& \frac{7}{9}n^2 \leq cn^2 \ \ \ \ \text{ for $c \geq 7/9$ and $c \leq 1$ and $n \geq 0$}\\ 
+			& \text{(Passes)} \\
+			& \text{Case 3: } \Theta(n^2)
+			\end{align*}
+
 	\end{enumerate}
 
 \end{enumerate}
