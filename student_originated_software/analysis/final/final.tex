@@ -1,5 +1,7 @@
 \documentclass{article}
 \usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{fancybox}
 
 \title{Analysis of Algorithms Final}
 \author{Jay R Bolton}
@@ -14,31 +16,87 @@
 \maketitle
 
 \begin{enumerate}
+\setlength{\leftmargin}{0pt}
 
 \item[\textbf{1}]
 
 	\begin{enumerate}
-		\item[\textbf{\emph{(a)}}]
+	 
+	\item[\textbf{\emph{(a)}}]
 
-		(Each inner node has 7 children)
+$height = log_3n$
 
-    \begin{verbatim}
-                                cn^2                   ...7^0 * (cn^2/3^(2*0))
-    h=log_3 7                  /    \
-                             /       \
-                       c(n/3)^2   ... c(n/3)^2             ...7^1 * (cn^2/3^(2*1)
-                       /       \        /       \
-                      /         \      /         \
-              c(n/9)^2  ... c(n/9)^2  c(n/9)^2 ... c(n/9)^2     ...7^2 * (cn^2/3^(2*2))
-                  ...         ...    ...     ...       ...leaves=n^(log_3 7)
-		\end{verbatim}
-
-		Width of leaves, each with $T(1) = \Theta(1)$, is $n^{log_{3}7}$. Height
-		of the tree is $log_3 n$.
-
-		The summation form is $T(n) = \sum_{i=0}^{h} 7^i \frac{n}{3^i}^2$.
-
-		(I should learn how to make prettier trees)
+\ovalbox{
+\begin{tikzpicture}[level/.style={sibling distance=50mm/#1}]
+\node [circle,draw] (z){$cn^2$}
+	child {node [circle,draw] (a) {$c(\frac{n}{3})^2$}
+    child {node [circle,draw] (b) {$c(\frac{n}{9})^2$}
+      child {node {$\vdots$}
+				child {node [circle,draw] (d) {$\Theta(1)$}}
+				child {node [circle,draw] (e) {$\Theta(1)$}}
+      } 
+      child {node {$\vdots$}}
+    }
+    child {node [circle,draw] (g) {$c(\frac{n}{9})^2$}
+      child {node {$\vdots$}}
+      child {node {$\vdots$}}
+    }
+  }
+  child {node [circle,draw] (j) {$c(\frac{n}{3})^2$}
+    child {node [circle,draw] (k) {$c(\frac{n}{9})^2$}
+      child {node {$\vdots$}}
+      child {node {$\vdots$}}
+    }
+  child {node [circle,draw] (l) {$c(\frac{n}{9})^2$}
+    child {node {$\vdots$}}
+    child {node (c){$\vdots$}
+			child {node [circle,draw] (o) {$\Theta(1)$}}
+			child {node [circle,draw] (p) {$\Theta(1)$}
+        child [grow=right] {node (q) {$=$} edge from parent[draw=none]
+					child [grow=right] {node (q) {$n^{log_37}$} edge from parent[draw=none]
+            child [grow=up] {node (r) {$\vdots$} edge from parent[draw=none]
+              child [grow=up] {node (s) {$7^2 \cdot (c\frac{n^2}{3^{2\cdot 2}})$} edge from parent[draw=none]
+                child [grow=up] {node (t) {$7^1 \cdot (c\frac{n^2}{3^{2\cdot 1}})$} edge from parent[draw=none]
+									child [grow=up] {node (u) {$7^0 \cdot (c\frac{n^2}{3^{2\cdot 0}})$} edge from parent[draw=none]}
+                }
+              }
+            }
+            child [grow=down] {node (v) {$O(n^2)$}edge from parent[draw=none]}
+          }
+        }
+      }
+    }
+  }
+	%child {node [grow=left] (aa) {$h= log_3 n$}edge from parent[draw=none]}
+};
+\path (a) -- (j) node [midway] {\dots};
+\path (b) -- (g) node [midway] {\dots};
+\path (k) -- (l) node [midway] {\dots};
+\path (k) -- (g) node [midway] {\dots};
+\path (d) -- (e) node [midway] {\dots};
+\path (o) -- (p) node [midway] {\dots};
+\path (o) -- (e) node (x) [midway] {$\dots$}
+  child [grow=down] {
+		node (y) {$n^{log_37} + \displaystyle\sum_{i = 0}^h 7^i \cdot \frac{cn^2}{3^{2i}}$}
+    edge from parent[draw=none]
+  };
+\path (q) -- (r) node [midway] {+};
+\path (s) -- (r) node [midway] {+};
+\path (s) -- (t) node [midway] {+};
+\path (s) -- (l) node [midway] {=};
+\path (t) -- (u) node [midway] {+};
+\path (z) -- (u) node [midway] {=};
+\path (j) -- (t) node [midway] {=};
+\path (y) -- (x) node [midway] {$\Downarrow$};
+\path (v) -- (y)
+node (w) [midway] {$n^{log_37} + \displaystyle\sum_{i = 0}^h cn^2 \cdot \frac{7^i}{9^i}$};
+\path (q) -- (v) node [midway] {=};
+\path (e) -- (x) node [midway] {\dots};
+\path (o) -- (x) node [midway] {\dots};
+\path (y) -- (w) node [midway] {$=$};
+\path (v) -- (w) node [midway] {$\Leftrightarrow$};
+\path (r) -- (c) node [midway] {$\cdots$};
+\end{tikzpicture}}
 
 		\item[\textbf{\emph{(b)}}]
 			\begin{align*}
@@ -58,7 +116,7 @@
 			& \text{Inductive Hypothesis: } T(n) \geq cn^2\\
 			& \text{Induction: } T(n) \geq 7c\frac{n^2}{3^2} + dn^2 \\
 			& = cn^2 \frac{7}{9} + dn^2 \\
-			& \geq cn^2 \ \ \ \ \text{with $c \leq 4$ and $n \geq 0$}
+			& \geq cn^2 \ \ \ \ \text{with $c \leq 4d$ and $n \geq 0$}
 			\end{align*}
 
 			Induction for $\Omega$
@@ -66,7 +124,8 @@
 			\begin{align*}
 			& \text{Inductive Hypothesis: } T(n) \leq cn^2\\
 			& \text{Induction: } T(n) \leq 7c\frac{n^2}{3^2} + dn^2 \\
-			& = cn^2 \frac{7}{9} + dn^2 \ \ & \leq cn^2 \ \ \ \ \text{with $c \geq \frac{9}{3}d$ and $n \geq 0$}
+			& = cn^2 \frac{7}{9} + dn^2 \\
+			& \leq cn^2 \ \ \ \ \text{with $c \geq 5d$ and $n \geq 0$}
 			\end{align*}
 
 		\item[\textbf{\emph{(d)}}]
@@ -77,7 +136,7 @@
 			& lim_{n\rightarrow \infty}\frac{n^2}{n^{log_37+ \epsilon}} < \infty \text{   (it is polynomially larger)} \\
 			& \text{Regularity condition:} \\
 			& 7\frac{n^2}{3^2} \leq cn^2 \\ 
-			& \frac{7}{9}n^2 \leq cn^2 \ \ \ \ \text{ for $c \geq 7/9$ and $c \leq 1$ and $n \geq 0$}\\ 
+			& = \frac{7}{9}n^2 \leq cn^2 \ \ \ \ \text{ for $c \geq 7/9$ and $c \leq 1$ and $n \geq 0$}\\ 
 			& \text{(Passes)} \\
 			& \text{Case 3: } \Theta(n^2)
 			\end{align*}
@@ -90,7 +149,7 @@
 		\item[\textbf{\emph{(a)}}]
 			
 			I'll use the four conditions listed in our book on page 379. It took me a
-			bit to realize this was not a greedy choice problem. Tricky!
+			bit to realize how this was not a greedy choice problem. Tricky!
 
 			\begin{enumerate}
 			\item Our inital choice can be a division that we make of $C$, where
@@ -168,13 +227,13 @@ mchange c v = (change_matrix c v) !! (length v - 1) !! 0
 			is $C$ total coins, our complexity would then be $\Theta(Cn)$ total
 			choices overall.
 
-			Here is a greedy version of the algorithm I made before realizing they
-			weren't optimal. Might as well leave them here.
+			Here is a greedy version of the algorithm I made before realizing it
+			isn't optimal. Might as well leave it here.
 
 			\begin{align*}
 			& \text{Let $C$ be our goal sum and $v(n)$ be the coin of $n^{th}$ value.} \\
-			& NCoins(C,v(1)) = C \\
-			& NCoins(C,v(n)) = NCoins(C\ \%\ v(n), v(n-1)) + \lfloor C/v(n) \rfloor
+			& NCoins(C,1) = C \\
+			& NCoins(C,n) = NCoins(C\ \%\ v(n), n-1) + \lfloor C/v(n) \rfloor
 			\end{align*}
 
 		\end{enumerate}
