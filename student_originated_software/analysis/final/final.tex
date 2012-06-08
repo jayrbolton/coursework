@@ -38,6 +38,8 @@
 
 		The summation form is $T(n) = \sum_{i=0}^{h} 7^i \frac{n}{3^i}^2$.
 
+		(I should learn how to make prettier trees)
+
 		\item[\textbf{\emph{(b)}}]
 			\begin{align*}
 				& \sum_{i=0}^{log_3n} \frac{7^icn^2}{3^{i2}} + n^{log_37} \\
@@ -64,8 +66,7 @@
 			\begin{align*}
 			& \text{Inductive Hypothesis: } T(n) \leq cn^2\\
 			& \text{Induction: } T(n) \leq 7c\frac{n^2}{3^2} + dn^2 \\
-			& = cn^2 \frac{7}{9} + dn^2 \\
-			& \leq cn^2 \ \ \ \ \text{with $c \geq \frac{9}{3}d$ and $n \geq 0$}
+			& = cn^2 \frac{7}{9} + dn^2 \ \ & \leq cn^2 \ \ \ \ \text{with $c \geq \frac{9}{3}d$ and $n \geq 0$}
 			\end{align*}
 
 		\item[\textbf{\emph{(d)}}]
@@ -82,6 +83,115 @@
 			\end{align*}
 
 	\end{enumerate}
+
+	\item[\textbf{2}]
+	
+		\begin{enumerate}
+		\item[\textbf{\emph{(a)}}]
+			
+			I'll use the four conditions listed in our book on page 379. It took me a
+			bit to realize this was not a greedy choice problem. Tricky!
+
+			\begin{enumerate}
+			\item Our inital choice can be a division that we make of $C$, where
+			$C_{choice} < C$ is optimal and $C-C_{choice}$ is our subproblem.
+			\item The optimal choice given to us would be the sum $C_{choice}$, which
+			is less than $C$ so divides it at some point.
+			\item The subproblem that ensues is $C- C_{choice}$ which is the
+			remaining sum we have yet to find an optimum on.
+			\item Suppose we have come to an optimal solution with suboptimal
+			$C_{choice}$ and $C-C_{choice}$. If we ``cut'' away our two suboptimal
+			subproblems and replace them with more optimal ones, then we would
+			supposedly increase the optimality of the whole problem. But this is a
+			contradiction of our suppostion that we had an optimal solution.
+			\end{enumerate}
+
+		\item[\textbf{\emph{(b)}}]
+
+			In haskell:
+
+\begin{verbatim}
+vs = [1,5,10,25,100,200]
+
+change 0 _ = 0
+change c [1] = c
+change c v
+ | last v <= c = min (change c (init v)) (1 + change (c-(last v)) v)
+ | last v > c  = change c (init v)
+
+-- >> change 7 vs
+-- >> 3
+-- >> change 42 vs
+-- >> 5
+\end{verbatim}
+
+			With memoization:
+
+\begin{verbatim}
+-- Generate our memoization matrix.
+-- There's probably a prettier way to do it, perhaps with list comp.
+matrix c v = map (\(n,cs) -> (map (\c -> (n,c)) cs)) (zip [1..n] (replicate n [c,c-1..1]))
+ where n = length v
+-- Map our change function over the matrix
+change_matrix c v = map (map (\(x,y) -> ch y (take x v))) (matrix c v)
+ where
+ ch 0 _ = 0
+ ch c [1] = c
+ ch c v
+  | last v <= c = min (mchange c (init v)) (1 + mchange (c-(last v)) v)
+  | last v > c  = mchange c (init v)
+  where n = length v
+
+-- Get the cell in the matrix for which we used n coins on c sum
+mchange c v = (change_matrix c v) !! (length v - 1) !! 0
+
+-- >> mchange 7 vs
+-- >> 3
+-- >> mchange 42 vs
+-- >> 5
+\end{verbatim}
+
+			That was fun. It works correctly but I'm not entirely sure it memoizes
+			rather than recomputes the matrix every time. I've read before about
+			using a fixed point function to factor out memoization in haskell that
+			looked really neat but I probably don't have time to figure it out.
+
+		\item[\textbf{\emph{(c)}}]
+
+			For each coin $v(n)$ we have to consider $min(f(C-v(n),n), f(C-v(n-1),n),
+			\dots, f(C-v(1),n))$ where f is our choice function. That amounts to $n$
+			total choices per coin.
+
+		\item[\textbf{\emph{(d)}}]
+			
+			Since for each coin we must consider $n$ subproblems, and the worst case
+			is $C$ total coins, our complexity would then be $\Theta(Cn)$ total
+			choices overall.
+
+			Here is a greedy version of the algorithm I made before realizing they
+			weren't optimal. Might as well leave them here.
+
+			\begin{align*}
+			& \text{Let $C$ be our goal sum and $v(n)$ be the coin of $n^{th}$ value.} \\
+			& NCoins(C,v(1)) = C \\
+			& NCoins(C,v(n)) = NCoins(C\ \%\ v(n), v(n-1)) + \lfloor C/v(n) \rfloor
+			\end{align*}
+
+		\end{enumerate}
+
+		\item[\textbf{3}]
+
+		\begin{enumerate}
+
+			\item[\textbf{\emph{(a)}}]
+
+
+
+			\item[\textbf{\emph{(b)}}]
+
+
+
+		\end{enumerate}
 
 \end{enumerate}
 
