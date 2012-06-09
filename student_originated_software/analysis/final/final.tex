@@ -210,10 +210,10 @@ mchange c v = (change_matrix c v) !! (length v - 1) !! 0
 -- >> 5
 \end{verbatim}
 
-			That was fun. It works correctly but I'm not entirely sure it memoizes
-			rather than recomputes the matrix every time. I've read before about
-			using a fixed point function to factor out memoization in haskell that
-			looked really neat but I probably don't have time to figure it out.
+			That was fun. It seems to work correctly but I'm not entirely sure it
+			memoizes rather than recomputes the matrix every time. I've read before
+			about using a fixed point function to factor out memoization in haskell
+			that looked really neat but I probably don't have time to figure it out.
 
 		\item[\textbf{\emph{(c)}}]
 
@@ -244,9 +244,48 @@ mchange c v = (change_matrix c v) !! (length v - 1) !! 0
 
 			\item[\textbf{\emph{(a)}}]
 
+			I'll use the conditions on page 423 of our book:
 
+				\begin{enumerate}
+					\item 
+						Suppose there are two leaves, $x$ and $y$, having both the least
+						weights and the largest depths. To show that this is a greedy
+						choice problem, we can show that the tree with $x$ and $y$ as
+						given is an optimal tree (labeled $T$).
+
+						By contradiction let's suppose that these two leaves with the two
+						largest depths are not $x$ and $y$ so do not have the least
+						weights. Instead they are $b$ and $d$ which produces the supposed
+						optimal $T'$.
+
+						Now let's swap one of the least weights, $x$, with one of the
+						lowest leaves, $b$, to get a new tree $T''$. Let $d(b) - d(x)$ from
+						$T'$ be $diff$. The depth of $x$ in $T''$ is increased by $diff$
+						while the depth of $b$ is decreased by $diff$.
+
+						The cost of our new tree is then: $cost(T'') = cost(T') +
+						diff(cost(x) - cost(b))$. By supposition however, $cost(x) \leq
+						cost(b)$, so $diff(cost(x) - cost(b)) \leq 0$. That means by
+						swapping $x$ and $b$ to put $x$ in one of the two lowest leaves, we
+						get $T''$ which is more optimal than $T'$. This is more optimal so
+						contradicts our supposition. We can do the same procedure on $y$
+						and $d$.
+
+					\item Optimal substructure property: Given a set of trees $T$, we
+						must choose $t'$, which is an optimal new tree that merges two
+						trees within $T$. We do this repeatedly until there is one tree, so
+						each choice or step is the subproblem.
+
+				\end{enumerate}
 
 			\item[\textbf{\emph{(b)}}]
+
+				We begin with a set of single-leaf trees, each containing the single
+				characters mapped to their weight (the number of occurences in the
+				given string). We then go bottom-up (and either left-to-right or
+				right-to-left), find the two trees with the least weights, and merge
+				them as two leaves in a new tree with the sum of the two subtrees'
+				weights as the weight of the root.
 
 
 
