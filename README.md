@@ -33,5 +33,5 @@ A summer class from Evergreen covering the basics of C++ with labs working with
 The introductory CS class from Evergreen covering computer architecture,
 haskell, java, assembly language, and discrete math.
 
-## bioinformatics
+## bioinformatics_101
 The UC San Diego Bionformatics class hosted on Coursera.

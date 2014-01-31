@@ -1,0 +1,117 @@
+week 1:
+
+	course introduction and logistics:
+		descriptive:
+			- encoding: external stimuli -> neural responses
+			- decoding: neural responses -> extracted information/inferred stimuli
+		mechanistic:
+			- simulation of a single neuron
+			- simulation of a network of neurons
+		interpretive:
+			- semantic inferences of neural behavior
+			- computational principles
+			- why?
+		goals:
+			- quantitatively describe neural behavior based on data
+			- simulate 
+
+	descriptive models:
+		definition:
+			- what nervous systems do (descriptive)
+			- how they function (mechanisitc)
+			- why they operate the way they do (interpretive)
+		receptive fields: on/off-center/surround determining where and whether stimulus activation is attended or ignored
+
+	mechanistic and interpretive models:
+		mech question: how are receptive fields constructed anatomically?
+		path: retina -> LGN -> V1
+		int question: why do these RFs have this orientation
+		efficient coding hypothesis:
+	
+	electrical personality of neurons:
+		- neuron doctrine: # idealized
+			- neuron is fundamental structural/functional unit
+			- neurons are discrete
+			- info flows from dendrites to the axon via cell body.
+		- leaky bag of charged liquid
+		- ionic channels: allows ions to flow from outside to inside a neuron cell
+		- neurons maintain a potential difference of electricity between the outside/inside
+		- ionic pump expells salt from inside to outside
+		- ionic channels:
+			- voltage gated: depending on membrane voltage
+			- chemically gated: depending on a particular chemical binding (synapse)
+			- mechanically gated: depending on 'pressure' or 'stretch'
+		- depolarization: positive change in voltage
+		- hyperpolarizatio: negative
+		- sodium opens, spikes, potassium opens, back down.
+		- this thing slides down the axon
+		- Nodes of Ranvier have something to do with lossless signal propagation
+		- junctions: synapses
+	
+	synapses:
+		- electrical: gap junctions	
+		- chemical: neurotransmitters
+		- synapse doctrine: synapses basis for memory and learning
+		- what does it mean for synapses to store?
+		- synaptic plasticity.
+		- hebbian plasticity: if neuron A repeatedly fires neuron B, then the synapse via A to B is strengthened
+		- 'neurons that fire together, wire together'
+		- long-term potentiation (LTP): size of EPSP (experimentally observed synaptic strength) increases over time
+		- long-term depression: decrease in synaptic strength over time.
+		- input spike before output spike: synapse strengthened
+		- input spike *after* output spike: synapse depressed
+		- association
+
+	brain areas and their functions:
+		- nerve: bundle of axons
+		- somatic
+			- nerves - muscles, senses
+			- afferent: axon bundles (nerves) carrying info away from periphery to cns
+			- effernet: nerves carryinginfo from the cns to the periphery
+		- autonomic
+			- heart, blood vessels, smooth muscles, glands
+		- cns - central nervous system:
+			- why
+			- cerebral cortex has plasticity or special abstraction and generality -- that is where consciousness lies? the other bits smushed underneath are chemical reactionary genetically evolved set functions
+			- cortical areas are structurally uniform/regular
+
+week 2:
+
+	what is the neural code?:
+		- spikes as the *currency* of the nervous system
+		- representation of information in the brain -- the neural code
+		- techniques for recording fom the brain
+		- In P(X|Y), if X is independent of Y, then P(X|Y) == P(X)
+		- tools/models for the neural code
+		- neither fMRI nor EEG can measure individual neurons but are noninvasive.
+		- encoding and decoding:
+			- P(response | stimulus) - encoding - probability of a response given a stimulus
+			- P(stimulus | response) - decoding - probability of a stimulus given a response
+		- neurons are highly tuned/specialized
+		- thalamus: 
+
+	simple neural encoding models:
+		- expect that the response is *linearly dependent* on the stimulus
+		- response depends not on just one stimulus, but a combination of recent inputs
+		- take the kth element and weight it by f(k) (which is less as we go back in time)
+		- rate(t) = sum(0, n, {(t) s(t-k)f(k)}) where s(t-k) is the strength of firing of neuron t at time step k and f(k) is a weighting at time step k
+		- a bright stimulus in the surround is a negative multiplication lol
+		- a difference of gaussians filter - only shows contrast/edges
+		- f() stands for feature -- the weighting of signals over time
+		- say you draw your stimulus wave on a white board with a marker and it's three feet wide. then, take a piece of clear plastic that's six inches wide and draw your own waveform on it. that is your filter. slide that little window across the waveform on the whiteboard. the more the stimulus wave resembles the filter wave, the higher the filter output.
+
+	feature selection:
+		- spike triggered average thing
+		- god this lecturer makes this sound so dry
+		- is she a robot
+		- she has absolutely no feelings
+		- bayes law:
+			- p(spike | s_1)  = p(s_1 | spike) * p(spike) / p(s_1)
+			- wat
+
+	variability:
+		- better models:
+		- gaussian = P(x) = Ae^(-((x - x_0)^2/2s^2))
+		- s (sigma) is the width of the gaussian
+		- wat. look this up
+		- stimulus -> filter -> nonlinearity -> stochastic spiking (explicit poisson spike generation step) -> post -spike filter injected into the nonlinearity -> 

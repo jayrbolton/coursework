@@ -1,0 +1,4 @@
+
+1. take a vector sample of neuron data over time, x(t)
+2. take a filter, f(t) over time
+3. find the overlap or similarity of the filter vs the input data at different time windows with the width equal to the width of the filter by multiplying the two functions (/vectors) and getting the integral (the dot product)

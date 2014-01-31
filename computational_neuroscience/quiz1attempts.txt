@@ -1,0 +1,16 @@
+1: integral one from zero to infinity with e to the negative tau - No
+   -> the one with the Summation - No
+	 -> 3x(t) - 5x(t - tau) - no
+	 -> 
+2: stimuli preceding a spike, averaged over all stimuli - Yes
+3: 2 - Yes
+4: 150 - Yes
+5: 53583 - Yes
+6: single rise like a wave - Yes
+7: running average/sum - No
+   -> differentiation - No
+	 -> leaky integration - Yes
+8: a neg value followed by a pos value - No
+   -> pos val followed by neg - No 
+	 -> constant pos - Yes
+9: principal componentn analysis/covariance analysis 
