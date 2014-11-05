@@ -1,4 +1,5 @@
-* do frequent words problem in go
+* do the pattern count problem in clojure
+
 * do reverse complement problem in go
 * do pattern matching problem in go
 
